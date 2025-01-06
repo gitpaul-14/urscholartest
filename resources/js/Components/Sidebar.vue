@@ -210,8 +210,8 @@
               </div>
                 <!-- Text (displayed only when dataOpenSideBar) -->
               <div class="flex flex-col items-start">
-                <span v-show="dataOpenSideBar">Account Name</span>
-                <span v-show="dataOpenSideBar">Admin</span>
+                <span v-show="dataOpenSideBar">{{ $page.props.auth.user.email }}</span>
+                <span v-show="dataOpenSideBar">{{ $page.props.auth.user.role }}</span>
               </div>
               <div>
                 <svg
@@ -320,7 +320,7 @@ export default {
     const sidebarWidth = ref(0)
 
     const ScholarshipItems = [
-      { label: 'View Scholarships', route: '/scholarships/view' },
+      { label: 'View Scholarships', route: 'available.index', name: 'available.index' },
       { label: 'Add Scholarships', route: '/scholarships/add' }
     ]
 

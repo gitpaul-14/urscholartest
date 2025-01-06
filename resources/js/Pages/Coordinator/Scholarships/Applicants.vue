@@ -1,4 +1,5 @@
 <template>
+<AuthenticatedLayout>
     <div class="flex flex-col items-center min-h-screen bg-gray-100">
         <div class="w-full max-w-6xl mx-auto py-8">
             <h1 class="text-3xl font-bold mb-6 text-center">
@@ -36,6 +37,7 @@
             </table>
         </div>
     </div>
+</AuthenticatedLayout>
 </template>
 
 
