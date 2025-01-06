@@ -1,9 +1,14 @@
 <template>
-    <div class="w-full bg-[F8F8FA]">
-      <div class="flex justify-between items-center h-[50px] px-4">
-        <!-- Hamburger Icon -->
-        <div class="p-2 cursor-pointer hover:bg-gray-50" @click="clickHamburger">
-          <font-awesome-icon icon="fa-solid fa-bars" color="#003366" />
+    <div class="w-full bg-[F8F8FA] border">
+      <div class="flex justify-between items-center h-[50px] place-content-center">
+        <div class="flex items-center space-x-4">
+          <div class="pl-1">
+            <img src="../../assets/images/logo-hori.png" alt="" class="w-[180px] h-[45px]">
+          </div>
+          <!-- Hamburger Icon -->
+          <!-- <div class="p-2 cursor-pointer hover:bg-gray-50" @click="clickHamburger">
+            <font-awesome-icon icon="fa-solid fa-bars" color="#003366" />
+          </div> -->
         </div>
   
         <!-- Search Bar -->
@@ -17,7 +22,7 @@
         </div> -->
   
         <!-- Theme and Notification -->
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-4 pr-5">
           <!-- Theme Toggle -->
           <div class="border border-gray-300 inline-flex items-center justify-center w-10 h-10 text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 rounded-lg" type="button">
             <label class="swap swap-rotate h-[25px] w-[25px]">

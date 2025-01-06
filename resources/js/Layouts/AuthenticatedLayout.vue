@@ -162,16 +162,28 @@ defineProps({
 
 <template>
     <div v-if="$page.props.auth.user.role == 'coordinator'">
-        <div class="w-full h-screen flex p-2 overflow-hidden">
-            <sidebar :dataOpenSideBar="openSidebar" />
-            <div class="w-full h-full">
-                <headerTop :dataOpenSideBar="openSidebar" :clickHamburger="toggleSidebar" />
-                <div class="w-full h-[calc(100vh-50px)]">
-                    <slot></slot>
-                </div>
+    <div class="w-full h-screen flex flex-col overflow-hidden">
+        <!-- Header -->
+        <headerTop 
+            class="w-full h-[50px]" 
+        />
+        
+        <!-- Content Area -->
+        <div class="flex w-full h-[calc(100vh-50px)]">
+            <!-- Sidebar -->
+            <sidebar 
+                :dataOpenSideBar="openSidebar" 
+                :clickHamburger="toggleSidebar" 
+                class="w-[250px] h-full" 
+            />
+
+            <!-- Main Content -->
+            <div class="flex-1 h-full">
+                <slot></slot>
             </div>
         </div>
     </div>
+</div>
 
 </template>
 

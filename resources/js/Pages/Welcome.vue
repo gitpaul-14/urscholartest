@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import FloatingNav from '@/Components/LandingPage/FloatingNav.vue';
 
 defineProps({
     canLogin: {
@@ -28,7 +29,42 @@ function handleImageError() {
 
 <template>
     <Head title="Welcome" />
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+
+    <div class="bg-background">
+        <FloatingNav/>
+        <section class="py-16 px-6 text-center">
+            <h1 class="text-5xl font-bold text-primary mb-4">Welcome to Our Website</h1>
+            <p class="text-lg text-primary-foreground max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies leo.</p>
+        </section>
+        <section class="py-16 px-6 bg-primary text-primary-foreground text-center">
+            <h2 class="text-3xl font-bold mb-4">Our Services</h2>
+            <p class="max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies leo.</p>
+        </section>
+        <section class="py-16 px-6 text-center">
+            <h2 class="text-3xl font-bold text-primary mb-4">About Us</h2>
+            <p class="text-lg text-primary-foreground max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies leo.</p>
+        </section>
+        <section class="py-16 px-6 bg-primary text-center">
+            <h2 class="text-3xl font-bold text-primary mb-4">About Us</h2>
+            <p class="text-lg text-primary-foreground max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies leo.</p>
+        </section>
+        <section class="py-16 px-6 text-center">
+            <h2 class="text-3xl font-bold text-primary mb-4">About Us</h2>
+            <p class="text-lg text-primary-foreground max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies leo.</p>
+        </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <img
             id="background"
             class="absolute -left-20 top-0 max-w-[877px]"
@@ -382,5 +418,5 @@ function handleImageError() {
                 </footer>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>

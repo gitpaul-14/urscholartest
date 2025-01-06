@@ -1,29 +1,49 @@
 <template>
-    <div class="max-h-screen rounded-md bg-blue-900 flex flex-col" id="side-bar" :class="dataOpenSideBar == true ? 'side-bar-visible' : 'side-bar-close'">
-      <div class="bg-blue-900 flex justify-center items-center py-2">
+    <div class="max-h-screen bg-white flex flex-col border-r" id="side-bar" :class="dataOpenSideBar == true ? 'side-bar-visible' : 'side-bar-close'">
+      
+
+
+      <!-- <div class="bg-white flex justify-center items-center py-2">
         <div class="text-xl font-bold text-center flex items-center justify-center text-white" v-show="dataOpenSideBar"></div>
         <img src="../../assets/images/ursportallogoonly.png" v-show="!dataOpenSideBar" class="p-1 w-8 h-8 ring-gray-100 dark:ring-gray-500 " alt="Avatar" />
-      </div>
-      <div class="flex flex-col justify-between h-full bg-blue-900">
+      </div> -->
+      <div class="flex flex-col justify-between h-full bg-white">
         <div class="menu-man text-left px-1 whitespace-nowrap ">
-          <div class="profile flex justify-center items-center text-center px-5 pb-5 pt-0">
+          <!-- Hamburger Icon -->
+            <div class="p-1 cursor-pointer hover:bg-gray-50 flex items-center" @click="clickHamburger"
+            :class="[
+              dataOpenSideBar ? 'justify-between' : 'justify-center',
+              'min-h-[50px]'
+            ]">
+            <span v-if="dataOpenSideBar" class="text-blue-900 opacity-90 font-poppins font-semibold">
+              Main Menu
+            </span>
+
+            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" 
+              class="w-6 h-6 pointer-events-none transition-transform duration-300 text-blue-900"
+              :class="{ 'rotate-180': dataOpenSideBar }">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3 8a4 4 0 014-4h10a4 4 0 014 4v8a4 4 0 01-4 4H7a4 4 0 01-4-4V8zm13-2.5A2.5 2.5 0 0013.5 8v8a2.5 2.5 0 002.5 2.5h1a2.5 2.5 0 002.5-2.5V8A2.5 2.5 0 0017 5.5h-1zm-3.123 13A3.984 3.984 0 0112 16V8c0-.946.328-1.815.877-2.5H7A2.5 2.5 0 004.5 8v8A2.5 2.5 0 007 18.5h5.877z"></path>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M10.25 12a.75.75 0 01-.22.53l-2 2a.75.75 0 01-1.06-1.06L8.44 12l-1.47-1.47a.75.75 0 111.06-1.06l2 2c.141.14.22.331.22.53z"></path>
+            </svg>
+            </div>
+          <!-- <div class="profile flex justify-center items-center text-center px-5 pb-5 pt-0">
             <div class="text-center text-white" v-show="dataOpenSideBar">
               <div class="flex justify-center items-center">
                 <img src="../../assets/images/ursportallogoonly.png" class="p-1 w-24 h-24 ring-gray-300 dark:ring-gray-500 mb-4" alt="Avatar" />
               </div>
               <h5 class="text-[30px] font-large leading-tight mb-3 font-cocogoose">URScholar</h5>
             </div>
-          </div>
-          <div class="py-3 rounded-sm cursor-pointer text-gray-300 hover:text-white">
-            <router-link to="/" class="flex space-x-2 font-poppins pl-2">
+          </div> -->
+          <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-50 ">
+            <router-link to="/" class="flex items-center space-x-2 font-poppins font-semibold pl-2 text-[15px]">
                 <!-- <box-icon type='solid' name='dashboard' color="#f8f8fa" class="icon-size" 
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon> -->
-                <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
+                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                 dashboard
                 </span>
-              <span v-show="dataOpenSideBar">Dashboard</span>
+              <span class="opacity-90" v-show="dataOpenSideBar">Dashboard</span>
             </router-link>
           </div>
   
@@ -40,7 +60,7 @@
                 v-tooltip.right="!dataOpenSideBar ? 'Scholarship' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon> -->
-                <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
+                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
               <span v-show="dataOpenSideBar">Scholarship</span>
@@ -65,7 +85,7 @@
               <div 
                 v-show="isScholarshipMenuOpen" 
                 class="fixed top-0 bg-[#003366] w-48 z-50"
-                :style="{ top: `${menuPosition}px`, left: `${sidebarWidth + 15}px` }"
+                :style="{ top: `${menuPosition}px`, left: `${sidebarWidth + 8}px`, marginBottom: `10px` }"
               >
                 <ul class="space-y-1">
                   <li v-for="(item, index) in ScholarshipItems" :key="index">
@@ -94,7 +114,7 @@
                 v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </font-awesome-icon> -->
-                <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
+                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
                 school
                 </span>
               <span v-show="dataOpenSideBar">Scholars</span>
@@ -133,54 +153,57 @@
             </Transition>
           </div>
   
-  
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
-              <box-icon type='solid' name='message-dots' color="#f8f8fa" class="icon-size"
-              v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
-                  <span v-show="dataOpenSideBar"></span>
-                </box-icon>
-              <span v-show="dataOpenSideBar">Messaging</span>
-            </router-link>
-          </div>
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
-              <box-icon type='solid' name='book-content' color="#f8f8fa" class="icon-size"
-              v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
-                  <span v-show="dataOpenSideBar"></span>
-                </box-icon>
-              <span v-show="dataOpenSideBar">Feed</span>
-            </router-link>
-          </div>
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <router-link to="/customer" class="flex space-x-2 font-poppins pl-2">
-              <!-- <font-awesome-icon 
-                color="#f8f8fa" 
-                icon="fa-solid fa-hand-holding-dollar" 
-                class="icon-size" 
-                v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''"
-              /> -->
-              <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
-                price_check
-                </span>
-              <span v-show="dataOpenSideBar">Payouts</span>
-            </router-link>
-          </div>
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <router-link to="/activation" class="flex space-x-2 font-poppins pl-2">
-              <box-icon type='solid' name='report' color="#f8f8fa" class="icon-size"
-              v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
-                  <span v-show="dataOpenSideBar"></span>
-                </box-icon>
-                <!-- <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
-                request_quote
-                </span> -->
-              <span v-show="dataOpenSideBar">Reports</span>
-            </router-link>
-          </div>
+            <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
+
+            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
+              <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
+                <box-icon type='solid' name='message-dots' color="#0D47A1" class="icon-size"
+                v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                    <span v-show="dataOpenSideBar"></span>
+                  </box-icon>
+                <span v-show="dataOpenSideBar">Messaging</span>
+              </router-link>
+            </div>
+            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
+              <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
+                <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size"
+                v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
+                    <span v-show="dataOpenSideBar"></span>
+                  </box-icon>
+                <span v-show="dataOpenSideBar">Feed</span>
+              </router-link>
+            </div>
+          
+            <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
+            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
+              <router-link to="/customer" class="flex space-x-2 font-poppins pl-2">
+                <!-- <font-awesome-icon 
+                  color="#f8f8fa" 
+                  icon="fa-solid fa-hand-holding-dollar" 
+                  class="icon-size" 
+                  v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''"
+                /> -->
+                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
+                  price_check
+                  </span>
+                <span v-show="dataOpenSideBar">Payouts</span>
+              </router-link>
+            </div>
+            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
+              <router-link to="/activation" class="flex space-x-2 font-poppins pl-2">
+                <box-icon type='solid' name='report' color="#0D47A1" class="icon-size"
+                v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
+                    <span v-show="dataOpenSideBar"></span>
+                  </box-icon>
+                  <!-- <span class="material-symbols-rounded" style="color: white;" v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
+                  request_quote
+                  </span> -->
+                <span v-show="dataOpenSideBar">Reports</span>
+              </router-link>
+            </div>
           <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
             <div class="flex space-x-2 font-poppins pl-2">
-              <box-icon type='solid' name='archive' color="#f8f8fa" class="icon-size"
+              <box-icon type='solid' name='archive' color="#0D47A1" class="icon-size"
               v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon>
@@ -235,7 +258,7 @@
           </button>
   
           <!-- Dropdown Menu -->
-          <div id="dropdownTop" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <div id="dropdownTop" class="z-10 hidden bg-gray-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownTopButton">
               <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -285,7 +308,7 @@
             </button>
   
             <!-- Dropdown Menu if collapsed -->
-            <div id="dropdownTopcollapsed" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-10 dark:bg-gray-700">
+            <div id="dropdownTopcollapsed" class="z-10 hidden bg-gray-100 divide-y divide-gray-100 rounded-lg shadow w-10 dark:bg-gray-700">
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownTopButton">
                 <li class="flex items-center space-x-1 px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -319,10 +342,16 @@ export default {
     Link,
   },
   props: {
-    dataOpenSideBar: Boolean
+    dataOpenSideBar: Boolean,
+    clickHamburger: Function
   },
   directives: {
     tooltip: Tooltip
+  },
+  methods: {
+    toggle(event) {
+      this.$refs.menu.toggle(event);
+    },
   },
   // for cascading menu
   setup() {
@@ -393,7 +422,8 @@ export default {
 }
 
 .p-tooltip-text {
-  font-size: 10px !important;
+  margin-left: 10px;
+  font-size: 13px !important;
 }
 
 #side-bar {
