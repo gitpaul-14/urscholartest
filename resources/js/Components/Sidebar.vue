@@ -69,12 +69,12 @@
               >
                 <ul class="space-y-1">
                   <li v-for="(item, index) in ScholarshipItems" :key="index">
-                    <router-link 
-                      :to="item.route" 
+                    <Link
+                      :href="item.route.name"
                       class="block px-4 py-2 text-md font-poppins text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200"
                     >
                       {{ item.label }}
-                    </router-link>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -239,23 +239,31 @@
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownTopButton">
               <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                <span class="material-symbols-rounded" style="color: black;">
-                  person
-                </span>
-                <a href="#" class="font-poppins">
-                  Profile
-                </a>
+                <Link :href="route('profile.edit')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <span class="material-symbols-rounded" style="color: black;">
+                    person
+                  </span>
+                  <span class="font-poppins">Profile</span>
+                </Link>
               </li>
-              <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <!-- <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <span class="material-symbols-rounded" style="color: black;">
                   logout
                 </span>
-                <form method="POST" :action="route('logout')" class="inline">
+                <form method="POST" :action="route('logout')" class="inline"> -->
                   <!-- @csrf -->
-                  <button type="submit" class="font-poppins">
+                  <!-- <button type="submit" class="font-poppins">
                     Logout
                   </button>
                 </form>
+              </li> -->
+              <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <Link :href="route('logout')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <span class="material-symbols-rounded" style="color: black;">
+                    logout
+                  </span>
+                  <span class="font-poppins">Logout</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -281,14 +289,18 @@
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownTopButton">
                 <li class="flex items-center space-x-1 px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Account' : ''">
-                    person
-                  </span>
+                  <Link :href="route('profile.edit')" method="post" as="button">
+                    <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Account' : ''">
+                      person
+                    </span>
+                  </Link>
                 </li>
-                <li :href="route('logout')" method="post" as="button" class="flex items-center space-x-1 px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Logout' : ''">
-                    logout
-                  </span>
+                <li class="flex items-center space-x-1 px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <Link :href="route('logout')" method="post" as="button">
+                    <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Logout' : ''">
+                      logout
+                    </span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -304,7 +316,7 @@ import { Link } from '@inertiajs/vue3';
 
 export default {
   components: {
-    Link
+    Link,
   },
   props: {
     dataOpenSideBar: Boolean
@@ -320,7 +332,8 @@ export default {
     const sidebarWidth = ref(0)
 
     const ScholarshipItems = [
-      { label: 'View Scholarships', route: 'available.index', name: 'available.index' },
+      { label: 'View Scholarships', route: { name: route('scholarships.index'), active: 'scholarships.index' }, },
+      // { label: 'View Scholarships', route: route('scholarships.index') },
       { label: 'Add Scholarships', route: '/scholarships/add' }
     ]
 

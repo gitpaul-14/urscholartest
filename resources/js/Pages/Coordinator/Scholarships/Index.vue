@@ -83,9 +83,9 @@ const submitForm = async () => {
     <Head title="Scholarships" />
 
     <AuthenticatedLayout>
-        <div class="min-h-screen p-6">
-            <div class="max-w-5xl mx-auto bg-[#3A4C7E] p-5 rounded-xl text-white">
-                <h1 class="text-3xl font-bold mb-4 text-center">Scholarships</h1>
+        <div class="w-full h-full p-6">
+            <div class="max-w-5xl mx-auto border border-gray-500 p-5 rounded-xl text-white">
+                <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] mb-4 text-center">Scholarships</h1>
 
                 <div class="mb-4">
                     <button @click="toggleCreate" class="btn btn-primary w-full">
@@ -121,7 +121,7 @@ const submitForm = async () => {
                     <div class="container mx-auto py-8">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div v-for="scholarship in scholarships" :key="scholarship.id"
-                                class="card shadow-lg bg-base-100">
+                                class="card border hover:shadow-lg">
                                 <div class="card-body">
                                     <h2 class="card-title text-lg font-semibold">{{ scholarship.name }}</h2>
                                     <p class="text-sm text-gray-600 mb-4">{{ scholarship.description }}</p>
