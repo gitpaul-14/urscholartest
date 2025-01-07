@@ -44,6 +44,9 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::get('/scholarships/{scholarship}', [ScholarController::class, 'show'])->name('scholars.index');
     Route::post('/scholarships/{scholarship}/upload', [ScholarController::class, 'upload'])->name('scholars.upload');
 
+    // Messaging
+    Route::get('/messages', [MessagesController::class, 'messages'])->name('coordinator.messages');
+
     //Applicants
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');
 
