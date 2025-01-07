@@ -6,6 +6,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
     Route::post('/scholarships/{scholarship}/upload', [ScholarController::class, 'upload'])->name('scholars.upload');
 
     // Messaging
-    Route::get('/messages', [MessagesController::class, 'messages'])->name('coordinator.messages');
+    Route::get('/messages', [MessageController::class, 'conversation'])->name('coordinator.messages');
 
     //Applicants
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');

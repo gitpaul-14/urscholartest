@@ -156,7 +156,7 @@
             <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <Link :href="route('profile.edit')" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
+              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
                   <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                   forum
                   </span>
