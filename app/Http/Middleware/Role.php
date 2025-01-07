@@ -13,9 +13,9 @@ class Role
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, $usertype): Response
     {
-        if ($request->user()->role !== $role) {
+        if ($request->user()->usertype !== $usertype) {
 
             return redirect('dashboard');
         }
