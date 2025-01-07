@@ -8,7 +8,7 @@
         <img src="../../assets/images/ursportallogoonly.png" v-show="!dataOpenSideBar" class="p-1 w-8 h-8 ring-gray-100 dark:ring-gray-500 " alt="Avatar" />
       </div> -->
       <div class="flex flex-col justify-between h-full bg-white">
-        <div :class="['menu-man text-left whitespace-nowrap', dataOpenSideBar ? 'px-2' : 'px-1']">
+        <div :class="['menu-man text-left whitespace-nowrap', dataOpenSideBar ? 'px-1' : 'px-1']">
           <!-- Hamburger Icon -->
             <div class="p-1 cursor-pointer hover:bg-gray-100 hover:rounded-md flex items-center" @click="clickHamburger"
             :class="[
@@ -156,11 +156,14 @@
             <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <router-link to="/contact" class="flex space-x-2 font-quicksand font-bold pl-2">
-                <box-icon type='solid' name='message-dots' color="#0D47A1" class="icon-size"
-                v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+              <router-link to="/" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
+                  <!-- <box-icon type='solid' name='dashboard' color="#f8f8fa" class="icon-size" 
+                  v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                     <span v-show="dataOpenSideBar"></span>
-                  </box-icon>
+                  </box-icon> -->
+                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                  forum
+                  </span>
                 <span v-show="dataOpenSideBar">Messaging</span>
               </router-link>
             </div>
