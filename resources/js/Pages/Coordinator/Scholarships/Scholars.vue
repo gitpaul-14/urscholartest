@@ -1,8 +1,8 @@
 <template>
   <AuthenticatedLayout>
 
-  
-  <!-- <div class="flex flex-col items-center min-h-screen bg-gray-100">
+
+    <!-- <div class="flex flex-col items-center min-h-screen bg-gray-100">
     <div class="w-full max-w-6xl mx-auto py-8">
       <h1 class="text-3xl font-bold mb-6 text-center">
         Scholars for {{ scholarship.name }}
@@ -50,20 +50,21 @@
     </div>
   </div> -->
     <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
-        <div class="font-semibold text-xl mb-4"><span>{{ scholarship.name }} </span> Scholars</div>
-        <DataTable v-model:expandedRows="expandedRows" :value="products" dataKey="id" tableStyle="min-width: 60rem">
-            <template #header>
-                <div class="flex justify-between w-full mb-4">
-                  <div class="flex flex-wrap gap-2">
-                    <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
-                    <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
-                  </div>
-                  <form @submit.prevent="uploadCSV">
-                    <div class="card">
-                        <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000" customUpload />
-                    </div>
-                  </form>
-                  <!-- <form @submit.prevent="uploadCSV" class="flex items-center space-x-4">
+      <div class="font-semibold text-xl mb-4"><span>{{ scholarship.name }} </span> Scholars</div>
+      <DataTable v-model:expandedRows="expandedRows" :value="scholars" dataKey="id" tableStyle="min-width: 60rem">
+        <template #header>
+          <div class="flex justify-between w-full mb-4">
+            <div class="flex flex-wrap gap-2">
+              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
+            </div>
+            <form @submit.prevent="uploadCSV">
+              <div class="card">
+                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
+                  customUpload @change="handleFileUpload" />
+              </div>
+            </form>
+            <!-- <form @submit.prevent="uploadCSV" class="flex items-center space-x-4">
                     <input
                       type="file"
                       @change="handleFileUpload"
@@ -71,59 +72,46 @@
                     />
                     <button type="submit" class="btn btn-primary">Upload CSV</button>
                   </form> -->
-                </div>
-            </template>
-            <Column expander style="width: 5rem" />
-            <Column field="name" header="Name"></Column>
-            <Column header="Image">
-                <template #body="slotProps">
-                    <img :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.image" class="shadow-lg" width="64" />
-                </template>
+          </div>
+        </template>
+        <Column expander style="width: 5rem" />
+        <Column field="id" header="#" :sortable="true">
+              <template #body="slotProps">
+                {{ slotProps.rowIndex + 1 }}
+              </template>
             </Column>
-            <Column field="price" header="Price">
+            <Column field="first_name" header="First Name" :sortable="true" />
+            <Column field="last_name" header="Last Name" :sortable="true" />
+            <Column field="email" header="Email" :sortable="true" />
+            <Column field="course" header="Course" :sortable="true" />
+        <template #expansion="slotProps">
+          <div class="p-4">
+            <h5>Orders for {{ slotProps.data.name }}</h5>
+            <DataTable :value="slotProps.data.orders">
+              <Column field="id" header="Id" sortable></Column>
+              <Column field="customer" header="Customer" sortable></Column>
+              <Column field="date" header="Date" sortable></Column>
+              <Column field="amount" header="Amount" sortable>
                 <template #body="slotProps">
-                    {{ formatCurrency(slotProps.data.price) }}
+                  {{ formatCurrency(slotProps.data.amount) }}
                 </template>
-            </Column>
-            <Column field="category" header="Category"></Column>
-            <Column field="rating" header="Reviews">
+              </Column>
+              <Column field="status" header="Status" sortable>
                 <template #body="slotProps">
-                    <Rating :modelValue="slotProps.data.rating" readonly />
+                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
                 </template>
-            </Column>
-            <Column header="Status">
-                <template #body="slotProps">
-                    <Tag :value="slotProps.data.inventoryStatus" :severity="getStockSeverity(slotProps.data)" />
+              </Column>
+              <Column headerStyle="width:4rem">
+                <template #body>
+                  <Button icon="pi pi-search" />
                 </template>
-            </Column>
-            <template #expansion="slotProps">
-                <div class="p-4">
-                    <h5>Orders for {{ slotProps.data.name }}</h5>
-                    <DataTable :value="slotProps.data.orders">
-                        <Column field="id" header="Id" sortable></Column>
-                        <Column field="customer" header="Customer" sortable></Column>
-                        <Column field="date" header="Date" sortable></Column>
-                        <Column field="amount" header="Amount" sortable>
-                            <template #body="slotProps">
-                                {{ formatCurrency(slotProps.data.amount) }}
-                            </template>
-                        </Column>
-                        <Column field="status" header="Status" sortable>
-                            <template #body="slotProps">
-                                <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
-                            </template>
-                        </Column>
-                        <Column headerStyle="width:4rem">
-                            <template #body>
-                                <Button icon="pi pi-search" />
-                            </template>
-                        </Column>
-                    </DataTable>
-                </div>
-            </template>
-        </DataTable>
+              </Column>
+            </DataTable>
+          </div>
+        </template>
+      </DataTable>
     </div>
-</AuthenticatedLayout>
+  </AuthenticatedLayout>
 </template>
 
 
@@ -156,9 +144,12 @@ const handleFileUpload = (event) => {
   form.file = event.target.files[0];
 };
 
-function onUpload() {
-    // toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
-    form.post(`/scholarships/${props.scholarship.id}/upload`, {
+
+const onUpload = (event) => {
+  form.file = event.files[0];
+
+  // toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+  form.post(`/scholarships/${props.scholarship.id}/upload`, {
     preserveScroll: true,
   });
 }
@@ -170,7 +161,7 @@ const uploadCSV = () => {
 };
 </script>
 
-<style >
+<style>
 /* override the prime vue componentss */
 
 .p-fileupload-choose-button {
