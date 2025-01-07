@@ -48,17 +48,10 @@ import { Link } from '@inertiajs/vue3';
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="flex items-center">
                 <input type="text" placeholder="Type your message..." class="flex-1 bg-input text-primary-foreground p-2 rounded-lg mr-2" />
                 <button class="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/80 transition">Send</button>
             </div>
-            </div>
-        </div>
-    </div> -->
-<div>HIii</div>
-=======
         </template>
     </AuthenticatedLayout>
->>>>>>> e80610573f21716e7a7e19c03e2849dbb4c75555
 </template>
