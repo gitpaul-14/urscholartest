@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:coordinator'])->group(function () {
+Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
         ->name('coordinator.dashboard');
@@ -53,7 +53,7 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:student'])->group(function () {
+Route::middleware(['auth', 'usertype:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
 

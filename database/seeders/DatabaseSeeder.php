@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'coordinator1',
             'email' => 'coor1@gmail.com',
             'password' => bcrypt('password'),
-            'role' => 'coordinator'
+            'usertype' => 'coordinator'
         ]);
         //student
         User::factory()->create([
             'name' => 'student1',
             'email' => 'student1@gmail.com',
             'password' => bcrypt('password'),
-            'role' => 'student'
+            'usertype' => 'student'
         ]);
 
         // $this->call(UserTableSeeder::class);
