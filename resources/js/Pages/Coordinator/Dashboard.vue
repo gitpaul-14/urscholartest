@@ -13,7 +13,7 @@ import { Link } from '@inertiajs/vue3';
     <AuthenticatedLayout>
         <template #default>
             <!-- Your dashboard content goes here -->
-            <Messaging />
+            <ContentDashboard />
         </template>
     </AuthenticatedLayout>
 </template>
