@@ -8,9 +8,9 @@
         <img src="../../assets/images/ursportallogoonly.png" v-show="!dataOpenSideBar" class="p-1 w-8 h-8 ring-gray-100 dark:ring-gray-500 " alt="Avatar" />
       </div> -->
       <div class="flex flex-col justify-between h-full bg-white">
-        <div class="menu-man text-left px-1 whitespace-nowrap ">
+        <div :class="['menu-man text-left whitespace-nowrap', dataOpenSideBar ? 'px-2' : 'px-1']">
           <!-- Hamburger Icon -->
-            <div class="p-1 cursor-pointer hover:bg-gray-50 flex items-center" @click="clickHamburger"
+            <div class="p-1 cursor-pointer hover:bg-gray-100 hover:rounded-md flex items-center" @click="clickHamburger"
             :class="[
               dataOpenSideBar ? 'justify-between' : 'justify-center',
               'min-h-[50px]'
@@ -34,8 +34,8 @@
               <h5 class="text-[30px] font-large leading-tight mb-3 font-cocogoose">URScholar</h5>
             </div>
           </div> -->
-          <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-50 ">
-            <router-link to="/" class="flex items-center space-x-2 font-poppins font-semibold pl-2 text-[15px]">
+          <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            <router-link to="/" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
                 <!-- <box-icon type='solid' name='dashboard' color="#f8f8fa" class="icon-size" 
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                   <span v-show="dataOpenSideBar"></span>
@@ -43,15 +43,15 @@
                 <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                 dashboard
                 </span>
-              <span class="opacity-90" v-show="dataOpenSideBar">Dashboard</span>
+              <span v-show="dataOpenSideBar">Dashboard</span>
             </router-link>
           </div>
   
           <!-- cascading scholarship menu -->
-          <div class="relative py-3">
+          <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
             <!-- Main menu item -->
             <div 
-              class="flex items-center w-full justify-between font-poppins cursor-pointer text-gray-300 hover:text-white pl-0"
+              class="flex items-center w-full justify-between font-quicksand font-bold cursor-pointer text-blue-900 pl-0"
               @click="toggleScholarshipMenu"
             >
               <div class="flex items-center space-x-2">
@@ -102,10 +102,10 @@
           </div>
   
           <!-- cascading scholars menu -->
-          <div class="relative py-3">
+          <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
             <!-- Main menu item -->
             <div 
-              class="flex items-center w-full justify-between font-poppins cursor-pointer text-gray-300 hover:text-white pl-0"
+              class="flex items-center w-full justify-between font-quicksand font-bold cursor-pointer text-blue-900 pl-0"
               @click="toggleScholarsMenu"
             >
               <div class="flex items-center space-x-2">
@@ -155,8 +155,8 @@
   
             <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
-            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-              <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <router-link to="/contact" class="flex space-x-2 font-quicksand font-bold pl-2">
                 <box-icon type='solid' name='message-dots' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                     <span v-show="dataOpenSideBar"></span>
@@ -164,8 +164,8 @@
                 <span v-show="dataOpenSideBar">Messaging</span>
               </router-link>
             </div>
-            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-              <router-link to="/contact" class="flex space-x-2 font-poppins pl-2">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <router-link to="/contact" class="flex space-x-2 font-quicksand font-bold pl-2">
                 <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
                     <span v-show="dataOpenSideBar"></span>
@@ -175,22 +175,22 @@
             </div>
           
             <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
-            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-              <router-link to="/customer" class="flex space-x-2 font-poppins pl-2">
-                <!-- <font-awesome-icon 
-                  color="#f8f8fa" 
-                  icon="fa-solid fa-hand-holding-dollar" 
-                  class="icon-size" 
-                  v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''"
-                /> -->
-                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
-                  price_check
-                  </span>
-                <span v-show="dataOpenSideBar">Payouts</span>
-              </router-link>
-            </div>
-            <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-              <router-link to="/activation" class="flex space-x-2 font-poppins pl-2">
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+                <router-link to="/customer" class="flex space-x-2 font-quicksand font-bold pl-2">
+                  <!-- <font-awesome-icon 
+                    color="#f8f8fa" 
+                    icon="fa-solid fa-hand-holding-dollar" 
+                    class="icon-size" 
+                    v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''"
+                  /> -->
+                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
+                    price_check
+                    </span>
+                  <span v-show="dataOpenSideBar">Payouts</span>
+                </router-link>
+              </div>
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <router-link to="/activation" class="flex space-x-2 font-quicksand font-bold pl-2">
                 <box-icon type='solid' name='report' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
                     <span v-show="dataOpenSideBar"></span>
@@ -201,8 +201,8 @@
                 <span v-show="dataOpenSideBar">Reports</span>
               </router-link>
             </div>
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <div class="flex space-x-2 font-poppins pl-2">
+          <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            <div class="flex space-x-2 font-quicksand font-bold pl-2">
               <box-icon type='solid' name='archive' color="#0D47A1" class="icon-size"
               v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
                   <span v-show="dataOpenSideBar"></span>

@@ -19,6 +19,8 @@ export default {
                 cocogoose: ['Cocogoose', 'sans-serif'],
                 onest: ['Onest', 'sans-serif'],
                 sora: ['Sora', 'sans-serif'],
+                inter: ['Inter', 'sans-serif'],
+                quicksand: ['Quicksand', 'sans-serif'],
             },
             colors: {
                 primary: '#003366',
