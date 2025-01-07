@@ -35,7 +35,7 @@
             </div>
           </div> -->
           <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <router-link to="/" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
+            <Link :href="(route('coordinator.dashboard'))" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
                 <!-- <box-icon type='solid' name='dashboard' color="#f8f8fa" class="icon-size" 
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                   <span v-show="dataOpenSideBar"></span>
@@ -44,7 +44,7 @@
                 dashboard
                 </span>
               <span v-show="dataOpenSideBar">Dashboard</span>
-            </router-link>
+              </Link>
           </div>
   
           <!-- cascading scholarship menu -->
