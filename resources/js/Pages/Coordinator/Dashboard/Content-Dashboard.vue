@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-4 gap-3 px-3 pb-4 pt-1 h-full box-border">
+    <div class="grid grid-cols-4 gap-3 px-3 py-3 h-full box-border">
         <!-- 75% Column -->
         <div class="col-span-3 h-full flex flex-col space-y-3">
             <!-- First Layer with 2 Column Cards -->

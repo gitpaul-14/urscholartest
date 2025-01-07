@@ -15,7 +15,7 @@
               dataOpenSideBar ? 'justify-between' : 'justify-center',
               'min-h-[50px]'
             ]">
-            <span v-if="dataOpenSideBar" class="text-blue-900 opacity-90 font-poppins font-semibold">
+            <span v-if="dataOpenSideBar" class="text-blue-900 opacity-90 font-poppins text-sm font-semibold">
               Main Menu
             </span>
 
@@ -35,7 +35,7 @@
             </div>
           </div> -->
           <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <Link :href="(route('coordinator.dashboard'))" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
+            <Link :href="(route('coordinator.dashboard'))" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
                 <!-- <box-icon type='solid' name='dashboard' color="#f8f8fa" class="icon-size" 
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                   <span v-show="dataOpenSideBar"></span>
@@ -51,7 +51,7 @@
           <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
             <!-- Main menu item -->
             <div 
-              class="flex items-center w-full justify-between font-quicksand font-bold cursor-pointer text-blue-900 pl-0"
+              class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0"
               @click="toggleScholarshipMenu"
             >
               <div class="flex items-center space-x-2">
@@ -84,14 +84,14 @@
             >
               <div 
                 v-show="isScholarshipMenuOpen" 
-                class="fixed top-0 bg-[#003366] w-48 z-50"
-                :style="{ top: `${menuPosition}px`, left: `${sidebarWidth + 8}px`, marginBottom: `10px` }"
+                class="fixed top-0 bg-white w-48 z-50"
+                :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }"
               >
-                <ul class="space-y-1">
+                <ul class="space-y-0">
                   <li v-for="(item, index) in ScholarshipItems" :key="index">
                     <Link
                       :href="item.route.name"
-                      class="block px-4 py-2 text-md font-poppins text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200"
+                      class="block px-4 py-3 text-md font-quicksand font-bold border text-blue-900 hover:bg-gray-100 transition-colors duration-200"
                     >
                       {{ item.label }}
                     </Link>
@@ -105,7 +105,7 @@
           <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
             <!-- Main menu item -->
             <div 
-              class="flex items-center w-full justify-between font-quicksand font-bold cursor-pointer text-blue-900 pl-0"
+              class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0"
               @click="toggleScholarsMenu"
             >
               <div class="flex items-center space-x-2">
@@ -137,13 +137,13 @@
               leave-to-class="opacity-0 -translate-x-2"
             >
               <div v-show="isScholarsMenuOpen" 
-                class="fixed top-0 bg-[#003366] w-48 z-50"
-                :style="{ top: `${menuPosition}px`, left: `${sidebarWidth + 15}px` }">
-                <ul class="space-y-1">
+                class="fixed top-0 bg-white w-48 z-50"
+                :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }">
+                <ul class="space-y-0">
                   <li v-for="(item, index) in ScholarItems" :key="item.label">
                     <router-link 
                       :to="item.route" 
-                      class="block px-4 py-2 text-md font-poppins text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200"
+                      class="block px-4 py-3 text-md font-quicksand font-bold border text-blue-900 hover:bg-gray-100 transition-colors duration-200"
                     >
                       {{ item.label }}
                     </router-link>
@@ -153,10 +153,10 @@
             </Transition>
           </div>
   
-            <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
+            <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-bold pl-2 text-[16px]">
+              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
                   <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                   forum
                   </span>
@@ -170,7 +170,7 @@
               </router-link> -->
             </div>
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <router-link to="/contact" class="flex space-x-2 font-quicksand font-bold pl-2">
+              <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2">
                 <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
                     <span v-show="dataOpenSideBar"></span>
@@ -179,9 +179,9 @@
               </router-link>
             </div>
           
-            <div class="text-blue-900 opacity-90 font-poppins font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
+            <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
               <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-                <router-link to="/customer" class="flex space-x-2 font-quicksand font-bold pl-2">
+                <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
                   <!-- <font-awesome-icon 
                     color="#f8f8fa" 
                     icon="fa-solid fa-hand-holding-dollar" 
@@ -195,7 +195,7 @@
                 </router-link>
               </div>
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <router-link to="/activation" class="flex space-x-2 font-quicksand font-bold pl-2">
+              <router-link to="/activation" class="flex space-x-2 font-quicksand font-semibold pl-2">
                 <box-icon type='solid' name='report' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
                     <span v-show="dataOpenSideBar"></span>
@@ -207,7 +207,7 @@
               </router-link>
             </div>
           <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <div class="flex space-x-2 font-quicksand font-bold pl-2">
+            <div class="flex space-x-2 font-quicksand font-semibold pl-2">
               <box-icon type='solid' name='archive' color="#0D47A1" class="icon-size"
               v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
                   <span v-show="dataOpenSideBar"></span>
@@ -225,39 +225,41 @@
         <div class="menu-man pb-5 w-full text-left px-2 justify-self-end">
           <!-- Dropdown Toggle Button -->
           <button id="dropdownTopButton" data-dropdown-toggle="dropdownTop" data-dropdown-placement="top" type="button"
-            v-show="dataOpenSideBar" class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-2 py-2.5 inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 justify-between">
+            v-show="dataOpenSideBar" class="w-full text-white bg-blue-100 hover:bg-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 justify-between">
             <div class="w-full flex px-1 items-center justify-between">
-              <!-- Avatar (displayed only when !dataOpenSideBar) -->
-              <div class="avatar" v-show="dataOpenSideBar">
-                <div class="w-8 h-8 rounded-full ring ring-offset-2">
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Avatar"
-                  />
+              <div class="justify-start flex items-center space-x-3">
+                <!-- Avatar (displayed only when !dataOpenSideBar) -->
+                <div class="avatar" v-show="dataOpenSideBar">
+                  <div class="w-8 h-8 rounded-full ring ring-offset-2">
+                    <img
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      alt="Avatar"
+                    />
+                  </div>
+                </div>
+                  <!-- Text (displayed only when dataOpenSideBar) -->
+                <div class="flex flex-col items-start text-[12px] text-blue-900">
+                  <span v-show="dataOpenSideBar">{{ $page.props.auth.user.email }}</span>
+                  <span v-show="dataOpenSideBar">{{ $page.props.auth.user.usertype }}</span>
                 </div>
               </div>
-                <!-- Text (displayed only when dataOpenSideBar) -->
-              <div class="flex flex-col items-start">
-                <span v-show="dataOpenSideBar">{{ $page.props.auth.user.email }}</span>
-                <span v-show="dataOpenSideBar">{{ $page.props.auth.user.role }}</span>
-              </div>
-              <div>
+                <div>
                 <svg
-                  class="w-2.5 h-2.5 ms-3"
+                  class="w-2.5 h-2.5 ms-3 text-blue-900"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 10 6"
                 >
                   <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5 5 1 1 5"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
                   />
                 </svg>
-              </div>
+                </div>
             </div>
             
           </button>
@@ -419,7 +421,7 @@ export default {
 
 <style>
 :root {
-  --sidebar-width: 240px; /* Adjust this value to match your sidebar width */
+  --sidebar-width: 230px; /* Adjust this value to match your sidebar width */
 }
 
 .side-bar-visible {
