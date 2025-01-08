@@ -31,7 +31,7 @@
           </div>
 
           <!-- cascading scholarship menu -->
-          <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
+          <div class="relative py-3 hover:bg-gray-100 hover:rounded-md">
             <!-- Main menu item -->
             <div 
               class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0"
@@ -63,7 +63,7 @@
             >
               <div 
                 v-show="isScholarshipMenuOpen" 
-                class="fixed top-0 bg-white w-48 z-50"
+                class="fixed top-0 bg-white w-48 z-50 cursor-pointer"
                 :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }"
               >
                 <ul class="space-y-0">
@@ -112,7 +112,7 @@
               leave-to-class="opacity-0 -translate-x-2"
             >
               <div v-show="isScholarsMenuOpen" 
-                class="fixed top-0 bg-white w-48 z-50"
+                class="fixed top-0 bg-white w-48 z-50 cursor-pointer"
                 :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }">
                 <ul class="space-y-0">
                   <li v-for="(item, index) in ScholarItems" :key="item.label">

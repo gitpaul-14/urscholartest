@@ -1,11 +1,16 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, useForm, Link,  } from '@inertiajs/vue3';
+import { Tooltip } from 'primevue';
 
 defineProps({
     scholarships: Array,
 });
+
+const directives = {
+    Tooltip,
+};
 
 const isCreating = ref(false);
 const isEditing = ref(false);
@@ -130,7 +135,7 @@ const submitForm = async () => {
                                     <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
                                         {{ scholarship.description }}
                                     </p>
-                                    <div class="card-actions justify-end">
+                                    <!-- <div class="card-actions justify-end">
                                         <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
                                         View</Link>
                                     </div>
@@ -139,7 +144,25 @@ const submitForm = async () => {
                                             Applicants</Link>
                                     </div>
                                     <button @click="editScholarship(scholarship)"
-                                        class="btn btn-warning btn-sm">Edit</button>
+                                        class="btn btn-warning btn-sm">Edit</button> -->
+                                    <div class="flex justify-end space-x-4">
+                                        <div class="text-sm text-gray-500">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            open_in_browser
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-gray-500">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            cancel
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-gray-500 cursor-pointer" 
+                                        @click="editScholarship(scholarship)" type="button">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            settings
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,3 +202,10 @@ const submitForm = async () => {
 
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+.p-tooltip-text {
+  margin-left: 0px;
+  font-size: 13px !important;
+}
+</style>
