@@ -162,24 +162,22 @@ defineProps({
 
 <template>
     <div v-if="$page.props.auth.user.usertype == 'coordinator'">
-    <div class="w-full h-screen flex flex-col overflow-hidden">
+        <div class="w-full h-screen flex flex-col overflow-hidden">
         <!-- Header -->
-        <headerTop 
-            class="w-full h-[50px]" 
-        />
-        
+        <headerTop class="w-full h-[50px]" />
+
         <!-- Content Area -->
-        <div class="flex w-full h-[calc(100vh-50px)]">
+        <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
             <!-- Sidebar -->
             <sidebar 
-                :dataOpenSideBar="openSidebar" 
-                :clickHamburger="toggleSidebar" 
-                class="w-[250px] h-full" 
+            :dataOpenSideBar="openSidebar" 
+            :clickHamburger="toggleSidebar" 
+            class="lg:w-[250px] w-full lg:h-full h-auto bg-white"
             />
 
             <!-- Main Content -->
-            <div class="flex-1 h-full">
-                <slot></slot>
+            <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
+            <slot></slot>
             </div>
         </div>
     </div>
