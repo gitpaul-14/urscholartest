@@ -131,14 +131,6 @@
             <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
-                  forum
-                  </span>
-                <span v-show="dataOpenSideBar">Messaging</span>
-              </Link>
-            </div>
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
               <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2">
                 <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size"
                 v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
@@ -146,6 +138,15 @@
                   </box-icon>
                 <span v-show="dataOpenSideBar">Feed</span>
               </router-link>
+            </div>
+            
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                  forum
+                  </span>
+                <span v-show="dataOpenSideBar">Messaging</span>
+              </Link>
             </div>
           
             <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
@@ -311,6 +312,14 @@
             </Link>
           </div>
 
+          <!-- Feed Link -->
+          <div class="flex items-center cursor-pointer">
+            <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold">
+              <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size" v-tooltip.right="'Feed'"></box-icon>
+              <span>Feed</span>
+            </router-link>
+          </div>
+
           <!-- Messaging Link -->
           <div class="flex items-center cursor-pointer">
             <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 text-blue-900 font-quicksand font-semibold">
@@ -319,14 +328,6 @@
               </span>
               <span>Messaging</span>
             </Link>
-          </div>
-
-          <!-- Feed Link -->
-          <div class="flex items-center cursor-pointer">
-            <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold">
-              <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size" v-tooltip.right="'Feed'"></box-icon>
-              <span>Feed</span>
-            </router-link>
           </div>
 
           <!-- Payouts Link -->
