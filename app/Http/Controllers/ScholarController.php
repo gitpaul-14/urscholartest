@@ -33,6 +33,8 @@ class ScholarController extends Controller
 
         $file = $request->file('file');
 
+        // dd($file);
+
         $data = array_map('str_getcsv', file($file->getRealPath()));
         $header = array_shift($data);
         $requiredHeaders = ['first_name', 'last_name', 'email', 'course'];

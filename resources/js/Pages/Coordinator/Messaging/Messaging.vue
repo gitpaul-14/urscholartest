@@ -11,7 +11,8 @@ import { Link } from '@inertiajs/vue3';
     <AuthenticatedLayout>
         <template #default>
             <div class="w-full h-full box-border">
-                <div class="w-1/3 bg-card p-4">
+                <div class="grid grid-cols-4">
+                    <div class="cols-span-2 bg-card p-4">
                     <h3 class="text-lg font-bold text-primary mb-4">Persons</h3>
                     <ul>
                     <li class="flex items-center space-x-2 mb-2">
@@ -28,7 +29,7 @@ import { Link } from '@inertiajs/vue3';
                     </li>
                     </ul>
                 </div>
-                <div class="w-2/3 bg-card p-4">
+                <div class="cols-span-2 bg-card p-4">
                     <h3 class="text-lg font-bold text-primary mb-4">Conversation</h3>
                     <div class="flex flex-col h-full">
                     <div class="flex-1 overflow-y-auto">
@@ -47,6 +48,9 @@ import { Link } from '@inertiajs/vue3';
                     </div>
                     </div>
                 </div>
+            </div>
+
+
             </div>
             <div class="flex items-center">
                 <input type="text" placeholder="Type your message..." class="flex-1 bg-input text-primary-foreground p-2 rounded-lg mr-2" />

@@ -1,11 +1,16 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, useForm, Link,  } from '@inertiajs/vue3';
+import { Tooltip } from 'primevue';
 
 defineProps({
     scholarships: Array,
 });
+
+const directives = {
+    Tooltip,
+};
 
 const isCreating = ref(false);
 const isEditing = ref(false);
@@ -83,51 +88,54 @@ const submitForm = async () => {
     <Head title="Scholarships" />
 
     <AuthenticatedLayout>
-        <div class="w-full h-full p-6">
-            <div class="max-w-5xl mx-auto border border-gray-500 p-5 rounded-xl text-white">
-                <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] mb-4 text-center">Scholarships</h1>
+        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
+            <div class="w-full mx-auto p-3 rounded-xl text-white">
+                <div class="breadcrumbs text-sm text-gray-400 mb-5">
+                    <ul>
+                        <li>
+                        <a>
+                            <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
+                            dashboard
+                            </span>
+                            Home
+                        </a>
+                        </li>
+                        <li>
+                        <a>
+                            <span class="text-blue-400 font-semibold">View Sponsors</span>
+                        </a>
+                        </li>
+                    </ul>
+                    </div>
+                
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">URS Partnered Scholarships</h1>
 
-                <div class="mb-4">
-                    <button @click="toggleCreate" class="btn btn-primary w-full">
-                        Create New Scholarship
+                    <button class="btn" @click="toggleCreate" >
+                        <span class="material-symbols-rounded">
+                        library_add
+                        </span>
+                        New Scholarship
                     </button>
                 </div>
 
                 <!-- List of Scholarships -->
                 <div v-if="!isCreating && !isEditing">
-                    <!-- <table class="table w-full">
-                        <thead>
-                            <tr class="text-white">
-                                <th class="text-left">Name</th>
-                                <th class="text-left">Description</th>
-                                <th class="text-left">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="scholarship in scholarships" :key="scholarship.id">
-                                <td>{{ scholarship.name }}</td>
-                                <td>{{ scholarship.description || 'N/A' }}</td>
-                                <td>
-                                    <div class="space-x-2">
-                                        <button @click="editScholarship(scholarship)"
-                                            class="btn btn-warning btn-sm">Edit</button>
-                                        <button @click="deleteScholarship(scholarship)"
-                                            class="btn btn-error btn-sm">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
-                    <div class="container mx-auto py-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="container mx-auto py-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div v-for="scholarship in scholarships" :key="scholarship.id"
-                                class="card border hover:shadow-lg">
-                                <div class="card-body">
-                                    <h2 class="card-title text-lg font-semibold">{{ scholarship.name }}</h2>
-                                    <p class="text-sm text-gray-600 mb-4">{{ scholarship.description }}</p>
+                                class="card border bg-white hover:shadow-xl hover:border-gray-400">
+                                <div class="card-body p-5 space-y-2">
                                     <p class="text-xs text-gray-500">Created on: {{ new
                                         Date(scholarship.created_at).toLocaleDateString() }}</p>
-                                    <div class="card-actions justify-end">
+                                    <p class="text-xs text-gray-500">Sponsoring Since: {{ new
+                                    Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
+                                    <div class="badge badge-primary text-[12px] badge-outline">DEPED</div>
+                                    <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                                        {{ scholarship.description }}
+                                    </p>
+                                    <!-- <div class="card-actions justify-end">
                                         <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
                                         View</Link>
                                     </div>
@@ -136,7 +144,25 @@ const submitForm = async () => {
                                             Applicants</Link>
                                     </div>
                                     <button @click="editScholarship(scholarship)"
-                                        class="btn btn-warning btn-sm">Edit</button>
+                                        class="btn btn-warning btn-sm">Edit</button> -->
+                                    <div class="flex justify-end space-x-4">
+                                        <div class="text-sm text-gray-500">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            open_in_browser
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-gray-500">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            cancel
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-gray-500 cursor-pointer" 
+                                        @click="editScholarship(scholarship)" type="button">
+                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                            settings
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -176,3 +202,10 @@ const submitForm = async () => {
 
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+.p-tooltip-text {
+  margin-left: 0px;
+  font-size: 13px !important;
+}
+</style>
