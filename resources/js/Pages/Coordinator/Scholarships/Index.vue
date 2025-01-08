@@ -102,7 +102,7 @@ const submitForm = async () => {
                         </li>
                         <li>
                         <a>
-                            <span class="text-blue-400 font-semibold">View Scholarships</span>
+                            <span class="text-blue-400 font-semibold">View Sponsors</span>
                         </a>
                         </li>
                     </ul>
