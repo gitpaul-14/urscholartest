@@ -31,6 +31,7 @@
         "@tailwindcss/line-clamp": "^0.4.4",
         "boxicons": "^2.1.4",
         "flowbite": "^2.5.2",
+        "papaparse": "^5.5.0",
         "primevue": "^4.2.5"
     }
 }

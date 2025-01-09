@@ -23,6 +23,8 @@ import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primevue/themes/aura';
 
+import Papa from 'papaparse';
+
 const appName = import.meta.env.VITE_APP_NAME || 'URScholar';
 
 createInertiaApp({
@@ -41,6 +43,7 @@ createInertiaApp({
                     preset: Aura,
                 },
             })
+            .use(Papa)
             .component('FontAwesomeIcon', FontAwesomeIcon)
             .directive('tooltip', Tooltip)
             .mount(el);

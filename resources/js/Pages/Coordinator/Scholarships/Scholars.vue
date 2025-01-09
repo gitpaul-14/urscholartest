@@ -116,7 +116,63 @@
           Add Scholars
         </button>
       </div>
+      <DataTable v-model:expandedRows="expandedRows" :value="scholars" dataKey="id" tableStyle="min-width: 60rem" class="pb-5">
+        <template #header>
+          <div class="flex justify-between w-full mb-4">
+            <div class="flex flex-wrap gap-2">
+              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
+            </div>
+            <!-- <form @submit.prevent="uploadCSV">
+              <div class="card">
+                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
+                  customUpload @change="handleFileUpload" />
+              </div>
+            </form> -->
+          </div>
+        </template>
+        <Column expander style="width: 5rem" />
+        <Column field="id" header="#" :sortable="true">
+              <template #body="slotProps">
+                {{ slotProps.rowIndex + 1 }}
+              </template>
+            </Column>
+            <Column field="first_name" header="First Name" :sortable="true" />
+            <Column field="last_name" header="Last Name" :sortable="true" />
+            <Column field="email" header="Email" :sortable="true" />
+            <Column field="course" header="Course" :sortable="true" />
+        <template #expansion="slotProps">
+          <div class="p-4">
+            <h5>Orders for {{ slotProps.data.name }}</h5>
+            <DataTable :value="slotProps.data.orders">
+              <Column field="id" header="Id" sortable></Column>
+              <Column field="customer" header="Customer" sortable></Column>
+              <Column field="date" header="Date" sortable></Column>
+              <Column field="amount" header="Amount" sortable>
+                <template #body="slotProps">
+                  {{ formatCurrency(slotProps.data.amount) }}
+                </template>
+              </Column>
+              <Column field="status" header="Status" sortable>
+                <template #body="slotProps">
+                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
+                </template>
+              </Column>
+              <Column headerStyle="width:4rem">
+                <template #body>
+                  <Button icon="pi pi-search" />
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </template>
+      </DataTable>
     </div>
+
+
+
+
+    
     <!-- Right side panel with transition -->
     <Transition name="slide">
       <div v-show="showPanel" 
@@ -130,22 +186,67 @@
               <span class="material-symbols-rounded">close</span>
             </button>
           </div>
-        <form @submit.prevent="uploadCSV">
-          <div class="card">
-            <FileUpload 
-              name="demo[]" 
-              @uploader="onUpload" 
-              :multiple="true" 
-              accept=".csv" 
-              :maxFileSize="1000000"
-              customUpload 
-              @change="handleFileUpload" 
-            />
-          </div>
-        </form>
+          <!-- <form @submit.prevent="uploadCSV"> -->
+            <div class="card">
+              <FileUpload 
+                name="demo[]" 
+                @uploader="onUpload" 
+                :multiple="true" 
+                accept=".csv" 
+                :maxFileSize="1000000"
+                customUpload 
+                @select="handleFileUpload"
+                id="file-upload"
+              />
+            </div>
+
+            <!-- Error Message -->
+            <div v-if="error" class="text-red-500 mb-4">
+              {{ error }}
+            </div>
+
+            <!-- Preview Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
+              <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th
+                      v-for="header in headers"
+                      :key="header"
+                      class="px-6 py-3"
+                    >
+                      {{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(row, rowIndex) in previewData"
+                    :key="rowIndex"
+                    class="bg-white border-b hover:bg-gray-50"
+                  >
+                    <td
+                      v-for="(header, colIndex) in headers"
+                      :key="colIndex"
+                      class="px-6 py-4 whitespace-nowrap"
+                    >
+                      {{ row[header] }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Empty State -->
+              <div
+                v-if="previewData.length === 0 && !error"
+                class="text-center py-4 text-gray-500"
+              >
+                No data to display. Please upload a CSV file.
+              </div>
+            </div>
+          <!-- </form> -->
       </div>
     </Transition>
-
   </AuthenticatedLayout>
 </template>
 
@@ -158,12 +259,14 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
+import Papa from 'papaparse';
 
 const components = {
   DataTable,
   Column,
   Button,
   FileUpload,
+  Papa,
 };
 
 const showPanel = ref(false)
@@ -185,25 +288,277 @@ const form = useForm({
   file: null,
 });
 
-const handleFileUpload = (event) => {
-  form.file = event.target.files[0];
+const previewData = ref([]);
+const headers = ref([]);
+const error = ref('');
+
+const handleFileUpload = (event) => {  
+  // eto ay para mafetch yung file
+  const file = event.files[0];
+  // eto naman ay para mafetch yung file as object
+  if (event && event.files && event.files.length > 0) {
+    const file = event.files[0]; // Get first file
+
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      Papa.parse(e.target.result, {
+        header: true,
+        complete: (results) => {
+          if (results.data && results.data.length > 0) {
+            // Filter out empty rows
+            const filteredData = results.data.filter(row => 
+              Object.values(row).some(value => value !== '')
+            );
+            
+            if (filteredData.length > 0) {
+              headers.value = Object.keys(filteredData[0]);
+              previewData.value = filteredData;
+              error.value = '';
+              console.log('Processed data:', previewData.value); // Debug log
+            } else {
+              error.value = 'No valid data found in the file';
+              previewData.value = [];
+              headers.value = [];
+            }
+          } else {
+            error.value = 'No data found in the file';
+            previewData.value = [];
+            headers.value = [];
+          }
+        },
+        error: (err) => {
+          error.value = 'Error parsing CSV: ' + err.message;
+          previewData.value = [];
+          headers.value = [];
+        }
+      });
+    };
+    reader.readAsText(file);
+  }
 };
 
+// const handleFileUpload = (event) => {
+//   form.file = event.target.files[0];
 
-const onUpload = (event) => {
+  // if (form.file) {
+  //   const file = form.file;
+  //   Papa.parse(file, {
+  //     header: true,
+  //     complete: (results) => {
+  //       if (results.data && results.data.length > 0) {
+  //         headers.value = Object.keys(results.data[0]);
+  //         previewData.value = results.data;
+  //         error.value = '';
+  //       } else {
+  //         error.value = 'No data found in the file';
+  //         previewData.value = [];
+  //         headers.value = [];
+  //       }
+  //     },
+  //     error: (err) => {
+  //       error.value = 'Error parsing CSV: ' + err.message
+  //       previewData.value = []
+  //       headers.value = []
+  //     }
+  //   });
+  // }
+// };
+
+// const handleFileUpload = (event) => {
+//   const files = event.files;
+  
+//   if (files && files.length > 0) {
+//     form.value.file = files[0];  
+
+//     Papa.parse(form.value.file, {
+//       header: true,
+//       complete: (results) => {
+//         if (results.data && results.data.length > 0) {
+
+//           const filteredData = results.data.filter(row => 
+//             Object.values(row).some(value => value !== '')
+//           );
+          
+//           if (filteredData.length > 0) {
+//             headers.value = Object.keys(filteredData[0]);
+//             previewData.value = filteredData;
+//             error.value = '';
+//           } else {
+//             error.value = 'No valid data found in the file';
+//             previewData.value = [];
+//             headers.value = [];
+//           }
+//         } else {
+//           error.value = 'No data found in the file';
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       },
+//       error: (err) => {
+//         error.value = 'Error parsing CSV: ' + err.message;
+//         previewData.value = [];
+//         headers.value = [];
+//       }
+//     });
+//   }
+// };
+
+// const handleFileUpload = (event) => {
+//   console.log('Upload event:', event); // Debug log
+  
+//   // Get the file from PrimeVue's event
+//   const file = event.files[0];
+  
+//   if (file) {
+//     form.value.file = file;
+
+//     // Create a new FileReader
+//     const reader = new FileReader();
+    
+//     reader.onload = function(e) {
+//       Papa.parse(e.target.result, {
+//         header: true,
+//         complete: (results) => {
+//           console.log('Parse results:', results); // Debug log
+          
+//           if (results.data && results.data.length > 0) {
+//             // Filter out empty rows
+//             const filteredData = results.data.filter(row => 
+//               Object.values(row).some(value => value !== '')
+//             );
+            
+//             if (filteredData.length > 0) {
+//               headers.value = Object.keys(filteredData[0]);
+//               previewData.value = filteredData;
+//               error.value = '';
+//               console.log('Processed data:', previewData.value); // Debug log
+//             } else {
+//               error.value = 'No valid data found in the file';
+//               previewData.value = [];
+//               headers.value = [];
+//             }
+//           } else {
+//             error.value = 'No data found in the file';
+//             previewData.value = [];
+//             headers.value = [];
+//           }
+//         },
+//         error: (err) => {
+//           error.value = 'Error parsing CSV: ' + err.message;
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       });
+//     };
+
+//     // Read the file as text
+//     reader.readAsText(file);
+//   }
+// };
+
+const onUpload = async (event) => {
   form.file = event.files[0];
 
-  // toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
-  form.post(`/scholarships/${props.scholarship.id}/upload`, {
-    preserveScroll: true,
-  });
+  const response = await form.post(`/scholarships/${props.scholarship.id}/upload`);
+
+  if (response.ok) {
+    headers.value = [];
+    previewData.value = [];
+    error.value = "";
+    document.getElementById('file-upload').value = null; // Clear file input
+    // Optionally, you can also refresh the scholars list here if needed
+    // For example, you can emit an event or call a method to fetch the updated list
+  } else {
+    error.value = "Failed to upload file. Please try again.";
+  }
 }
+
+// toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+  // form.post(`/scholarships/${props.scholarship.id}/upload`, {
+  //   preserveScroll: true,
+  // });
+
+  // if (response.ok) {
+  //         headers.value = [];
+  //         previewData.value = [];
+  //         error.value = "";
+  //         alert("Data inserted successfully!");
+  //       } else {
+  //         const errorResponse = await response.json();
+  //         error.value = errorResponse.message || "Failed to insert data. Please try again.";
+  //       }
 
 const uploadCSV = () => {
   form.post(`/scholarships/${props.scholarship.id}/upload`, {
     preserveScroll: true,
   });
 };
+
+// const preview = () => {
+//   document.getElementById('file-upload').addEventListener('change', function(event) {
+//     const file = event.target.files[0];
+//     if (file) {
+//       Papa.parse(file, {
+//         header: true,
+//         complete: function(results) {
+//           console.log(results.data);
+//         }
+//       });
+//     }
+//   });
+
+//   function renderCSV(data) {
+//     const table = document.getElementById('csvPreview');
+//     table.innerHTML = '';
+
+//     if(data.length > 0) {
+//       const headers = Object.keys(data[0]);
+//       const headerRow = document.createElement('tr');
+//       headers.forEach(header => {
+//         const th = document.createElement('th');
+//         th.textContent = header;
+//         headerRow.appendChild(th);
+//       });
+//       table.appendChild(headerRow);
+
+//       data.forEach(row => {
+//         const tr = document.createElement('tr');
+//         headers.forEach(header => {
+//           const td = document.createElement('td');
+//           td.textContent = row[header];
+//           tr.appendChild(td);
+//         });
+//         table.appendChild(tr);
+//       });
+//     }
+//     else {
+//       table.innerHTML = '<tr><td>No data to display</td></tr>';
+//     }
+//   }
+// };
+
+
+// const handleFileUpload = (event) => {
+//   const file = event.target.files[0];
+//   if (file) {
+//     Papa.parse(file, {
+//       header: true,
+//       complete: (results) => {
+//         if (results.data && results.data.length > 0) {
+//           headers.value = Object.keys(results.data[0]);
+//           previewData.value = results.data;
+//           error.value = '';
+//         } else {
+//           error.value = 'No data found in the file';
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       },
+//     });
+//   }
+// };
+
 </script>
 
 <style>
