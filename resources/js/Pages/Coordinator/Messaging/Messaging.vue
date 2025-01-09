@@ -41,7 +41,7 @@ onMounted(() => {
         .listen('MessageSent', (e) => {
             // When a new message is received, prepend it to the messages array
             // This will ensure it shows up at the top of the chat
-            messages.value.unshift(e.message); // Add the new message at the top
+            messages.value.push(e.message); // Add the new message at the top
         });
 });
 </script>
