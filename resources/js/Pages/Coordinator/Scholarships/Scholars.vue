@@ -49,7 +49,9 @@
       </table>
     </div>
   </div> -->
-    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
+
+
+    <!-- <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
       <div class="font-semibold text-xl mb-4"><span>{{ scholarship.name }} </span> Scholars</div>
       <DataTable v-model:expandedRows="expandedRows" :value="scholars" dataKey="id" tableStyle="min-width: 60rem">
         <template #header>
@@ -64,14 +66,6 @@
                   customUpload @change="handleFileUpload" />
               </div>
             </form>
-            <!-- <form @submit.prevent="uploadCSV" class="flex items-center space-x-4">
-                    <input
-                      type="file"
-                      @change="handleFileUpload"
-                      class="file-input file-input-bordered file-input-primary"
-                    />
-                    <button type="submit" class="btn btn-primary">Upload CSV</button>
-                  </form> -->
           </div>
         </template>
         <Column expander style="width: 5rem" />
@@ -110,14 +104,55 @@
           </div>
         </template>
       </DataTable>
+    </div> -->
+
+    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
+      <div class="flex justify-between items-center mb-4">
+        <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">
+          <span>{{ scholarship.name }}</span> Scholars
+        </h1>
+        <button class="btn" @click="toggleCreate">
+          <span class="material-symbols-rounded">library_add</span>
+          Add Scholars
+        </button>
+      </div>
     </div>
+    <!-- Right side panel with transition -->
+    <Transition name="slide">
+      <div v-show="showPanel" 
+          class="h-full overflow-y-auto bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
+          <div class="p-4 border-b flex justify-between items-center">
+            <h2 class="text-xl font-semibold">Add Scholars</h2>
+            <button 
+              @click="closePanel"
+              class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <span class="material-symbols-rounded">close</span>
+            </button>
+          </div>
+        <form @submit.prevent="uploadCSV">
+          <div class="card">
+            <FileUpload 
+              name="demo[]" 
+              @uploader="onUpload" 
+              :multiple="true" 
+              accept=".csv" 
+              :maxFileSize="1000000"
+              customUpload 
+              @change="handleFileUpload" 
+            />
+          </div>
+        </form>
+      </div>
+    </Transition>
+
   </AuthenticatedLayout>
 </template>
 
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -130,6 +165,16 @@ const components = {
   Button,
   FileUpload,
 };
+
+const showPanel = ref(false)
+
+const toggleCreate = () => {
+  showPanel.value = !showPanel.value
+}
+
+const closePanel = () => {
+  showPanel.value = false
+}
 
 const props = defineProps({
   scholarship: Object,
@@ -168,5 +213,31 @@ const uploadCSV = () => {
   background-color: #003366 !important;
   color: white !important;
   border-radius: 4px;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  transform: translateX(0);
+}
+
+/* Fade transition for backdrop */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
