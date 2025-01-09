@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -17,9 +18,12 @@ class MessageSent
     /**
      * Create a new event instance.
      */
-    public function __construct()
+
+    public $message;
+
+    public function __construct(Message $message)
     {
-        //
+        $this->message = $message->load('user'); // Ensure user info is included
     }
 
     /**
@@ -33,5 +37,10 @@ class MessageSent
             new PrivateChannel('channel-name'),
             new Channel('chat'),
         ];
+    }
+
+    public function broadcastAs()
+    {
+        return 'MessageSent'; // Event name
     }
 }
