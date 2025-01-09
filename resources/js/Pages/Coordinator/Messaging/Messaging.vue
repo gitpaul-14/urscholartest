@@ -2,11 +2,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import Echo from 'laravel-echo';
+
+const props = defineProps({
+    messages: Array,
+});
 
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Chat" />
 
     <AuthenticatedLayout>
         <template #default>
@@ -34,7 +40,7 @@ import { Link } from '@inertiajs/vue3';
                     <div class="flex-1 overflow-y-auto">
                         <div class="flex items-end mb-4">
                         <img src="https://placehold.co/50" alt="Person" class="h-8 w-8 rounded-full" />
-                        <div class="bg-primary text-primary-foreground p-2 rounded-lg ml-2 max-w-xs">Kupal ka ba nga ni?</div>
+                        <div class="bg-primary text-primary-foreground p-2 rounded-lg ml-2 max-w-xs" v-for="message in messages" :key="message.id">{{ message.content }}</div>
                         </div>
                         <div class="flex items-end justify-end mb-4">
                         <div class="bg-primary text-primary-foreground p-2 rounded-lg mr-2 max-w-xs">Hi! I have a question regarding your services.</div>
