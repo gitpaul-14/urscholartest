@@ -171,14 +171,23 @@ const submitForm = async () => {
             </div>
 
             <div v-if="isCreating || isEditing"
-                class="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75">
-                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h2 class="text-2xl font-bold mb-4">{{ isEditing ? 'Edit Scholarship' : 'Create Scholarship' }}</h2>
-
-                    <form @submit.prevent="submitForm" class="space-y-4">
+                class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 transition-opacity-ease-in duration-300 ">
+                <div class="bg-white rounded-lg shadow-xl w-4/12">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            <h2 class="text-2xl font-bold">{{ isEditing ? 'Edit Scholarship' : 'Create Scholarship' }}</h2>
+                        </h3>
+                        <button type="button" @click="closeModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form @submit.prevent="submitForm" class="space-y-4 p-4">
                         <div>
-                            <label for="name" class="label">Scholarship Name</label>
-                            <input v-model="form.name" type="text" id="name" placeholder="Enter Scholarship Name"
+                            <label for="name" class="label">Sponsor</label>
+                            <input v-model="form.name" type="text" id="name" placeholder="Enter Sponsor Name"
                                 class="input input-bordered w-full" />
                         </div>
                         <div>
@@ -192,9 +201,6 @@ const submitForm = async () => {
                         </button>
                     </form>
 
-                    <div class="mt-4 text-center">
-                        <button @click="closeModal" class="btn btn-secondary w-full">Close</button>
-                    </div>
                 </div>
             </div>
 
