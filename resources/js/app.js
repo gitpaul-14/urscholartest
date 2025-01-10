@@ -45,6 +45,7 @@ createInertiaApp({
                     preset: Aura,
                 },
             })
+            .use(initFlowbite)
             .component('FontAwesomeIcon', FontAwesomeIcon)
             .directive('tooltip', Tooltip)
             .mount(el);

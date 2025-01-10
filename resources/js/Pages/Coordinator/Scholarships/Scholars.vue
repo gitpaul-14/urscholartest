@@ -107,28 +107,52 @@
     </div> -->
 
     <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
-      <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">
-          <span>{{ scholarship.name }}</span> Scholars
-        </h1>
-        <button class="btn" @click="toggleCreate">
-          <span class="material-symbols-rounded">library_add</span>
-          Add Scholars
-        </button>
+      <div class="w-full mx-auto p-3 rounded-xl text-white">
+          <div class="breadcrumbs text-sm text-gray-400 mb-5">
+            <ul>
+              <li>
+              <a>
+                  <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
+                  dashboard
+                  </span>
+                  Home
+              </a>
+              </li>
+              <li>
+              <a>
+                  <span>Ongoing Scholarships</span>
+              </a>
+              </li>
+              <li>
+              <a>
+                  <span class="text-blue-400 font-semibold">List of Scholars</span>
+              </a>
+              </li>
+            </ul>
+          </div>
+          <div class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">
+              <span>{{ scholarship.name }}</span> Scholars</h1>
+
+            <button class="btn" @click="toggleCreate" >
+                <span class="material-symbols-rounded">
+                library_add
+                </span>
+                Add Scholars
+            </button>
+        </div>
+        
+      
       </div>
-      <DataTable v-model:expandedRows="expandedRows" :value="scholars" dataKey="id" tableStyle="min-width: 60rem" class="pb-5">
+      <DataTable v-model:expandedRows="expandedRows" dataKey="id" 
+      :value="scholars" tableStyle="min-width: 60rem"
+>
         <template #header>
           <div class="flex justify-between w-full mb-4">
             <div class="flex flex-wrap gap-2">
               <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
               <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
             </div>
-            <!-- <form @submit.prevent="uploadCSV">
-              <div class="card">
-                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
-                  customUpload @change="handleFileUpload" />
-              </div>
-            </form> -->
           </div>
         </template>
         <Column expander style="width: 5rem" />
@@ -141,36 +165,23 @@
             <Column field="last_name" header="Last Name" :sortable="true" />
             <Column field="email" header="Email" :sortable="true" />
             <Column field="course" header="Course" :sortable="true" />
-        <template #expansion="slotProps">
-          <div class="p-4">
-            <h5>Orders for {{ slotProps.data.name }}</h5>
-            <DataTable :value="slotProps.data.orders">
-              <Column field="id" header="Id" sortable></Column>
-              <Column field="customer" header="Customer" sortable></Column>
-              <Column field="date" header="Date" sortable></Column>
-              <Column field="amount" header="Amount" sortable>
-                <template #body="slotProps">
-                  {{ formatCurrency(slotProps.data.amount) }}
-                </template>
-              </Column>
-              <Column field="status" header="Status" sortable>
-                <template #body="slotProps">
-                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
-                </template>
-              </Column>
-              <Column headerStyle="width:4rem">
-                <template #body>
-                  <Button icon="pi pi-search" />
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-        </template>
       </DataTable>
+      <div class="flex flex-col items-center">
+        <!-- Help text -->
+        <span class="text-sm text-gray-700 dark:text-gray-400">
+            Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
+        </span>
+        <!-- Buttons -->
+        <div class="inline-flex mt-2 xs:mt-0">
+            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Prev
+            </button>
+            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Next
+            </button>
+        </div>
+      </div>
     </div>
-
-
-
 
     
     <!-- Right side panel with transition -->
@@ -250,6 +261,31 @@
   </AuthenticatedLayout>
 </template>
 
+<!-- <template #expansion="slotProps">
+          <div class="p-4">
+            <h5>Orders for {{ slotProps.data.name }}</h5>
+            <DataTable :value="slotProps.data.orders">
+              <Column field="id" header="Id" sortable></Column>
+              <Column field="customer" header="Customer" sortable></Column>
+              <Column field="date" header="Date" sortable></Column>
+              <Column field="amount" header="Amount" sortable>
+                <template #body="slotProps">
+                  {{ formatCurrency(slotProps.data.amount) }}
+                </template>
+              </Column>
+              <Column field="status" header="Status" sortable>
+                <template #body="slotProps">
+                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
+                </template>
+              </Column>
+              <Column headerStyle="width:4rem">
+                <template #body>
+                  <Button icon="pi pi-search" />
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </template> -->
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -337,6 +373,21 @@ const handleFileUpload = (event) => {
     reader.readAsText(file);
   }
 };
+
+// const scholars = ref(scholars);
+// const expandedRows = ref([]);
+// const rowperpage = 25;
+// const first = ref(0);
+
+// const paginatedscholars = computed(() => {
+//   const start = first.value;
+//   const end = start + rowperpage;
+//   return scholars.value.slice(start, end);
+// })
+
+// const onPageChange = (event) => {
+//   first.value = event.first;
+// };
 
 // const handleFileUpload = (event) => {
 //   form.file = event.target.files[0];
