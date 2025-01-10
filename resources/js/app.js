@@ -22,6 +22,7 @@ import 'flowbite/dist/flowbite.css';
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primevue/themes/aura';
+// import { format, isToday } from 'date-fns';
 
 const appName = import.meta.env.VITE_APP_NAME || 'URScholar';
 
@@ -41,6 +42,7 @@ createInertiaApp({
                     preset: Aura,
                 },
             })
+            // .use(format, isToday)
             .component('FontAwesomeIcon', FontAwesomeIcon)
             .directive('tooltip', Tooltip)
             .mount(el);
