@@ -22,6 +22,9 @@ import 'flowbite/dist/flowbite.css';
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primevue/themes/aura';
+// import { format, isToday } from 'date-fns';
+
+import Papa from 'papaparse';
 
 import Papa from 'papaparse';
 
@@ -38,12 +41,12 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(Papa)
             .use(PrimeVue, {
                 theme: {
                     preset: Aura,
                 },
             })
-            .use(Papa)
             .component('FontAwesomeIcon', FontAwesomeIcon)
             .directive('tooltip', Tooltip)
             .mount(el);

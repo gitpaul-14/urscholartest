@@ -141,7 +141,7 @@
             </div>
             
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+              <Link :href="route('messaging.index')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
                   <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                   forum
                   </span>
@@ -322,7 +322,7 @@
 
           <!-- Messaging Link -->
           <div class="flex items-center cursor-pointer">
-            <Link :href="route('coordinator.messages')" class="flex items-center space-x-2 text-blue-900 font-quicksand font-semibold">
+            <Link :href="route('messaging.index')" class="flex items-center space-x-2 text-blue-900 font-quicksand font-semibold">
               <span class="material-symbols-rounded text-[24px]" style="color: #0D47A1;" v-tooltip.right="'Messaging'">
                 forum
               </span>
