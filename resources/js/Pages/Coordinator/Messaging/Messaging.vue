@@ -58,7 +58,6 @@ onMounted(() => {
 
     <AuthenticatedLayout>
         <template #default>
-            
         </template>
     </AuthenticatedLayout>
 </template>

@@ -16,6 +16,12 @@ class ScholarshipController extends Controller
         return inertia('Coordinator/Scholarships/Index', ['scholarships' => $scholarships]);
     }
 
+    public function scholarship()
+    {
+        $scholarships = Scholarship::all();
+        return inertia('Coordinator/Scholarships/Scholarships', ['scholarships' => $scholarships]);
+    }
+
 
     public function show(Scholarship $scholarship)
     {

@@ -109,13 +109,13 @@ const submitForm = async () => {
                     </div>
                 
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">URS Partnered Scholarships</h1>
+                    <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">Active Scholarships</h1>
 
                     <button class="btn" @click="toggleCreate" >
                         <span class="material-symbols-rounded">
                         library_add
                         </span>
-                        New Sponsor
+                        New Scholarship
                     </button>
                 </div>
 

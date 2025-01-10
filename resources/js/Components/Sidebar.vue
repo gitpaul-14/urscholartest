@@ -388,8 +388,8 @@ export default {
     const sidebarWidth = ref(0)
 
     const ScholarshipItems = [
-      { label: 'Add Sponsors', route: { name: route('scholarships.index'), active: 'scholarships.index' }, },
-      { label: 'View Scholarships', route: '/scholarships/add' },
+      { label: 'Add Sponsors', route: { name: route('sponsor.index'), active: 'sponsor.index' }, },
+      { label: 'View Scholarships', route: { name: route('scholarships.index'), active: 'scholarships.index' }, },
       // { label: 'View Scholarships', route: route('scholarships.index') },
       { label: 'Archives', route: '/scholarships/add' }
     ]
