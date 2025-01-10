@@ -1,90 +1,4 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { ref, onMounted } from 'vue';
-import { Head, useForm, Link,  } from '@inertiajs/vue3';
-import { Tooltip } from 'primevue';
-
-defineProps({
-    scholarships: Array,
-});
-
-const directives = {
-    Tooltip,
-};
-
-const isCreating = ref(false);
-const isEditing = ref(false);
-const form = ref({
-    id: null,
-    name: null,
-    description: null,
-});
-
-const toggleCreate = () => {
-    isCreating.value = !isCreating.value;
-    if (isCreating.value) {
-        resetForm();
-    }
-};
-
-const closeModal = () => {
-    isCreating.value = false;
-    isEditing.value = false;
-    resetForm();
-};
-
-const resetForm = () => {
-    form.value = { id: null, name: '', description: '' };
-};
-
-const editScholarship = (scholarship) => {
-    isEditing.value = true;
-    isCreating.value = false;
-    form.value = { ...scholarship };
-};
-
-const viewApplicants = (scholarshipId) => {
-    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
-};
-
-
-const submitForm = async () => {
-    try {
-        if (isEditing.value) {
-            await useForm(form.value).put(`/scholarships/${form.value.id}`);
-        } else {
-            await useForm(form.value).post('/scholarships');
-        }
-
-        closeModal();
-    } catch (error) {
-        console.error('Error submitting form:', error);
-    }
-};
-
-// const deleteScholarship = async (scholarship) => {
-//   // Confirm the action first
-//   if (confirm(`Are you sure you want to delete the scholarship "${scholarship.name}"?`)) {
-//     try {
-//       // Use Inertia's delete request to remove the scholarship
-//       await useForm().delete(`/scholarships/${scholarship.id}`);
-//       // On success, remove the item from the UI (without refreshing the page)
-//       const index = scholarships.value.findIndex(item => item.id === scholarship.id);
-//       if (index !== -1) {
-//         scholarships.value.splice(index, 1);
-//       }
-
-//       // Optionally, display a success message (e.g., with a toast)
-//     } catch (error) {
-//       console.error('Error deleting scholarship:', error);
-//       alert('An error occurred while deleting the scholarship.');
-//     }
-//   }
-// };
-</script>
-
 <template>
-
     <Head title="Scholarships" />
 
     <AuthenticatedLayout>
@@ -146,7 +60,7 @@ const submitForm = async () => {
                                     <button @click="editScholarship(scholarship)"
                                         class="btn btn-warning btn-sm">Edit</button> -->
                                     <div class="flex justify-end space-x-4">
-                                        <div class="text-sm text-gray-500">
+                                        <div class="text-sm text-gray-500 cursor-pointer" @click="toggleSetActive">
                                             <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
                                             open_in_browser
                                             </span>
@@ -175,7 +89,7 @@ const submitForm = async () => {
                 <div class="bg-white rounded-lg shadow-xl w-4/12">
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            <h2 class="text-2xl font-bold">{{ isEditing ? 'Edit Scholarship' : 'Create Scholarship' }}</h2>
+                            <h2 class="text-2xl font-bold">{{ isEditing ? 'Edit Sponsor Information' : 'Add New Sponsor' }}</h2>
                         </h3>
                         <button type="button" @click="closeModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -204,10 +118,163 @@ const submitForm = async () => {
                 </div>
             </div>
 
+            <!-- setting a scholarship -->
+            <div v-if="isPublishing"
+                class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 transition-opacity-ease-in duration-300 ">
+                <div class="bg-white rounded-lg shadow-xl w-4/12">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            <h2 class="text-2xl font-bold">Set New Scholarship</h2>
+                        </h3>
+                        <button type="button" @click="closeModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form @submit.prevent="submitForm" class="space-y-4 p-4">
+                        <div class="flex items-center justify-center w-full">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-30 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" class="hidden" @change="previewFile" />
+                            </label>
+                        </div>
+                        <div v-if="form.fileName" class="mt-4 text-center">
+                            <p class="text-sm text-gray-500">Selected file: {{ form.fileName }}</p>
+                        </div>
+                        <div>
+                            <label for="name" class="label">Sponsor</label>
+                            <input v-model="form.name" type="text" id="name" placeholder="Enter Sponsor Name"
+                                class="input input-bordered w-full" />
+                        </div>
+                        <div>
+                            <label for="description" class="label">Description</label>
+                            <textarea v-model="form.description" id="description" placeholder="Enter Description"
+                                class="textarea textarea-bordered w-full"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full">
+                            {{ isEditing ? 'Update Scholarship' : 'Create Scholarship' }}
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
 
     </AuthenticatedLayout>
 </template>
+
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { ref, onMounted } from 'vue';
+import { Head, useForm, Link,  } from '@inertiajs/vue3';
+import { Tooltip } from 'primevue';
+
+defineProps({
+    scholarships: Array,
+});
+
+const directives = {
+    Tooltip,
+};
+
+const isCreating = ref(false);
+const isEditing = ref(false);
+
+const isPublishing = ref(false);
+
+const form = ref({
+    id: null,
+    name: null,
+    description: null,
+});
+
+const toggleCreate = () => {
+    isCreating.value = !isCreating.value;
+    if (isCreating.value) {
+        resetForm();
+    }
+};
+
+const closeModal = () => {
+    isCreating.value = false;
+    isEditing.value = false;
+    isPublishing.value = false;
+    resetForm();
+};
+
+const resetForm = () => {
+    form.value = { id: null, name: '', description: '' };
+};
+
+const editScholarship = (scholarship) => {
+    isEditing.value = true;
+    isCreating.value = false;
+    form.value = { ...scholarship };
+};
+
+const viewApplicants = (scholarshipId) => {
+    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
+};
+
+
+const submitForm = async () => {
+    try {
+        if (isEditing.value) {
+            await useForm(form.value).put(`/scholarships/${form.value.id}`);
+        } else {
+            await useForm(form.value).post('/scholarships');
+        }
+
+        closeModal();
+    } catch (error) {
+        console.error('Error submitting form:', error);
+    }
+};
+
+
+const toggleSetActive = () => {
+    isPublishing.value = !isPublishing.value;
+    if (isPublishing.value) {
+        resetForm();
+    }
+};
+
+const previewFile = (event) => {
+    const file = event.target.files[0];
+    form.value.fileName = file.name;
+}
+
+// const deleteScholarship = async (scholarship) => {
+//   // Confirm the action first
+//   if (confirm(`Are you sure you want to delete the scholarship "${scholarship.name}"?`)) {
+//     try {
+//       // Use Inertia's delete request to remove the scholarship
+//       await useForm().delete(`/scholarships/${scholarship.id}`);
+//       // On success, remove the item from the UI (without refreshing the page)
+//       const index = scholarships.value.findIndex(item => item.id === scholarship.id);
+//       if (index !== -1) {
+//         scholarships.value.splice(index, 1);
+//       }
+
+//       // Optionally, display a success message (e.g., with a toast)
+//     } catch (error) {
+//       console.error('Error deleting scholarship:', error);
+//       alert('An error occurred while deleting the scholarship.');
+//     }
+//   }
+// };
+</script>
+
 
 <style scoped>
 .p-tooltip-text {

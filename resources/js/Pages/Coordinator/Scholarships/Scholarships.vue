@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
-import { Head, useForm, Link,  } from '@inertiajs/vue3';
+import { Head, useForm, Link, } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 
 defineProps({
@@ -120,54 +120,56 @@ const submitForm = async () => {
                 </div>
 
                 <!-- List of Scholarships -->
-                <div v-if="!isCreating && !isEditing">
+                <!-- <div v-if="!isCreating && !isEditing"> -->
                     <div class="container mx-auto py-5">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div v-for="scholarship in scholarships" :key="scholarship.id"
                                 class="card border bg-white hover:shadow-xl hover:border-gray-400">
-                                <div class="card-body p-5 space-y-2">
-                                    <p class="text-xs text-gray-500">Created on: {{ new
-                                        Date(scholarship.created_at).toLocaleDateString() }}</p>
-                                    <p class="text-xs text-gray-500">Sponsoring Since: {{ new
-                                    Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
-                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
-                                    <div class="badge badge-primary text-[12px] badge-outline">DEPED</div>
-                                    <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
-                                        {{ scholarship.description }}
-                                    </p>
-                                    <!-- <div class="card-actions justify-end">
-                                        <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
-                                        View</Link>
-                                    </div>
-                                    <div class="card-actions justify-end">
-                                        <Link :href="`/scholarships/${scholarship.id}/applicants`" class="btn btn-primary btn-sm">
-                                            Applicants</Link>
-                                    </div>
-                                    <button @click="editScholarship(scholarship)"
-                                        class="btn btn-warning btn-sm">Edit</button> -->
-                                    <div class="flex justify-end space-x-4">
-                                        <div class="text-sm text-gray-500">
-                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                            open_in_browser
-                                            </span>
+                                <Link :href="`/scholarships/${scholarship.id}`">
+                                    <div class="card-body p-5 space-y-2">
+                                        <p class="text-xs text-gray-500">Created on: {{ new
+                                            Date(scholarship.created_at).toLocaleDateString() }}</p>
+                                        <p class="text-xs text-gray-500">Sponsoring Since: {{ new
+                                        Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+                                        <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
+                                        <div class="badge badge-primary text-[12px] badge-outline">DEPED</div>
+                                        <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                                            {{ scholarship.description }}
+                                        </p>
+                                        <!-- <div class="card-actions justify-end">
+                                            <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
+                                            View</Link>
                                         </div>
-                                        <div class="text-sm text-gray-500">
-                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                            cancel
-                                            </span>
+                                        <div class="card-actions justify-end">
+                                            <Link :href="`/scholarships/${scholarship.id}/applicants`" class="btn btn-primary btn-sm">
+                                                Applicants</Link>
                                         </div>
-                                        <div class="text-sm text-gray-500 cursor-pointer" 
-                                        @click="editScholarship(scholarship)" type="button">
-                                            <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                            settings
-                                            </span>
+                                        <button @click="editScholarship(scholarship)"
+                                            class="btn btn-warning btn-sm">Edit</button> -->
+                                        <div class="flex justify-end space-x-4">
+                                            <div class="text-sm text-gray-500">
+                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                                open_in_browser
+                                                </span>
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                                cancel
+                                                </span>
+                                            </div>
+                                            <div class="text-sm text-gray-500 cursor-pointer" 
+                                            @click="editScholarship(scholarship)" type="button">
+                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                                settings
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
 
             <div v-if="isCreating || isEditing"
