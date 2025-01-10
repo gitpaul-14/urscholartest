@@ -36,8 +36,12 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
         ->name('coordinator.dashboard');
 
+    //Sponsors
+    Route::get('/sponsors', [ScholarshipController::class, 'index'])->name('sponsor.index');
+
+
     //Scholarships
-    Route::get('/scholarships', [ScholarshipController::class, 'index'])->name('scholarships.index');
+    Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
     Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
 
@@ -46,7 +50,8 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
     Route::post('/scholarships/{scholarship}/upload', [ScholarController::class, 'upload'])->name('scholars.upload');
 
     // Messaging
-    Route::get('/messages', [MessageController::class, 'conversation'])->name('coordinator.messages');
+    Route::get('/messages', [MessageController::class, 'index'])->name('messaging.index');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messaging.store');
 
     //Applicants
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');

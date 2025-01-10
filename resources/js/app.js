@@ -22,6 +22,9 @@ import 'flowbite/dist/flowbite.css';
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primevue/themes/aura';
+// import { format, isToday } from 'date-fns';
+
+import Papa from 'papaparse';
 
 const appName = import.meta.env.VITE_APP_NAME || 'URScholar';
 
@@ -36,6 +39,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(Papa)
             .use(PrimeVue, {
                 theme: {
                     preset: Aura,
