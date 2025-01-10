@@ -26,8 +26,6 @@ import Aura from '@primevue/themes/aura';
 
 import Papa from 'papaparse';
 
-import Papa from 'papaparse';
-
 const appName = import.meta.env.VITE_APP_NAME || 'URScholar';
 
 createInertiaApp({
