@@ -185,7 +185,7 @@ defineProps({
     <div v-if="$page.props.auth.user.usertype == 'student'">
         <div class="w-full h-screen flex flex-col overflow-hidden">
         <!-- Header -->
-        <headerTop class="w-full h-[50px]" />
+        <HeaderNav class="w-full h-[50px]" />
 
             <!-- Content Area -->
             <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
@@ -210,6 +210,8 @@ defineProps({
 // import router from '../../router';
 import headerTop from '../Components/Header.vue'
 import sidebar from '../Components/Sidebar.vue'
+
+import HeaderNav from '../Components/Student/Header.vue'
 import { ref } from 'vue';
 
 const openSidebar = ref(true);
