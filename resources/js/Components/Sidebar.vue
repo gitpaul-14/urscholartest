@@ -176,6 +176,15 @@
               <span v-show="dataOpenSideBar">Archives</span>
             </div>
           </div>
+          <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <Link :href="route('settings.index')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
+                  settings
+                  </span>
+                <span v-show="dataOpenSideBar">Settings</span>
+              </Link>
+            </div>
         </div>
         <!-- <div class="menu-man text-left px-2 justify-self-end whitespace-nowrap">
           <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">

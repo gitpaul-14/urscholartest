@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,6 +56,9 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 
     //Applicants
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');
+
+    //Settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
     // Route::get('/scholarships/{scholarship}', [ScholarController::class, 'index'])->name('scholars.index');
     // Route::get('/coordinator/scholarships/scholars', [ScholarController::class, 'index'])->name('scholars.index');
