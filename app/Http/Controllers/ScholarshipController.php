@@ -23,6 +23,16 @@ class ScholarshipController extends Controller
         return inertia('Coordinator/Scholarships/Scholarships', ['scholarships' => $scholarships]);
     }
 
+    // public function scholarship(Sponsor $sponsors)
+    // {
+    //     $scholarships = $sponsors->scholarships;
+
+    //     return Inertia::render('Coordinator/Scholarships/Scholarships', [
+    //         'sponsors' => $sponsors,
+    //         'scholarships' => $scholarships,
+    //     ]);
+    // }
+
 
     public function create(Sponsor $sponsor)
     {
@@ -31,15 +41,13 @@ class ScholarshipController extends Controller
             'sponsor' => $sponsor,
         ]);
 
-        
-
         // return Inertia::render('Coordinator/Scholarships/CreateScholarships');
     }
 
     public function store(Request $request, Sponsor $sponsor)
     {
         $request->validate([
-            'sponsor_id' => $sponsor->id,
+            'sponsor_id' => 'required|int',
             'name' => 'required|string|max:255',
             'scholarshipType' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',

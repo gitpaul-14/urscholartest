@@ -102,7 +102,7 @@
                                                 Timeline</h3>
                                             <div class="flex flex-row gap-3 w-full">
                                                 <div class="relative w-full">
-                                                    <DatePicker class="w-full" v-model="form.appplication"
+                                                    <DatePicker class="w-full" v-model="form.appplication "
                                                         placeholder="Application Start" />
                                                 </div>
                                                 <div class="relative w-full">
@@ -359,6 +359,7 @@ const directives = {
 
 const form = ref({
     name: null,
+    sponsor_id: props.sponsor.id,
     scholarshipType: null,
     school_year: null,
     semester: null,

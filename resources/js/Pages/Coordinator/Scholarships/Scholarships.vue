@@ -132,6 +132,7 @@ import { Head, useForm, Link, } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 
 defineProps({
+    sponsors: Array,
     scholarships: Array,
 });
 
