@@ -145,8 +145,7 @@
       
       </div>
       <DataTable v-model:expandedRows="expandedRows" dataKey="id" 
-      :value="scholars" tableStyle="min-width: 60rem"
->
+      :value="scholars" tableStyle="min-width: 60rem">
         <template #header>
           <div class="flex justify-between w-full mb-4">
             <div class="flex flex-wrap gap-2">
