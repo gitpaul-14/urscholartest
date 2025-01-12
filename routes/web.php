@@ -44,9 +44,13 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 
 
     //Scholarships
-    Route::get('/scholarship', [ScholarshipController::class, 'create'])->name('scholarships.create');
+    Route::get('/sponsors/{sponsor}', [ScholarshipController::class, 'create'])->name('scholarships.create');
+    Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
+
+
+    
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
-    Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
+    // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
 
     //Scholars

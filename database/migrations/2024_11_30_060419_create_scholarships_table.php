@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('scholarships', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->foreignId('sponsor_id')->constrained()->onDelete('cascade');
             $table->string('school_year');
+            $table->string('scholarshipType');
             $table->string('semester');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
-            $table->date('application_start');
-            $table->date('deadline');
+            $table->date('application_start')->nullable();
+            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }

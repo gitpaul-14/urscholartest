@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sponsor;
+use Inertia\Inertia;
 
 class SponsorController extends Controller
 {
     public function index()
     {
         $sponsors = Sponsor::all();
+        
         return inertia('Coordinator/Scholarships/Index', ['sponsors' => $sponsors]);
+    }
+
+    public function show(Sponsor $sponsor)
+    {
+        $scholarship = $sponsor->scholarship;
+
+        return Inertia::render('Coordinator/Scholarships/CreateScholarships', [
+            'sponsors' => $sponsor,
+            'scholarships' => $scholarship,
+        ]);
     }
 
     public function store(Request $request)

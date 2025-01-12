@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Scholarship;
 use App\Models\Scholar;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,24 +24,31 @@ class ScholarshipController extends Controller
     }
 
 
-    public function create()
+    public function create(Sponsor $sponsor)
     {
 
-        return Inertia::render('Coordinator/Scholarships/CreateScholarships');
+        return Inertia::render('Coordinator/Scholarships/CreateScholarships', [
+            'sponsor' => $sponsor,
+        ]);
+
+        
+
+        // return Inertia::render('Coordinator/Scholarships/CreateScholarships');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Sponsor $sponsor)
     {
         $request->validate([
+            'sponsor_id' => $sponsor->id,
             'name' => 'required|string|max:255',
             'scholarshipType' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',
             'semester' => 'required|string',
-            'application' => 'required|date',
-            'deadline' => 'required|date',
+            // 'application' => 'required|date',
+            // 'deadline' => 'required|date',
         ]);
         
-        dd($request);
+        // dd($request);
         Scholarship::create($request->all());
 
         return redirect()->route('scholarships.index');

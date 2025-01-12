@@ -66,7 +66,7 @@
                                     <button @click="editScholarship(scholarship)"
                                         class="btn btn-warning btn-sm">Edit</button> -->
                                     <div class="flex justify-end space-x-4">
-                                        <Link :href="route('scholarships.create')">
+                                        <Link :href="`/sponsors/${sponsor.id}`">
                                         <div class="text-sm text-gray-500 cursor-pointer">
                                             <span
                                                 class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">

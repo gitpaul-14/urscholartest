@@ -3,7 +3,7 @@
     <Head title="Scholarships" />
     <AuthenticatedLayout>
         <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-auto">
-            <form @submit.prevent="activeateForm">
+            <form @submit.prevent="submitForm">
                 <div class="w-full mx-auto p-3 rounded-xl text-white">
                     <div class="flex flex-row justify-between">
                         <div class="breadcrumbs text-sm text-gray-400 mb-5">
@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                         <div>
-                            <button class="btn bg-blue-500 text-white">
+                            <button type="submit" class="btn bg-blue-500 text-white">
                                 Activate
                             </button>
                         </div>
@@ -40,7 +40,7 @@
                     <!-- partnership content -->
                     <div class="w-full h-[30%] px-10 py-5 bg-[white] shadow-md">
                         <h2 class="text-base font-semibold text-primary font-quicksand">
-                            Fetch mo yung isko name here
+                            {{ sponsor.name }}
                         </h2>
                     </div>
 
@@ -58,14 +58,14 @@
                                                 <div class="w-full flex flex-col">
                                                     <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
                                                         Name</h3>
-                                                    <input v-model="scholarships.name" type="text" id="name"
+                                                    <input v-model="form.name" type="text" id="name"
                                                         placeholder="Enter Scholarship Name"
                                                         class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
                                                 </div>
                                                 <div class="w-full flex flex-col">
                                                     <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
                                                         Type</h3>
-                                                    <select v-model="scholarships.scholarshipType" id="scholarshipType"
+                                                    <select v-model="form.scholarshipType" id="scholarshipType"
                                                         class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
                                                         <option value="" disabled>Select Scholarship Type</option>
                                                         <option value="merit">Merit-based</option>
@@ -83,13 +83,13 @@
                                         <div class="flex flex-row gap-3 w-full mb-3">
                                             <div class="w-full flex flex-col">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">School Year</h3>
-                                                <input v-model="scholarships.school_year" type="text" id="name"
+                                                <input v-model="form.school_year" type="text" id="name"
                                                     placeholder="School Year"
                                                     class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
                                             </div>
                                             <div class="w-full flex flex-col">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Semester</h3>
-                                                <select v-model="scholarships.semester" id="scholarshipType"
+                                                <select v-model="form.semester" id="scholarshipType"
                                                     class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
                                                     <option value="" disabled>Select Semester</option>
                                                     <option value="merit">First Semester</option>
@@ -102,11 +102,11 @@
                                                 Timeline</h3>
                                             <div class="flex flex-row gap-3 w-full">
                                                 <div class="relative w-full">
-                                                    <DatePicker class="w-full" v-model="scholarships.appplication"
+                                                    <DatePicker class="w-full" v-model="form.appplication"
                                                         placeholder="Application Start" />
                                                 </div>
                                                 <div class="relative w-full">
-                                                    <DatePicker class="w-full" v-model="scholarships.deadline"
+                                                    <DatePicker class="w-full" v-model="form.deadline"
                                                         placeholder="Application Deadline" />
                                                 </div>
                                             </div>
@@ -346,8 +346,9 @@ import { set } from 'date-fns';
 import { DatePicker } from 'primevue';
 
 
-defineProps({
-    sponsors: Array,
+const props = defineProps({
+    sponsor: Object,
+    scholarship: Array,
 });
 
 const directives = {
@@ -355,22 +356,8 @@ const directives = {
     DatePicker,
 };
 
-const isCreating = ref(false);
-const isEditing = ref(false);
 
 const form = ref({
-    id: null,
-    name: null,
-    description: null,
-    file: null,
-    fileName: null,
-    filePreview: null,
-    img: null,
-    imgName: null,
-    imgPreview: null,
-});
-
-const scholarships = ref({
     name: null,
     scholarshipType: null,
     school_year: null,
@@ -380,128 +367,18 @@ const scholarships = ref({
 });
 
 
-// watch(isPublishing, (newValue) => {
-//     if (newValue) {
-//         setTimeout(() => {
-//             const datepickerStart = new Flowbite.Datepicker('#datepicker-range-start');
-//             const datepickerEnd = new Flowbite.Datepicker('#datepicker-range-end');
-//         }, 300);
-//     }
-// });
 
-const isFileDragging = ref(false);
-const isImgDragging = ref(false);
-
-const previewFile = (event) => {
-    const file = event.target.files[0];
-    handleFile(file);
-};
-
-const previewImg = (event) => {
-    const img = event.target.files[0];
-    handleImg(img);
-};
-
-const handleFileDragOver = () => {
-    isFileDragging.value = true;
-};
-
-const handleImgDragOver = () => {
-    isImgDragging.value = true;
-};
-
-const handleFileDragLeave = () => {
-    isFileDragging.value = false;
-};
-
-const handleImgDragLeave = () => {
-    isImgDragging.value = false;
-};
-
-const handleFileDrop = (event) => {
-    isFileDragging.value = false;
-    const file = event.dataTransfer.files[0];
-    handleFile(file);
-};
-
-const handleImgDrop = (event) => {
-    isImgDragging.value = false;
-    const img = event.dataTransfer.files[0];
-    handleImg(img);
-};
-
-const handleFile = (file) => {
-    form.value.file = file;
-    if (file) {
-
-        form.value.fileName = file.name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            form.value.filePreview = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-};
-
-const handleImg = (img) => {
-    if (img) {
-        form.value.img = img;
-        form.value.imgName = img.name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            form.value.imgPreview = e.target.result;
-        };
-        reader.readAsDataURL(img);
-    }
-};
-
-const toggleCreate = () => {
-    isCreating.value = !isCreating.value;
-    if (isCreating.value) {
-        resetForm();
-    }
-};
-
-const closeModal = () => {
-    isCreating.value = false;
-    isEditing.value = false;
-    isPublishing.value = false;
-    resetForm();
-};
 
 const resetForm = () => {
     form.value = { id: null, name: '', description: '' };
 };
 
-const editScholarship = (scholarship) => {
-    isEditing.value = true;
-    isCreating.value = false;
-    form.value = { ...scholarship };
-};
-
-const viewApplicants = (scholarshipId) => {
-    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
-};
-
 
 const submitForm = async () => {
     try {
-        if (isEditing.value) {
-            await useForm(form.value).put(`/sponsors/${form.value.id}`);
-        } else {
-            await useForm(form.value).post('/sponsors');
-        }
-
-        closeModal();
-    } catch (error) {
-        console.error('Error submitting form:', error);
-    }
-};
-
-const activeateForm = async () => {
-    try {
-        await useForm(scholarships.value).post(route('scholarships.store'));
-        closeModal();
+        await useForm(form.value).post(`/sponsors/${props.sponsor.id}/create`);
+        // await form.post(`/sponsors/${props.sponsor.id}/create`)
+        // resetForm();
     } catch (error) {
         console.error('Error submitting form:', error);
     }
@@ -516,31 +393,6 @@ const toggleSetActive = () => {
         resetForm();
     }
 };
-
-// const previewFile = (event) => {
-//     const file = event.target.files[0];
-//     form.value.fileName = file.name;
-// }
-
-// const deleteScholarship = async (scholarship) => {
-//   // Confirm the action first
-//   if (confirm(`Are you sure you want to delete the scholarship "${scholarship.name}"?`)) {
-//     try {
-//       // Use Inertia's delete request to remove the scholarship
-//       await useForm().delete(`/scholarships/${scholarship.id}`);
-//       // On success, remove the item from the UI (without refreshing the page)
-//       const index = scholarships.value.findIndex(item => item.id === scholarship.id);
-//       if (index !== -1) {
-//         scholarships.value.splice(index, 1);
-//       }
-
-//       // Optionally, display a success message (e.g., with a toast)
-//     } catch (error) {
-//       console.error('Error deleting scholarship:', error);
-//       alert('An error occurred while deleting the scholarship.');
-//     }
-//   }
-// };
 
 // dynamic requirements
 const newItem = ref('');
