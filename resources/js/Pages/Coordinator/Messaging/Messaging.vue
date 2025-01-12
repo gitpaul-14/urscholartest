@@ -49,6 +49,7 @@ onMounted(() => {
             // This will ensure it shows up at the top of the chat
             messages.value.push(e.message); // Add the new message at the top
         });
+        props();
 });
 </script>
 
