@@ -8,6 +8,7 @@ use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SponsorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +39,8 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
         ->name('coordinator.dashboard');
 
     //Sponsors
-    Route::get('/sponsors', [ScholarshipController::class, 'index'])->name('sponsor.index');
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');
+    Route::post('/sponsors', [SponsorController::class, 'store'])->name('sponsor.store');
 
 
     //Scholarships

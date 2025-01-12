@@ -37,10 +37,14 @@ class ScholarshipController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'scholarshipType' => 'required|string|max:255',
+            'school_year' => 'required|string|max:255',
+            'semester' => 'required|string',
+            'application' => 'required|date',
+            'deadline' => 'required|date',
         ]);
-
-
+        
+        dd($request);
         Scholarship::create($request->all());
 
         return redirect()->route('scholarships.index');

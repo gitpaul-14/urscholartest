@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scholarships', function (Blueprint $table) {
+        Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('moa_file');
             $table->text('description')->nullable();
-            $table->string('school_year');
-            $table->string('semester');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
-            $table->date('application_start');
-            $table->date('deadline');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scholarships');
+        Schema::dropIfExists('sponsors');
     }
 };

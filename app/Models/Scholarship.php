@@ -16,4 +16,9 @@ class Scholarship extends Model
     {
         return $this->hasMany(Applicant::class);
     }
+
+    public function sponsor()
+    {
+        return $this->belongsTo(Sponsor::class);
+    }
 }

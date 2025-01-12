@@ -37,17 +37,17 @@
                 <div v-if="!isCreating && !isEditing">
                     <div class="container mx-auto py-5">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div v-for="scholarship in scholarships" :key="scholarship.id"
+                            <div v-for="sponsor in sponsors" :key="sponsor.id"
                                 class="card border bg-white hover:shadow-xl hover:border-gray-400">
                                 <div class="card-body p-5 space-y-2">
                                     <p class="text-xs text-gray-500">Created on: {{ new
-                                        Date(scholarship.created_at).toLocaleDateString() }}</p>
+                                        Date(sponsor.created_at).toLocaleDateString() }}</p>
                                     <p class="text-xs text-gray-500">Sponsoring Since: {{ new
-                                    Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
-                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
+                                    Date(sponsor.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ sponsor.name }}</h2>
                                     <div class="badge badge-primary text-[12px] badge-outline">DEPED</div>
                                     <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
-                                        {{ scholarship.description }}
+                                        {{ sponsor.description }}
                                     </p>
                                     <!-- <div class="card-actions justify-end">
                                         <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
@@ -221,7 +221,7 @@
 
                 <!-- modal content -->
                 <!-- page 1 -->
-                <form @submit.prevent="submitForm">
+                <form @submit.prevent="activeateForm">
                     <div v-if="currentPage === 1">
                         <div class="w-full bg-blue-900 h-8 flex items-center justify-center">
                             <h2 class="text-base font-semibold text-white font-quicksand">Scholarship Information</h2>
@@ -233,12 +233,12 @@
                                         <div class="flex flex-row gap-3 w-full mb-3">
                                             <div class="w-full flex flex-col">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship Name</h3>
-                                                <input v-model="form.name" type="text" id="name" placeholder="Enter Scholarship Name"
+                                                <input v-model="scholarships.name" type="text" id="name" placeholder="Enter Scholarship Name"
                                                     class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
                                             </div> 
                                             <div class="w-full flex flex-col">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship Type</h3>
-                                                <select v-model="form.scholarshipType" id="scholarshipType" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
+                                                <select v-model="scholarships.scholarshipType" id="scholarshipType" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
                                                     <option value="" disabled>Select Scholarship Type</option>
                                                     <option value="merit">Merit-based</option>
                                                     <option value="need">Need-based</option>
@@ -255,12 +255,12 @@
                                     <div class="flex flex-row gap-3 w-full mb-3">
                                         <div class="w-full flex flex-col">
                                             <h3 class="font-semibold text-gray-900 dark:text-white">School Year</h3>
-                                            <input v-model="form.name" type="text" id="name" placeholder="School Year"
+                                            <input v-model="scholarships.school_year" type="text" id="name" placeholder="School Year"
                                                 class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
                                         </div> 
                                         <div class="w-full flex flex-col">
                                             <h3 class="font-semibold text-gray-900 dark:text-white">Semester</h3>
-                                            <select v-model="form.scholarshipType" id="scholarshipType" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
+                                            <select v-model="scholarships.semester" id="scholarshipType" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
                                                 <option value="" disabled>Select Semester</option>
                                                 <option value="merit">First Semester</option>
                                                 <option value="need">Second Semester</option>
@@ -271,10 +271,10 @@
                                         <h3 class="font-semibold text-gray-900 dark:text-white">Set Application Timeline</h3>
                                         <div class="flex flex-row gap-3 w-full">
                                             <div class="relative w-full">
-                                                <DatePicker class="w-full" v-model="date" placeholder="Application Start"/>
+                                                <DatePicker class="w-full" v-model="scholarships.appplication" placeholder="Application Start"/>
                                             </div>
                                             <div class="relative w-full">
-                                                <DatePicker class="w-full" v-model="date" placeholder="Application Deadline" />
+                                                <DatePicker class="w-full" v-model="scholarships.deadline" placeholder="Application Deadline" />
                                             </div>
                                         </div>
                                         <!-- <div id="date-range-picker" date-rangepicker class="flex items-center w-full">
@@ -326,7 +326,7 @@
                                     </button>
                                 </div>
                                 <div class="w-full">
-                                    <button type="submit" class="btn btn-primary w-full" @click="nextPage">
+                                    <button type="submit" class="btn btn-primary w-full" >
                                         Next
                                     </button>
                                 </div>
@@ -542,7 +542,7 @@ import { DatePicker } from 'primevue';
 
 
 defineProps({
-    scholarships: Array,
+    sponsors: Array,
 });
 
 const directives = {
@@ -563,6 +563,15 @@ const form = ref({
     img: null,
     imgName: null,
     imgPreview: null,
+});
+
+const scholarships = ref({
+    name: null,
+    scholarshipType: null,
+    school_year: null,
+    semester: null,
+    application: null,
+    deadline: null,
 });
 
 
@@ -617,8 +626,9 @@ const handleImgDrop = (event) => {
 };
 
 const handleFile = (file) => {
+    form.value.file = file;
     if (file) {
-        form.value.file = file;
+        
         form.value.fileName = file.name;
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -672,11 +682,20 @@ const viewApplicants = (scholarshipId) => {
 const submitForm = async () => {
     try {
         if (isEditing.value) {
-            await useForm(form.value).put(`/scholarships/${form.value.id}`);
+            await useForm(form.value).put(`/sponsors/${form.value.id}`);
         } else {
-            await useForm(form.value).post('/scholarships');
+            await useForm(form.value).post('/sponsors');
         }
 
+        closeModal();
+    } catch (error) {
+        console.error('Error submitting form:', error);
+    }
+};
+
+const activeateForm = async () => {
+    try {
+        await useForm(scholarships.value).post(route('scholarships.store'));
         closeModal();
     } catch (error) {
         console.error('Error submitting form:', error);
