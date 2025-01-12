@@ -104,15 +104,96 @@
                             <input v-model="form.name" type="text" id="name" placeholder="Enter a Partnership or Sponsor"
                                 class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
                         </div>
+                        <!-- file input -->
+                        <div class="w-full h-full flex flex-col">
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Attach Memorandum of Agreement</h3>
+                            <label
+                            for="dropzone-file"
+                            class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                            :class="{ 'border-blue-500 bg-blue-50': isDragging }"
+                            @dragover.prevent="handleFileDragOver"
+                            @dragleave="handleFileDragLeave"
+                            @drop.prevent="handleFileDrop"
+                            >
+                            <div v-if="!form.file" class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg
+                                class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 20 16"
+                                >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span class="font-semibold">Click to upload</span> or drag and drop
+                                </p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG, DOCX (MAX. 800x400px - 2MB-4MB)</p>
+                            </div>
+                            <div v-else class="flex flex-col items-center justify-center">
+                                <img
+                                :src="form.filePreview"
+                                alt="Uploaded Preview"
+                                class="max-h-24 mb-2 rounded-lg"
+                                />
+                                <p class="text-sm text-gray-500">{{ form.fileName }}</p>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" accept="image/file" @change="previewFile" />
+                            </label>
+                        </div>
                         <div>
-                            <h3 class="font-semibold text-gray-900 dark:text-white">Sponsor</h3>
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Sponsor Background Information</h3>
                             <textarea v-model="form.description" id="description" placeholder="Enter Description"
                                 class="textarea textarea-bordered w-full"></textarea>
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-gray-900 dark:text-white">Upload Photo (Optional)</h3>
-                            <textarea v-model="form.description" id="description" placeholder="Enter Description"
-                                class="textarea textarea-bordered w-full"></textarea>
+                        <!-- photo input -->
+                        <div class="w-full h-full flex flex-col">
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Upload Photo (Optional for Displaying)</h3>
+                            <label
+                            for="dropzone-file"
+                            class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                            :class="{ 'border-blue-500 bg-blue-50': isDragging }"
+                            @dragover.prevent="handleImgDragOver"
+                            @dragleave="handleImgDragLeave"
+                            @drop.prevent="handleImgDrop"
+                            >
+                            <div v-if="!form.img" class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg
+                                class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 20 16"
+                                >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span class="font-semibold">Click to upload</span> or drag and drop
+                                </p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG, DOCX (MAX. 800x400px - 2MB-4MB)</p>
+                            </div>
+                            <div v-else class="flex flex-col items-center justify-center">
+                                <img
+                                :src="form.imgPreview"
+                                alt="Uploaded Preview"
+                                class="max-h-24 mb-2 rounded-lg"
+                                />
+                                <p class="text-sm text-gray-500">{{ form.imgName }}</p>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" accept="image/*" @change="previewImg" />
+                            </label>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-full">
@@ -167,49 +248,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- file input -->
-                                    <div class="w-full h-full flex flex-col">
-                                        <h3 class="font-semibold text-gray-900 dark:text-white">Attach Memorandum of Agreement</h3>
-                                        <label
-                                        for="dropzone-file"
-                                        class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                                        :class="{ 'border-blue-500 bg-blue-50': isDragging }"
-                                        @dragover.prevent="handleDragOver"
-                                        @dragleave="handleDragLeave"
-                                        @drop.prevent="handleDrop"
-                                        >
-                                        <div v-if="!form.file" class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg
-                                            class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 20 16"
-                                            >
-                                            <path
-                                                stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                            />
-                                            </svg>
-                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                            <span class="font-semibold">Click to upload</span> or drag and drop
-                                            </p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG, or GIF (MAX. 800x400px)</p>
-                                        </div>
-                                        <div v-else class="flex flex-col items-center justify-center">
-                                            <img
-                                            :src="form.filePreview"
-                                            alt="Uploaded Preview"
-                                            class="max-h-24 mb-2 rounded-lg"
-                                            />
-                                            <p class="text-sm text-gray-500">{{ form.fileName }}</p>
-                                        </div>
-                                        <input id="dropzone-file" type="file" class="hidden" @change="previewFile" />
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="h-full w-full flex flex-row gap-3">
@@ -230,8 +268,16 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <h3 class="font-semibold text-gray-900 dark:text-white">Set Timeline</h3>
-                                        <div id="date-range-picker" date-rangepicker class="flex items-center w-full">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Set Application Timeline</h3>
+                                        <div class="flex flex-row gap-3 w-full">
+                                            <div class="relative w-full">
+                                                <DatePicker class="w-full" v-model="date" placeholder="Application Start"/>
+                                            </div>
+                                            <div class="relative w-full">
+                                                <DatePicker class="w-full" v-model="date" placeholder="Application Deadline" />
+                                            </div>
+                                        </div>
+                                        <!-- <div id="date-range-picker" date-rangepicker class="flex items-center w-full">
                                             <div class="relative w-full">
                                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -249,7 +295,27 @@
                                                 </div>
                                                 <input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg ps-10 p-2.5 focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
                                             </div>
-                                        </div>
+                                        </div> -->
+
+                                        <!-- <div id="date-range-picker" date-rangepicker class="flex items-center">
+                                            <div class="relative">
+                                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                                    </svg>
+                                                </div>
+                                                <input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+                                            </div>
+                                            <span class="mx-4 text-gray-500">to</span>
+                                            <div class="relative">
+                                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                                    </svg>
+                                                </div>
+                                                <input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+                                            </div>
+                                            </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -282,8 +348,19 @@
                                             <div class="flex items-center justify-between px-3">
                                                 <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">All Campuses</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    pregnant_woman
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
+                                                    </span>
+                                                    <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                            <div class="flex items-center justify-between px-3">
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Angono</label>
+                                                <div class="relative">
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -293,8 +370,8 @@
                                             <div class="flex items-center justify-between px-3">
                                                 <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    surfing
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -302,10 +379,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Binangonan</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -313,10 +390,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cardona</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -324,10 +401,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cainta</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -335,10 +412,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Morong</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -346,10 +423,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pililla</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -357,10 +434,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rodriguez</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -368,10 +445,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tanay</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -379,21 +456,10 @@
                                         </li>
                                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                             <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
+                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Taytay</label>
                                                 <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
-                                                    </span>
-                                                    <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                                            <div class="flex items-center justify-between px-3">
-                                                <label for="vue-checkbox" class="py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Antipolo</label>
-                                                <div class="relative">
-                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                                                    blind
+                                                    <span class="material-symbols-rounded absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none text-gray-400">
+                                                    person
                                                     </span>
                                                     <input type="text" class="w-24 pl-8 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 </div>
@@ -471,6 +537,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
 import { Head, useForm, Link,  } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
+import { set } from 'date-fns';
+import { DatePicker } from 'primevue';
+
 
 defineProps({
     scholarships: Array,
@@ -478,6 +547,7 @@ defineProps({
 
 const directives = {
     Tooltip,
+    DatePicker,
 };
 
 const isCreating = ref(false);
@@ -490,38 +560,83 @@ const form = ref({
     file: null,
     fileName: null,
     filePreview: null,
+    img: null,
+    imgName: null,
+    imgPreview: null,
 });
 
-const isDragging = ref(false);
+
+// watch(isPublishing, (newValue) => {
+//     if (newValue) {
+//         setTimeout(() => {
+//             const datepickerStart = new Flowbite.Datepicker('#datepicker-range-start');
+//             const datepickerEnd = new Flowbite.Datepicker('#datepicker-range-end');
+//         }, 300);
+//     }
+// });
+
+const isFileDragging = ref(false);
+const isImgDragging = ref(false);
 
 const previewFile = (event) => {
       const file = event.target.files[0];
       handleFile(file);
 };
 
-const handleDragOver = () => {
-    isDragging.value = true;
+const previewImg = (event) => {
+      const img = event.target.files[0];
+      handleImg(img);
 };
 
-const handleDragLeave = () => {
-    isDragging.value = false;
+const handleFileDragOver = () => {
+    isFileDragging.value = true;
 };
 
-const handleDrop = (event) => {
-    isDragging.value = false;
+const handleImgDragOver = () => {
+    isImgDragging.value = true;
+};
+
+const handleFileDragLeave = () => {
+    isFileDragging.value = false;
+};
+
+const handleImgDragLeave = () => {
+    isImgDragging.value = false;
+};
+
+const handleFileDrop = (event) => {
+    isFileDragging.value = false;
     const file = event.dataTransfer.files[0];
     handleFile(file);
 };
 
+const handleImgDrop = (event) => {
+    isImgDragging.value = false;
+    const img = event.dataTransfer.files[0];
+    handleImg(img);
+};
+
 const handleFile = (file) => {
     if (file) {
-    form.value.file = file;
-    form.value.fileName = file.name;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        form.value.filePreview = e.target.result;
-    };
-    reader.readAsDataURL(file);
+        form.value.file = file;
+        form.value.fileName = file.name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            form.value.filePreview = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const handleImg = (img) => {
+    if (img) {
+        form.value.img = img;
+        form.value.imgName = img.name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            form.value.imgPreview = e.target.result;
+        };
+        reader.readAsDataURL(img);
     }
 };
 

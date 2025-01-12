@@ -16,11 +16,12 @@ import { fab } from '@fortawesome/free-brands-svg-icons'; // Brand icons
 
 library.add(fas, far, fab);
 
-import { initFlowbite } from 'flowbite'
+import { initFlowbite } from 'flowbite';
 import 'flowbite/dist/flowbite.css';
 
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
+import Datepicker from 'primevue/datepicker';
 import Aura from '@primevue/themes/aura';
 // import { format, isToday } from 'date-fns';
 
@@ -47,7 +48,7 @@ createInertiaApp({
             })
             .use(initFlowbite)
             .component('FontAwesomeIcon', FontAwesomeIcon)
-            .directive('tooltip', Tooltip)
+            .directive('tooltip', Tooltip, 'datepicker', Datepicker)
             .mount(el);
     },
     progress: {
