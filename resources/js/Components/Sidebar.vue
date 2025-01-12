@@ -455,6 +455,7 @@ const clickHamburger = (event) => {
       menuPosition.value = rect.top
       sidebarWidth.value = rect.width // Adjust this value based on the actual width of the sidebar
       isScholarshipMenuOpen.value = !isScholarshipMenuOpen.value
+      isScholarsMenuOpen.value = false
     }
 
     const toggleScholarsMenu = (event) => {
@@ -463,6 +464,7 @@ const clickHamburger = (event) => {
       menuPosition.value = rect.top
       sidebarWidth.value = rect.width // Adjust this value based on the actual width of the sidebar
       isScholarsMenuOpen.value = !isScholarsMenuOpen.value
+      isScholarshipMenuOpen.value = false
     }
 
     // Close menu when clicking outside
