@@ -23,14 +23,10 @@ class ScholarshipController extends Controller
     }
 
 
-    public function show(Scholarship $scholarship)
+    public function create()
     {
-        $scholars = $scholarship->scholars;
 
-        return Inertia::render('Coordinator/Scholarships/Scholars', [
-            'scholarship' => $scholarship,
-            'scholars' => $scholars,
-        ]);
+        return Inertia::render('Coordinator/Scholarships/CreateScholarships');
     }
 
     public function store(Request $request)
