@@ -214,7 +214,7 @@ import sidebar from '../Components/Sidebar.vue'
 import HeaderNav from '../Components/Student/Header.vue'
 import { ref } from 'vue';
 
-const openSidebar = ref(true);
+const openSidebar = ref(false);
 
 function toggleSidebar() {
     openSidebar.value = !openSidebar.value;
