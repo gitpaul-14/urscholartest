@@ -401,7 +401,7 @@ const methods = {
   }
 }
 
-const dataOpenSideBar = ref(false)
+const dataOpenSideBar = ref(true)
 
 const clickHamburger = (event) => {
   dataOpenSideBar.value = !dataOpenSideBar.value
