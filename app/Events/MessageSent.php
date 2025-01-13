@@ -23,7 +23,9 @@ class MessageSent
 
     public function __construct(Message $message)
     {
-        $this->message = $message->load('user'); // Ensure user info is included
+        // $this->message = $message->load('user'); // Ensure user info is included
+        $this->message = $message;
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**
