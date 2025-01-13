@@ -401,13 +401,29 @@ const methods = {
   }
 }
 
-const dataOpenSideBar = ref(true)
+const initialSidebarState = localStorage.getItem('sidebarState') === 'true';
+
+const dataOpenSideBar = ref(initialSidebarState);
 
 const clickHamburger = (event) => {
   dataOpenSideBar.value = !dataOpenSideBar.value
-  console.log(dataOpenSideBar.value)
-  localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+  // localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+  localStorage.setItem('sidebarState', dataOpenSideBar.value);
 }
+
+// const dataOpenSideBar = ref(localStorage.getItem('sidebarState') === 'true' || 'false'); 
+
+// const clickHamburger = (event) => {
+//   dataOpenSideBar.value = !dataOpenSideBar.value
+//   localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+// }
+
+// const dataOpenSideBar = ref(true)
+
+// const clickHamburger = (event) => {
+//   dataOpenSideBar.value = !dataOpenSideBar.value
+//   localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+// }
 
 // const methods = {
 //   toggle(event) {

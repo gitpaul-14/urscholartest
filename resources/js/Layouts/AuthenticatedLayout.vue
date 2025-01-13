@@ -214,11 +214,12 @@ import sidebar from '../Components/Sidebar.vue'
 import HeaderNav from '../Components/Student/Header.vue'
 import { ref } from 'vue';
 
-const openSidebar = ref(false);
+// const openSidebar = ref(localStorage.getItem('sidebarState') === 'true' || 'false'); 
 
-function toggleSidebar() {
-    openSidebar.value = !openSidebar.value;
-}
+// function toggleSidebar() {
+//     openSidebar.value = !openSidebar.value;
+//     localStorage.setItem('sidebarState', JSON.stringify(openSidebar.value)); // Persist the state
+// }
 </script>
 
 <style>
