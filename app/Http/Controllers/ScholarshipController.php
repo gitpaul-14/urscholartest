@@ -17,10 +17,17 @@ class ScholarshipController extends Controller
         return inertia('Coordinator/Scholarships/Index', ['scholarships' => $scholarships]);
     }
 
-    public function scholarship()
+    public function scholarship(Sponsor $sponsors)
     {
+
         $scholarships = Scholarship::all();
-        return inertia('Coordinator/Scholarships/Scholarships', ['scholarships' => $scholarships]);
+        $sponsors = Sponsor::all();
+        // $scholarships = $sponsors->scholarships;
+
+        return inertia('Coordinator/Scholarships/Scholarships', [
+        'sponsors' => $sponsors,
+        'scholarships' => $scholarships,
+        ]);
     }
 
     // public function scholarship(Sponsor $sponsors)
