@@ -26,7 +26,6 @@ const sendMessage = () => {
         preserveScroll: true,
         onSuccess: () => {
             form.reset(); // Clear the input after sending the message
-            console.log('New message!!!!:', form.content);
         },
         onError: (errors) => {
             console.error('Validation errors:', errors);
@@ -41,9 +40,8 @@ onMounted(() => {
         key: import.meta.env.VITE_PUSHER_APP_KEY,
         cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
         forceTLS: true,
-        
     });
-    console.log('Connected!', form.content);
+
     // Listen for the "MessageSent" event on the 'chat' channel
     echo.channel('chat')
         .listen('MessageSent', (e) => {
