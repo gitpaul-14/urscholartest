@@ -277,10 +277,10 @@ const handleImgDrop = (event) => {
 
 const handleFile = (file) => {
     
-    if (file.size > 4 * 1024 * 1024) { // 4MB limit
-    alert("File size exceeds the 4MB limit.");
-    return;
-    }
+    // if (file.size > 4 * 1024 * 1024) { // 4MB limit
+    // alert("File size exceeds the 4MB limit.");
+    // return;
+    // }
     
     if (file) {
         form.value.file = file;
@@ -294,10 +294,10 @@ const handleFile = (file) => {
 };
 
 const handleImg = (img) => {
-    if (file.size > 4 * 1024 * 1024) { // 4MB limit
-    alert("File size exceeds the 4MB limit.");
-    return;
-    }
+    // if (file.size > 4 * 1024 * 1024) { // 4MB limit
+    // alert("File size exceeds the 4MB limit.");
+    // return;
+    // }
 
     if (img) {
         form.value.img = img;

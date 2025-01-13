@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('moa_file');
             $table->text('description')->nullable();
+            $table->string('logo')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });

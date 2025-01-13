@@ -31,15 +31,18 @@ class SponsorController extends Controller
             'name' => 'required|string|max:255',
             'file' => 'required|file',
             'description' => 'required|string',
+            'img' => 'required|file',
         ]);
 
         // dd($request->all());
-        $filePath = $request->file('file')->store('uploads', 'public');
+        $filePath = $request->file('file')->store('sponsor/moa', 'public');
+        $logoPath = $request->file('img')->store('sponsor/logo', 'public');
 
         Sponsor::create([
             'name' => $request->name,
             'moa_file' => $filePath,
             'description' => $request->description,
+            'logo' => $logoPath,
         ]);
 
         return redirect()->route('sponsor.index');
