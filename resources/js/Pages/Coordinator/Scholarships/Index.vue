@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- List of Scholarships -->
-                <div v-if="!isCreating && !isEditing">
+                <div v-if="!Showcase">
                     <div class="container mx-auto py-5">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div v-for="sponsor in sponsors" :key="sponsor.id"
@@ -50,7 +50,7 @@
                                         'long', day: 'numeric' }) }}</p>
                                     <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{
                                         sponsor.name }}</h2>
-                                    <div class="badge badge-primary text-[12px] badge-outline">DEPED</div>
+                                    <!-- <div class="badge badge-primary text-[12px] badge-outline">DEPED</div> -->
                                     <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full"
                                         style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
                                         {{ sponsor.description }}
@@ -212,6 +212,7 @@ const directives = {
 
 const isCreating = ref(false);
 const isEditing = ref(false);
+const Showcase = ref(false);
 
 const form = ref({
     id: null,
