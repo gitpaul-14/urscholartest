@@ -42,6 +42,11 @@
                             <div v-for="sponsor in sponsors" :key="sponsor.id"
                                 class="card border bg-white hover:shadow-xl hover:border-gray-400">
                                 <div class="card-body p-5 space-y-2">
+                                    <!-- logo -->
+                                    <div>
+                                        <img :src="`/storage/app/public/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-16 h-16 rounded-full" />
+                                    </div>
+
                                     <p class="text-xs text-gray-500">Created on: {{ new
                                         Date(sponsor.created_at).toLocaleDateString() }}</p>
                                     <p class="text-xs text-gray-500">Sponsoring Since: {{ new
