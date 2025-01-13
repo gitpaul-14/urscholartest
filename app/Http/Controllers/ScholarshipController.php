@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Scholarship;
 use App\Models\Scholar;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,25 +23,40 @@ class ScholarshipController extends Controller
         return inertia('Coordinator/Scholarships/Scholarships', ['scholarships' => $scholarships]);
     }
 
+    // public function scholarship(Sponsor $sponsors)
+    // {
+    //     $scholarships = $sponsors->scholarships;
 
-    public function show(Scholarship $scholarship)
+    //     return Inertia::render('Coordinator/Scholarships/Scholarships', [
+    //         'sponsors' => $sponsors,
+    //         'scholarships' => $scholarships,
+    //     ]);
+    // }
+
+
+    public function create(Sponsor $sponsor)
     {
-        $scholars = $scholarship->scholars;
 
-        return Inertia::render('Coordinator/Scholarships/Scholars', [
-            'scholarship' => $scholarship,
-            'scholars' => $scholars,
+        return Inertia::render('Coordinator/Scholarships/CreateScholarships', [
+            'sponsor' => $sponsor,
         ]);
+
+        // return Inertia::render('Coordinator/Scholarships/CreateScholarships');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Sponsor $sponsor)
     {
         $request->validate([
+            'sponsor_id' => 'required|int',
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'scholarshipType' => 'required|string|max:255',
+            'school_year' => 'required|string|max:255',
+            'semester' => 'required|string',
+            // 'application' => 'required|date',
+            // 'deadline' => 'required|date',
         ]);
-
-
+        
+        // dd($request);
         Scholarship::create($request->all());
 
         return redirect()->route('scholarships.index');

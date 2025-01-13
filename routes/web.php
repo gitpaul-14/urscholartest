@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SponsorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,12 +39,18 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
         ->name('coordinator.dashboard');
 
     //Sponsors
-    Route::get('/sponsors', [ScholarshipController::class, 'index'])->name('sponsor.index');
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');
+    Route::post('/sponsors', [SponsorController::class, 'store'])->name('sponsor.store');
 
 
     //Scholarships
+    Route::get('/sponsors/{sponsor}', [ScholarshipController::class, 'create'])->name('scholarships.create');
+    Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
+
+
+    
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
-    Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
+    // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
 
     //Scholars
@@ -55,6 +63,9 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 
     //Applicants
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');
+
+    //Settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
     // Route::get('/scholarships/{scholarship}', [ScholarController::class, 'index'])->name('scholars.index');
     // Route::get('/coordinator/scholarships/scholars', [ScholarController::class, 'index'])->name('scholars.index');

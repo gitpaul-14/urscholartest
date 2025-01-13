@@ -1,6 +1,12 @@
 <template>
-    <div class="lg:max-h-screen bg-white flex flex-col border-r" id="side-bar" :class="dataOpenSideBar == true ? 'side-bar-visible' : 'side-bar-close'">
-      
+    <div
+    class="lg:max-h-screen bg-white flex flex-col border-r transition-all duration-300"
+    id="side-bar"
+    :class="{
+      'side-bar-visible': dataOpenSideBar,
+      'side-bar-close': !dataOpenSideBar
+    }"
+  >
       <!-- desktop -->
       <div class="hidden lg:flex flex-col justify-between h-full bg-white">
         <div :class="['menu-man text-left whitespace-nowrap', dataOpenSideBar ? 'px-1' : 'px-1']">
@@ -21,14 +27,16 @@
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.25 12a.75.75 0 01-.22.53l-2 2a.75.75 0 01-1.06-1.06L8.44 12l-1.47-1.47a.75.75 0 111.06-1.06l2 2c.141.14.22.331.22.53z"></path>
             </svg>
             </div>
-          <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <Link :href="(route('coordinator.dashboard'))" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
-                dashboard
-                </span>
-              <span v-show="dataOpenSideBar">Dashboard</span>
-              </Link>
-          </div>
+            <Link :href="(route('coordinator.dashboard'))">
+              <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+                <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+                    <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
+                    dashboard
+                    </span>
+                  <span v-show="dataOpenSideBar">Dashboard</span>
+                </div>
+              </div>
+            </Link>
 
           <!-- cascading scholarship menu -->
           <div class="relative py-3 hover:bg-gray-100 hover:rounded-md">
@@ -140,14 +148,16 @@
               </router-link>
             </div>
             
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <Link :href="route('messaging.index')" class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
-                  forum
-                  </span>
-                <span v-show="dataOpenSideBar">Messaging</span>
-              </Link>
-            </div>
+            <Link :href="route('messaging.index')">
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+                <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+                    <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                    forum
+                    </span>
+                  <span v-show="dataOpenSideBar">Messaging</span>
+                  </div>
+              </div>
+            </Link>
           
             <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
               <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
@@ -176,6 +186,17 @@
               <span v-show="dataOpenSideBar">Archives</span>
             </div>
           </div>
+          <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
+          <Link :href="route('settings.index')">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
+                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
+                  settings
+                  </span>
+                <span v-show="dataOpenSideBar">Settings</span>
+              </div>
+            </div>
+          </Link>
         </div>
         <!-- <div class="menu-man text-left px-2 justify-self-end whitespace-nowrap">
           <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
@@ -359,29 +380,75 @@
       </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { Tooltip } from 'primevue';
 import { Link } from '@inertiajs/vue3';
+import { data } from 'autoprefixer';
 
-export default {
-  components: {
-    Link,
-  },
-  props: {
-    dataOpenSideBar: Boolean,
-    clickHamburger: Function
-  },
-  directives: {
-    tooltip: Tooltip
-  },
-  methods: {
-    toggle(event) {
-      this.$refs.menu.toggle(event);
-    },
-  },
-  // for cascading menu
-  setup() {
+const components = {
+  Link,
+  Tooltip
+}
+
+const props = defineProps({
+  clickHamburger: Function
+})
+
+const methods = {
+  toggle(event) {
+    this.$refs.menu.toggle(event);
+  }
+}
+
+const initialSidebarState = localStorage.getItem('sidebarState') === 'true';
+
+const dataOpenSideBar = ref(initialSidebarState);
+
+const clickHamburger = (event) => {
+  dataOpenSideBar.value = !dataOpenSideBar.value
+  // localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+  localStorage.setItem('sidebarState', dataOpenSideBar.value);
+}
+
+// const dataOpenSideBar = ref(localStorage.getItem('sidebarState') === 'true' || 'false'); 
+
+// const clickHamburger = (event) => {
+//   dataOpenSideBar.value = !dataOpenSideBar.value
+//   localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+// }
+
+// const dataOpenSideBar = ref(true)
+
+// const clickHamburger = (event) => {
+//   dataOpenSideBar.value = !dataOpenSideBar.value
+//   localStorage.setItem('sidebarState', JSON.stringify(dataOpenSideBar.value)); // Persist the state
+// }
+
+// const methods = {
+//   toggle(event) {
+//     this.$refs.menu.toggle(event);
+//   },
+// }
+
+// export default {
+//   components: {
+//     Link,
+//   },
+//   props: {
+//     dataOpenSideBar: Boolean,
+//     clickHamburger: Function
+//   },
+//   directives: {
+//     tooltip: Tooltip
+//   },
+//   methods: {
+//     toggle(event) {
+//       this.$refs.menu.toggle(event);
+//     },
+//   },
+//   // for cascading menu
+//   setup() {
     const isScholarshipMenuOpen = ref(false)
     const isScholarsMenuOpen = ref(false)
     const menuPosition = ref(0)
@@ -390,7 +457,6 @@ export default {
     const ScholarshipItems = [
       { label: 'Add Sponsors', route: { name: route('sponsor.index'), active: 'sponsor.index' }, },
       { label: 'View Scholarships', route: { name: route('scholarships.index'), active: 'scholarships.index' }, },
-      // { label: 'View Scholarships', route: route('scholarships.index') },
       { label: 'Archives', route: '/scholarships/add' }
     ]
 
@@ -405,6 +471,7 @@ export default {
       menuPosition.value = rect.top
       sidebarWidth.value = rect.width // Adjust this value based on the actual width of the sidebar
       isScholarshipMenuOpen.value = !isScholarshipMenuOpen.value
+      isScholarsMenuOpen.value = false
     }
 
     const toggleScholarsMenu = (event) => {
@@ -413,10 +480,16 @@ export default {
       menuPosition.value = rect.top
       sidebarWidth.value = rect.width // Adjust this value based on the actual width of the sidebar
       isScholarsMenuOpen.value = !isScholarsMenuOpen.value
+      isScholarshipMenuOpen.value = false
     }
 
     // Close menu when clicking outside
     onMounted(() => {
+      const savedState = localStorage.getItem('sidebarState');
+      if (savedState !== null) {
+        dataOpenSideBar.value = JSON.parse(savedState); // Parse the saved state
+      }
+
       document.addEventListener('click', (event) => {
       const target = event.target
       if (!target.closest('.relative')) {
@@ -426,18 +499,18 @@ export default {
       })
     })
 
-    return {
-      isScholarshipMenuOpen,
-      isScholarsMenuOpen,
-      menuPosition,
-      ScholarshipItems,
-      toggleScholarshipMenu,
-      sidebarWidth,
-      toggleScholarsMenu,
-      ScholarItems
-    }
-  }
-}
+    // return {
+    //   isScholarshipMenuOpen,
+    //   isScholarsMenuOpen,
+    //   menuPosition,
+    //   ScholarshipItems,
+    //   toggleScholarshipMenu,
+    //   sidebarWidth,
+    //   toggleScholarsMenu,
+    //   ScholarItems
+    // }
+  // }
+// }
 </script>
 
 <style>

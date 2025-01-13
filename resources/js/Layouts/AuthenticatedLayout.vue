@@ -166,22 +166,43 @@ defineProps({
         <!-- Header -->
         <headerTop class="w-full h-[50px]" />
 
-        <!-- Content Area -->
-        <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
-            <!-- Sidebar -->
-            <sidebar 
-            :dataOpenSideBar="openSidebar" 
-            :clickHamburger="toggleSidebar" 
-            class="lg:w-[250px] w-full lg:h-full h-auto bg-white"
-            />
+            <!-- Content Area -->
+            <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
+                <!-- Sidebar -->
+                <sidebar 
+                :dataOpenSideBar="openSidebar" 
+                :clickHamburger="toggleSidebar" 
+                class="lg:w-[250px] w-full lg:h-full h-auto bg-white"
+                />
 
-            <!-- Main Content -->
-            <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
-            <slot></slot>
+                <!-- Main Content -->
+                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
+                <slot></slot>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div v-if="$page.props.auth.user.usertype == 'student'">
+        <div class="w-full h-screen flex flex-col overflow-hidden">
+        <!-- Header -->
+        <HeaderNav class="w-full h-[50px]" />
+
+            <!-- Content Area -->
+            <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
+                <!-- Sidebar -->
+                <!-- <sidebar 
+                :dataOpenSideBar="openSidebar" 
+                :clickHamburger="toggleSidebar" 
+                class="lg:w-[250px] w-full lg:h-full h-auto bg-white"
+                /> -->
+
+                <!-- Main Content -->
+                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
+                <slot></slot>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 
@@ -189,13 +210,16 @@ defineProps({
 // import router from '../../router';
 import headerTop from '../Components/Header.vue'
 import sidebar from '../Components/Sidebar.vue'
+
+import HeaderNav from '../Components/Student/Header.vue'
 import { ref } from 'vue';
 
-const openSidebar = ref(true);
+// const openSidebar = ref(localStorage.getItem('sidebarState') === 'true' || 'false'); 
 
-function toggleSidebar() {
-    openSidebar.value = !openSidebar.value;
-}
+// function toggleSidebar() {
+//     openSidebar.value = !openSidebar.value;
+//     localStorage.setItem('sidebarState', JSON.stringify(openSidebar.value)); // Persist the state
+// }
 </script>
 
 <style>
