@@ -365,6 +365,7 @@ const form = ref({
     semester: null,
     application: null,
     deadline: null,
+    requirements: {},
 });
 
 
@@ -402,8 +403,22 @@ const items = ref([]);
 const addItem = () => {
     if (newItem.value.trim() !== '') {
         items.value.push(newItem.value.trim());
+        form.value.requirements = items.value;
         newItem.value = '';
+
+        
     }
+};
+
+
+const addRequirement = () => {
+  if (newRequirement.value.name.trim()) {
+    form.requirements[newRequirement.value.name.trim()] = {
+      type: newRequirement.value.type,
+      required: true
+    };
+    newRequirement.value.name = '';
+  }
 };
 
 const removeItem = (index) => {
