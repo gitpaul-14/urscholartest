@@ -30,29 +30,28 @@
             
             <Link :href="(route('coordinator.dashboard'))" >
               <div :class="[
-                  'py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md',
-                  { 'active bg-blue-900': $page.url === '/coordinator/dashboard' }
-                ]">
-                <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded" :class="['text-blue-900', { 'active text-white': $page.url === '/coordinator/dashboard' }]"
-                    v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
-                    dashboard
-                    </span>
-                  <span v-show="dataOpenSideBar">Dashboard</span>
-                </div>
+                'py-3 cursor-pointer hover:bg-blue-700 hover:text-white',
+                { 'active bg-blue-900': $page.url === '/coordinator/dashboard' }
+              ]">
+              <div :class="['flex items-center space-x-2 text-blue-900 hover:text-white font-quicksand font-semibold pl-2 text-[16px]', { 'active text-white': $page.url === '/coordinator/dashboard' }]">
+                <span :class="['material-symbols-rounded', { 'active text-white': $page.url === '/coordinator/dashboard' }]" :style="['text-blue-900 hover:text-white', { 'active text-white hover:text-white': $page.url === '/coordinator/dashboard' }]"
+                v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
+                dashboard
+                </span>
+                <span v-show="dataOpenSideBar">Dashboard</span>
+              </div>
               </div>
             </Link>
 
           <!-- cascading scholarship menu -->
-          <div class="relative py-3 hover:bg-gray-100 hover:rounded-md">
+          <div :class="['relative py-3 hover:bg-gray-100 hover:rounded-md', { 'active bg-blue-900': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
             <!-- Main menu item -->
-            <div 
-              class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0"
-              @click="toggleScholarshipMenu"
+            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholarships'"></span> 
-                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
+                <span class="material-symbols-rounded" :class="['text-blue-900', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+                v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
               <span v-show="dataOpenSideBar">Scholarship</span>

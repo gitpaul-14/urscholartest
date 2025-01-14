@@ -9,47 +9,30 @@
             <Link :href="(route('coordinator.dashboard'))">
             <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                <span>Dashboard</span>
+                <span>University Calendar</span>
                 </div>
             </div>
             </Link>
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
             <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <span>Feed</span>
+                <span>Mission and Vision</span>
             </router-link>
             </div>
             
             <Link :href="route('messaging.index')">
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                <span>Messaging</span>
+                <span>Archives</span>
                 </div>
             </div>
             </Link>
         
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <span>Payouts</span>
+                <span>University</span>
                 </router-link>
             </div>
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <router-link to="/activation" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <span>Reports</span>
-            </router-link>
-            </div>
-        <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <div class="flex space-x-2 font-quicksand font-semibold pl-2">
-            <span>Archives</span>
-            </div>
-        </div>
-        <Link :href="route('settings.index')">
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-            <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                <span>Settings</span>
-            </div>
-            </div>
-        </Link>
         </div>
         <!-- <div class="menu-man text-left px-2 justify-self-end whitespace-nowrap">
         <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">

@@ -9,6 +9,8 @@ class SettingsController extends Controller
     public function index()
     {
         // $settings = Settings::all();
-        return inertia('Coordinator/Settings/Settings');
+        return inertia('Coordinator/Settings/Univ_Calendar');
     }
+
+
 }
