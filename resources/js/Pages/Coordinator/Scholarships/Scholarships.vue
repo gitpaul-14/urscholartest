@@ -32,59 +32,29 @@
                     </button>
                 </div>
 
-                <!-- List of Scholarships -->
-
-                    <div class="container mx-auto py-5">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div v-for="scholarship in scholarships" :key="scholarship.id"
-                                class="card border bg-white hover:shadow-xl hover:border-gray-400">
-                                <Link :href="`/scholarships/${scholarship.id}`">
-                                    <div class="card-body p-5 space-y-2">
-                                        <div class="badge badge-yellow text-[14px] font-sora bg-yellow-200">Ongoing</div>
-                                        <p class="text-xs text-gray-500">Created on: {{ new
-                                            Date(scholarship.created_at).toLocaleDateString() }}</p>
-                                        <p class="text-xs text-gray-500">Sponsoring Since: {{ new
-                                        Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
-                                        <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
-                                        <!-- badge -->
-                                        <div class="badge badge-primary text-[12px] badge-outline">{{ scholarship.type }}</div>
-                                        <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
-                                            {{ scholarship.description }}
-                                        </p>
-                                        <!-- <div class="card-actions justify-end">
-                                            <Link :href="`/scholarships/${scholarship.id}`" class="btn btn-primary btn-sm">
-                                            View</Link>
-                                        </div>
-                                        <div class="card-actions justify-end">
-                                            <Link :href="`/scholarships/${scholarship.id}/applicants`" class="btn btn-primary btn-sm">
-                                                Applicants</Link>
-                                        </div>
-                                        <button @click="editScholarship(scholarship)"
-                                            class="btn btn-warning btn-sm">Edit</button> -->
-                                        <!-- <div class="flex justify-end space-x-4">
-                                            <div class="text-sm text-gray-500">
-                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                                open_in_browser
-                                                </span>
-                                            </div>
-                                            <div class="text-sm text-gray-500">
-                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                                cancel
-                                                </span>
-                                            </div>
-                                            <div class="text-sm text-gray-500 cursor-pointer" 
-                                            @click="editScholarship(scholarship)" type="button">
-                                                <span class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
-                                                settings
-                                                </span>
-                                            </div>
-                                        </div> -->
+                <div class="container mx-auto py-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div v-for="scholarship in scholarships" :key="scholarship.id"
+                            class="card border bg-white hover:shadow-xl hover:border-gray-400">
+                            <Link :href="`/scholarships/${scholarship.id}`">
+                                <div class="card-body p-5 space-y-2">
+                                    <div class="badge badge-yellow text-[14px] font-sora bg-yellow-200">Ongoing</div>
+                                    <p class="text-xs text-gray-500">Created on: {{ new
+                                        Date(scholarship.created_at).toLocaleDateString() }}</p>
+                                    <p class="text-xs text-gray-500">Sponsoring Since: {{ new
+                                    Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
+                                    <div class="badge badge-primary text-[12px] badge-outline">
+                                        {{ getSponsorName(scholarship.sponsor_id) }}
                                     </div>
-                                </Link>
-                            </div>
+                                    <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                                        {{ scholarship.description }}
+                                    </p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
-                <!-- </div> -->
+                </div>
             </div>
 
             <div v-if="isCreating || isEditing"
@@ -103,8 +73,17 @@
                     
                     <form @submit.prevent="submitForm" class="space-y-4 p-4">
                         <div>
-                            <label for="name" class="label">Sponsor</label>
-                            <input v-model="form.name" type="text" id="name" placeholder="Enter Sponsor Name"
+                            <label for="sponsor" class="label">Sponsor</label>
+                            <select v-model="form.sponsor_id" id="sponsor" class="select select-bordered w-full">
+                                <option value="" disabled>Select a Sponsor</option>
+                                <option v-for="sponsor in sponsors" :key="sponsor.id" :value="sponsor.id">
+                                    {{ sponsor.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="name" class="label">Scholarship Name</label>
+                            <input v-model="form.name" type="text" id="name" placeholder="Enter Scholarship Name"
                                 class="input input-bordered w-full" />
                         </div>
                         <div>
@@ -117,24 +96,27 @@
                             {{ isEditing ? 'Update Scholarship' : 'Create Scholarship' }}
                         </button>
                     </form>
-
                 </div>
             </div>
-
         </div>
-
     </AuthenticatedLayout>
 </template>
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { ref, onMounted } from 'vue';
-import { Head, useForm, Link, } from '@inertiajs/vue3';
+import { ref, onMounted, computed } from 'vue';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 
-defineProps({
-    sponsors: Array,
-    scholarships: Array,
+const props = defineProps({
+    sponsors: {
+        type: Array,
+        required: true
+    },
+    scholarships: {
+        type: Array,
+        required: true
+    }
 });
 
 const directives = {
@@ -145,9 +127,15 @@ const isCreating = ref(false);
 const isEditing = ref(false);
 const form = ref({
     id: null,
-    name: null,
-    description: null,
+    name: '',
+    description: '',
+    sponsor_id: ''
 });
+
+const getSponsorName = (sponsorId) => {
+    const sponsor = props.sponsors.find(s => s.id === sponsorId);
+    return sponsor ? sponsor.name : 'Unknown Sponsor';
+};
 
 const toggleCreate = () => {
     isCreating.value = !isCreating.value;
@@ -163,19 +151,13 @@ const closeModal = () => {
 };
 
 const resetForm = () => {
-    form.value = { id: null, name: '', description: '' };
+    form.value = { 
+        id: null, 
+        name: '', 
+        description: '', 
+        sponsor_id: '' 
+    };
 };
-
-const editScholarship = (scholarship) => {
-    isEditing.value = true;
-    isCreating.value = false;
-    form.value = { ...scholarship };
-};
-
-const viewApplicants = (scholarshipId) => {
-    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
-};
-
 
 const submitForm = async () => {
     try {
@@ -184,32 +166,11 @@ const submitForm = async () => {
         } else {
             await useForm(form.value).post('/scholarships');
         }
-
         closeModal();
     } catch (error) {
         console.error('Error submitting form:', error);
     }
 };
-
-// const deleteScholarship = async (scholarship) => {
-//   // Confirm the action first
-//   if (confirm(`Are you sure you want to delete the scholarship "${scholarship.name}"?`)) {
-//     try {
-//       // Use Inertia's delete request to remove the scholarship
-//       await useForm().delete(`/scholarships/${scholarship.id}`);
-//       // On success, remove the item from the UI (without refreshing the page)
-//       const index = scholarships.value.findIndex(item => item.id === scholarship.id);
-//       if (index !== -1) {
-//         scholarships.value.splice(index, 1);
-//       }
-
-//       // Optionally, display a success message (e.g., with a toast)
-//     } catch (error) {
-//       console.error('Error deleting scholarship:', error);
-//       alert('An error occurred while deleting the scholarship.');
-//     }
-//   }
-// };
 </script>
 
 <style scoped>
