@@ -44,7 +44,7 @@
                                 <div class="card-body p-5 space-y-2">
                                     <!-- logo -->
                                     <div>
-                                        <img :src="`/storage/app/public/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-16 h-16 rounded-full" />
+                                        <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-16 h-16 rounded-full" />
                                     </div>
 
                                     <p class="text-xs text-gray-500">Created on: {{ new
@@ -299,15 +299,20 @@ const handleFile = (file) => {
     }
 };
 
-const handleImg = (img) => {
-    // if (file.size > 4 * 1024 * 1024) { // 4MB limit
+// if (file.size > 4 * 1024 * 1024) { // 4MB limit
     // alert("File size exceeds the 4MB limit.");
     // return;
     // }
-
+const handleImg = (img) => {
     if (img) {
+        // Generate a unique filename using timestamp
+        const timestamp = new Date().getTime();
+        const uniqueFileName = `${timestamp}_${img.name}`;
+        
         form.value.img = img;
-        form.value.imgName = img.name;
+        form.value.imgName = uniqueFileName; // Store the generated unique filename
+        
+        // Create preview
         const reader = new FileReader();
         reader.onload = (e) => {
             form.value.imgPreview = e.target.result;

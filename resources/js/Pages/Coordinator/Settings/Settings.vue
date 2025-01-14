@@ -2,16 +2,15 @@
     <Head title="Scholarships" />
     <AuthenticatedLayout>
         <template #default>
-            <!-- <div class="grid grid-rows-3 grid-flow-col bg-[#F8F8FA] px-40 h-full">
-                <div class="bg-white h-full row-span-1 bg-card border overflow-visible">
-                    <h3 class="text-xl text-primary mb-1 px-4 pt-4 pb-0 font-poppins font-extrabold ">Messages</h3>
+            <!-- Content Area -->
+            <div class="flex flex-col lg:flex-row w-full h-[calc(100vh-50px)]">
+                <!-- Sidebar -->
+                <SettingsNav />
+
+                <!-- Main Content -->
+                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
+                <slot></slot>
                 </div>
-                <div class="bg-white h-full row-span-4 space-y-3 bg-card border">
-                    
-                </div>
-            </div> -->
-            <div>
-                
             </div>
         </template>
 
@@ -23,6 +22,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
 import { Head, useForm, Link, } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
+import SettingsNav from '../../../Components/Settings/SettingsSubMenu.vue';
 
 defineProps({
     scholarships: Array,
