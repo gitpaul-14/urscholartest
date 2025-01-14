@@ -1,7 +1,7 @@
 <template>
   <AuthenticatedLayout>
-    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-auto">
-      <div class="w-full mx-auto p-3 rounded-xl text-white">
+    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-x-auto">
+      <div class="w-full mx-auto p-3 rounded-xl text-white overflow-x-auto">
           <div class="breadcrumbs text-sm text-gray-400 mb-5">
             <ul>
               <li>
@@ -40,25 +40,38 @@
       </div>
       <DataTable v-model:expandedRows="expandedRows" dataKey="id" 
       :value="scholars" tableStyle="min-width: 60rem">
-        <template #header>
+        <!-- <template #header>
           <div class="flex justify-between w-full mb-4">
             <div class="flex flex-wrap gap-2">
               <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
               <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
             </div>
           </div>
-        </template>
+        </template> -->
         <Column expander style="width: 5rem" />
-        <Column field="id" header="#" :sortable="true">
-              <template #body="slotProps">
-                {{ slotProps.rowIndex + 1 }}
-              </template>
-            </Column>
+            <Column field="id" header="Scholar ID" :sortable="true" />
             <Column field="first_name" header="First Name" :sortable="true" />
             <Column field="last_name" header="Last Name" :sortable="true" />
             <Column field="email" header="Email" :sortable="true" />
             <Column field="course" header="Course" :sortable="true" />
+            <template #expansion="slotProps">
+                <div class="p-2">
+                    <!-- <h5>Requirements {{ slotProps.data.name }}</h5> -->
+                    <DataTable :value="slotProps.data.orders">
+                        <Column field="id" header="Requirements" sortable></Column>
+                        <Column headerStyle="width:4rem">
+                            <template #body>
+                              <span class="material-symbols-rounded text-black">
+                              open_in_full
+                              </span>
+                            </template>
+                        </Column>
+                    </DataTable>
+                </div>
+            </template>
       </DataTable>
+
+
       <div class="flex flex-col items-center">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
@@ -80,7 +93,7 @@
     <!-- Right side panel with transition -->
     <Transition name="slide">
       <div v-show="showPanel" 
-          class="h-full overflow-y-auto bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
+          class="h-full overflow-y-auto z-50 bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
           <div class="p-4 border-b flex justify-between items-center">
             <h2 class="text-xl font-semibold">Add Scholars</h2>
             <button 
