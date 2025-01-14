@@ -27,10 +27,15 @@
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.25 12a.75.75 0 01-.22.53l-2 2a.75.75 0 01-1.06-1.06L8.44 12l-1.47-1.47a.75.75 0 111.06-1.06l2 2c.141.14.22.331.22.53z"></path>
             </svg>
             </div>
-            <Link :href="(route('coordinator.dashboard'))">
-              <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            
+            <Link :href="(route('coordinator.dashboard'))" >
+              <div :class="[
+                  'py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md',
+                  { 'active bg-blue-900': $page.url === '/coordinator/dashboard' }
+                ]">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
+                    <span class="material-symbols-rounded" :class="['text-blue-900', { 'active text-white': $page.url === '/coordinator/dashboard' }]"
+                    v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                     dashboard
                     </span>
                   <span v-show="dataOpenSideBar">Dashboard</span>
@@ -540,6 +545,17 @@ const clickHamburger = (event) => {
   width: 22px;
   height: 22px;
 }
+
+/* .active {
+  background-color: #f3f4f6;
+  font-weight: bold; 
+  color: #2563eb; 
+  border-left: 4px solid #2563eb; 
+  padding-left: 12px; 
+} */
+ /* .active {
+  background-color: cornflowerblue;
+ } */
 </style>
   
   

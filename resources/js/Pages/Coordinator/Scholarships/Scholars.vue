@@ -106,7 +106,7 @@
       </DataTable>
     </div> -->
 
-    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
+    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-auto">
       <div class="w-full mx-auto p-3 rounded-xl text-white">
           <div class="breadcrumbs text-sm text-gray-400 mb-5">
             <ul>

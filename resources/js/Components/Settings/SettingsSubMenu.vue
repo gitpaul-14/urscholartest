@@ -4,14 +4,11 @@
     id="side-bar">
     <!-- desktop -->
     <div class="hidden lg:flex flex-col justify-between h-full bg-white">
-        <div class="menu-man text-left whitespace-nowrap">
+        <div class="menu-man text-left whitespace-nowrap mt-5 p-2">
 
             <Link :href="(route('coordinator.dashboard'))">
             <div class="py-3 rounded-sm cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded" style="color: #0D47A1;">
-                    dashboard
-                    </span>
                 <span>Dashboard</span>
                 </div>
             </div>
@@ -19,8 +16,6 @@
 
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
             <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size">
-                </box-icon>
                 <span>Feed</span>
             </router-link>
             </div>
@@ -28,9 +23,6 @@
             <Link :href="route('messaging.index')">
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded" style="color: #0D47A1;">
-                    forum
-                    </span>
                 <span>Messaging</span>
                 </div>
             </div>
@@ -38,32 +30,22 @@
         
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <span class="material-symbols-rounded" style="color: #0D47A1;">
-                    price_check
-                    </span>
                 <span>Payouts</span>
                 </router-link>
             </div>
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
             <router-link to="/activation" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <box-icon type='solid' name='report' color="#0D47A1" class="icon-size">
-                </box-icon>
                 <span>Reports</span>
             </router-link>
             </div>
         <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
             <div class="flex space-x-2 font-quicksand font-semibold pl-2">
-            <box-icon type='solid' name='archive' color="#0D47A1" class="icon-size">
-                </box-icon>
             <span>Archives</span>
             </div>
         </div>
         <Link :href="route('settings.index')">
             <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
             <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                <span class="material-symbols-rounded" style="color: #0D47A1;">
-                settings
-                </span>
                 <span>Settings</span>
             </div>
             </div>
