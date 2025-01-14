@@ -49,6 +49,11 @@
           </div>
         </template> -->
         <Column expander style="width: 5rem" />
+        <!-- <Column field="id" header="#" :sortable="true">
+              <template #body="slotProps">
+                {{ slotProps.rowIndex + 1 }}
+              </template>
+            </Column> -->
             <Column field="id" header="Scholar ID" :sortable="true" />
             <Column field="first_name" header="First Name" :sortable="true" />
             <Column field="last_name" header="Last Name" :sortable="true" />
@@ -69,7 +74,62 @@
                     </DataTable>
                 </div>
             </template>
+
+            <!-- <template #expansion="slotProps">
+              <div class="p-4">
+                <h5 class="text-lg font-bold mb-4">Requirements: {{ slotProps.data.name }}</h5>
+                <DataTable :value="slotProps.data.orders" class="w-full flex flex-col">
+                  <Column field="id" header="National ID" sortable>
+                  </Column>
+                  <Column field="pagibig" header="Pag Ibig" sortable>
+                  </Column>
+                  <Column headerStyle="width:4rem">
+                    <template #body>
+                      <div class="flex justify-center items-center">
+                        <span class="material-symbols-rounded text-black cursor-pointer">
+                          open_in_full
+                        </span>
+                      </div>
+                    </template>
+                  </Column>
+                </DataTable>
+              </div>
+            </template> -->
+
+
+
+            <!-- <Column field="customer" header="Customer" sortable></Column>
+                        <Column field="date" header="Date" sortable></Column>
+                        <Column field="amount" header="Amount" sortable>
+                            <template #body="slotProps">
+                                {{ formatCurrency(slotProps.data.amount) }}
+                            </template>
+                        </Column>
+                        <Column field="status" header="Status" sortable>
+                            <template #body="slotProps">
+                                <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
+                            </template>
+                        </Column>-->
       </DataTable>
+
+
+      <!-- <div class="card"> -->
+        <!-- <ToggleButton v-model="balanceFrozen" onIcon="pi pi-lock" offIcon="pi pi-lock-open" onLabel="Balance" offLabel="Balance" /> -->
+
+        <!-- <DataTable :value="scholars" dataKey="id"  scrollable scrollHeight="400px" class="mt-6">
+            <Column field="last_name" header="Name" style="min-width: 200px" frozen class="font-bold"></Column>
+            <Column field="first_name" header="FN" style="min-width: 100px"></Column>
+            <Column field="email" header="Email" style="min-width: 200px"></Column>
+            <Column field="course" header="Course" style="min-width: 200px"></Column>
+            <Column field="activity" header="Activity" style="min-width: 200px"></Column>
+            <Column field="representative.name" header="Representative" style="min-width: 200px"></Column> -->
+            <!-- <Column field="balance" header="Balance" style="min-width: 200px" alignFrozen="right" :frozen="balanceFrozen">
+                <template #body="{ data }">
+                    <span class="font-bold">{{ formatCurrency(data.balance) }}</span>
+                </template>
+            </Column> -->
+        <!-- </DataTable>
+    </div> -->
 
 
       <div class="flex flex-col items-center">
@@ -113,6 +173,7 @@
                 :maxFileSize="1000000"
                 customUpload 
                 @select="handleFileUpload"
+                @clear="clearPreview"
                 id="file-upload"
               />
             </div>
@@ -169,7 +230,7 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, onBeforeMount, reactive } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -185,6 +246,16 @@ const components = {
   Papa,
 };
 
+const expandedRows = ref([]);
+
+function expandAll() {
+    expandedRows.value = products.value.reduce((acc, p) => (acc[p.id] = true) && acc, {});
+}
+
+function collapseAll() {
+    expandedRows.value = null;
+}
+
 const showPanel = ref(false)
 
 const toggleCreate = () => {
@@ -192,7 +263,11 @@ const toggleCreate = () => {
 }
 
 const closePanel = () => {
+  previewData.value = [];
+    headers.value = [];
+    document.getElementById('file-upload').value = null;
   showPanel.value = false
+  
 }
 
 const props = defineProps({
@@ -252,7 +327,13 @@ const handleFileUpload = (event) => {
     };
     reader.readAsText(file);
   }
+  
 };
+
+const clearPreview = () => {
+    previewData.value = [];
+    headers.value = [];
+  };
 
 const onUpload = async (event) => {
   form.file = event.files[0];
