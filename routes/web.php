@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
+Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
         ->name('coordinator.dashboard');

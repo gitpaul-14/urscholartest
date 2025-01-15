@@ -161,7 +161,7 @@ defineProps({
 </template> -->
 
 <template>
-    <div v-if="$page.props.auth.user.usertype == 'coordinator'">
+    <div v-if="$page.props.auth.user.usertype == 'super_admin'">
         <div class="w-full h-screen flex flex-col overflow-hidden">
         <!-- Header -->
         <headerTop class="w-full h-[50px]" />
