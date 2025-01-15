@@ -36,7 +36,7 @@
             </button>
         </div>
       </div>
-      
+
       <!-- table -->
       <div class="bg-white">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -238,35 +238,6 @@ const toggleRow = (index) => {
 }
 
 // testing
-const scholars = [
-        {
-          id: "2024-0001",
-          first_name: "John",
-          last_name: "Doe",
-          course: "Computer Science",
-          email: "john.doe@example.com",
-          requirements: [
-            "Valid School ID",
-            "Enrollment Form",
-            "Grade Report",
-            "Recommendation Letter"
-          ]
-        },
-        {
-          id: "2024-0002",
-          first_name: "Jane",
-          last_name: "Smith",
-          course: "Engineering",
-          email: "jane.smith@example.com",
-          requirements: [
-            "Valid School ID",
-            "Certificate of Registration",
-            "Progress Report",
-            "Parent Consent Form"
-          ]
-        }
-      ];
-
 
 const showPanel = ref(false)
 
