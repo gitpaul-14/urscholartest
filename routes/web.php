@@ -74,10 +74,12 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 });
 
 Route::middleware(['auth', 'usertype:student'])->group(function () {
+    // dashboard
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
 
-    
+    // scholarship
+    Route::get('/student/scholarship', [StudentController::class, 'scholarship'])->name('student.scholarships');
         
     Route::get('/available-scholarships', [ApplicationController::class, 'index'])->name('available.index');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');;
