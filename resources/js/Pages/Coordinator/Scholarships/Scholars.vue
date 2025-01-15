@@ -35,101 +35,73 @@
                 Add Scholars
             </button>
         </div>
-        
-      
       </div>
-      <DataTable v-model:expandedRows="expandedRows" dataKey="id" 
-      :value="scholars" tableStyle="min-width: 60rem">
-        <!-- <template #header>
-          <div class="flex justify-between w-full mb-4">
-            <div class="flex flex-wrap gap-2">
-              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
-              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
-            </div>
-          </div>
-        </template> -->
-        <Column expander style="width: 5rem" />
-        <!-- <Column field="id" header="#" :sortable="true">
-              <template #body="slotProps">
-                {{ slotProps.rowIndex + 1 }}
+      
+      <!-- table -->
+      <div class="bg-white">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Expand</span>
+                </th>
+                <th scope="col" class="px-6 py-3">URScholar ID</th>
+                <th scope="col" class="px-6 py-3">Name</th>
+                <th scope="col" class="px-6 py-3">Course</th>
+                <th scope="col" class="px-6 py-3">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="(scholar, index) in scholars" :key="scholar.id">
+                <!-- Main Row -->
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td class="px-6 py-4 text-left">
+                    <button @click="toggleRow(index)" class="text-blue-600 hover:text-blue-800 dark:text-blue-500">
+                      <svg v-if="expandedRows.includes(index)" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </button>
+                  </td>
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ scholar.id }}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{ `${scholar.first_name} ${scholar.last_name}` }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ scholar.course }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ scholar.email }}
+                  </td>
+                </tr>
+                
+                <!-- Expanded Row -->
+                <tr v-if="expandedRows.includes(index)" class="bg-gray-50 dark:bg-gray-700">
+                  <td colspan="5" class="px-6 py-4">
+                    <div class="space-y-2">
+                      <h5 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Requirements for {{ scholar.first_name }} {{ scholar.last_name }}
+                      </h5>
+                      <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                        <li v-for="(requirement, reqIndex) in scholar.requirements" 
+                            :key="reqIndex" 
+                            class="ml-4">
+                          {{ requirement }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
               </template>
-            </Column> -->
-            <Column field="id" header="Scholar ID" :sortable="true" />
-            <Column field="first_name" header="First Name" :sortable="true" />
-            <Column field="last_name" header="Last Name" :sortable="true" />
-            <Column field="email" header="Email" :sortable="true" />
-            <Column field="course" header="Course" :sortable="true" />
-            <template #expansion="slotProps">
-                <div class="p-2">
-                    <!-- <h5>Requirements {{ slotProps.data.name }}</h5> -->
-                    <DataTable :value="slotProps.data.orders">
-                        <Column field="id" header="Requirements" sortable></Column>
-                        <Column headerStyle="width:4rem">
-                            <template #body>
-                              <span class="material-symbols-rounded text-black">
-                              open_in_full
-                              </span>
-                            </template>
-                        </Column>
-                    </DataTable>
-                </div>
-            </template>
-
-            <!-- <template #expansion="slotProps">
-              <div class="p-4">
-                <h5 class="text-lg font-bold mb-4">Requirements: {{ slotProps.data.name }}</h5>
-                <DataTable :value="slotProps.data.orders" class="w-full flex flex-col">
-                  <Column field="id" header="National ID" sortable>
-                  </Column>
-                  <Column field="pagibig" header="Pag Ibig" sortable>
-                  </Column>
-                  <Column headerStyle="width:4rem">
-                    <template #body>
-                      <div class="flex justify-center items-center">
-                        <span class="material-symbols-rounded text-black cursor-pointer">
-                          open_in_full
-                        </span>
-                      </div>
-                    </template>
-                  </Column>
-                </DataTable>
-              </div>
-            </template> -->
-
-
-
-            <!-- <Column field="customer" header="Customer" sortable></Column>
-                        <Column field="date" header="Date" sortable></Column>
-                        <Column field="amount" header="Amount" sortable>
-                            <template #body="slotProps">
-                                {{ formatCurrency(slotProps.data.amount) }}
-                            </template>
-                        </Column>
-                        <Column field="status" header="Status" sortable>
-                            <template #body="slotProps">
-                                <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
-                            </template>
-                        </Column>-->
-      </DataTable>
-
-
-      <!-- <div class="card"> -->
-        <!-- <ToggleButton v-model="balanceFrozen" onIcon="pi pi-lock" offIcon="pi pi-lock-open" onLabel="Balance" offLabel="Balance" /> -->
-
-        <!-- <DataTable :value="scholars" dataKey="id"  scrollable scrollHeight="400px" class="mt-6">
-            <Column field="last_name" header="Name" style="min-width: 200px" frozen class="font-bold"></Column>
-            <Column field="first_name" header="FN" style="min-width: 100px"></Column>
-            <Column field="email" header="Email" style="min-width: 200px"></Column>
-            <Column field="course" header="Course" style="min-width: 200px"></Column>
-            <Column field="activity" header="Activity" style="min-width: 200px"></Column>
-            <Column field="representative.name" header="Representative" style="min-width: 200px"></Column> -->
-            <!-- <Column field="balance" header="Balance" style="min-width: 200px" alignFrozen="right" :frozen="balanceFrozen">
-                <template #body="{ data }">
-                    <span class="font-bold">{{ formatCurrency(data.balance) }}</span>
-                </template>
-            </Column> -->
-        <!-- </DataTable>
-    </div> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 
       <div class="flex flex-col items-center">
@@ -255,6 +227,46 @@ function expandAll() {
 function collapseAll() {
     expandedRows.value = null;
 }
+
+const toggleRow = (index) => {
+  const position = this.expandedRows.indexOf(index)
+  if (position !== -1) {
+    this.expandedRows.splice(position, 1)
+  } else {
+    this.expandedRows.push(index)
+  }
+}
+
+// testing
+const scholars = [
+        {
+          id: "2024-0001",
+          first_name: "John",
+          last_name: "Doe",
+          course: "Computer Science",
+          email: "john.doe@example.com",
+          requirements: [
+            "Valid School ID",
+            "Enrollment Form",
+            "Grade Report",
+            "Recommendation Letter"
+          ]
+        },
+        {
+          id: "2024-0002",
+          first_name: "Jane",
+          last_name: "Smith",
+          course: "Engineering",
+          email: "jane.smith@example.com",
+          requirements: [
+            "Valid School ID",
+            "Certificate of Registration",
+            "Progress Report",
+            "Parent Consent Form"
+          ]
+        }
+      ];
+
 
 const showPanel = ref(false)
 
