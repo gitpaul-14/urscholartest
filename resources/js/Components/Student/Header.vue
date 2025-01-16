@@ -1,7 +1,7 @@
 <template>
     <div class="w-full bg-[F8F8FA] border">
       <!-- desktop -->
-      <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center">
+      <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center px-10">
         <div class="flex items-center space-x-4">
           <div class="pl-1">
             <img src="../../../assets/images/logo-hori.png" alt="" class="w-[180px] h-[45px]">
@@ -11,11 +11,15 @@
         <!-- navigations -->
         <div>
           <ul class="flex space-x-12 font-poppins">
-              <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Home</a></li>
-              <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</a></li>
+              <li>
+                <Link>
+                  <p class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</p>
+                </Link>
+              </li>
+              <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</a></li>
               <li>
                 <Link :href="(route('student.scholarships'))">
-                  <p class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</p>
+                  <p class="text-primary-foreground hover:text-primary-foreground transition">Application</p>
                 </Link>
               </li>
           </ul>

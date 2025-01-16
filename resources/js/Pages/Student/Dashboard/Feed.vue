@@ -8,14 +8,12 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
 
-        <div class="pt-5">
-            <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="bg-primary text-white text-3xl font-sans font-bold p-7">
-                        Greetings {call mo firstname}
+                    <div class=" text-gray-900">
+                        Welcome Pre
                     </div>
                 </div>
             </div>
-        </div>
     </AuthenticatedLayout>
 </template>
