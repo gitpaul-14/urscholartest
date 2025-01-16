@@ -1,113 +1,7 @@
 <template>
   <AuthenticatedLayout>
-
-
-    <!-- <div class="flex flex-col items-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-6xl mx-auto py-8">
-      <h1 class="text-3xl font-bold mb-6 text-center">
-        Scholars for {{ scholarship.name }}
-      </h1>
-
-      <div class="flex items-center justify-between mb-6">
-        <Link :href="`/scholarships`" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Back
-        </Link>
-
-        <form @submit.prevent="uploadCSV" class="flex items-center space-x-4">
-          <input
-            type="file"
-            @change="handleFileUpload"
-            class="file-input file-input-bordered file-input-primary"
-          />
-          <button type="submit" class="btn btn-primary">Upload CSV</button>
-        </form>
-      </div>
-
-      <table class="table w-full border border-gray-200 bg-white rounded-lg shadow-md">
-        <thead class="bg-gray-100">
-          <tr>
-            <th class="p-4 text-left">#</th>
-            <th class="p-4 text-left">First Name</th>
-            <th class="p-4 text-left">Last Name</th>
-            <th class="p-4 text-left">Email</th>
-            <th class="p-4 text-left">Course</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(scholar, index) in scholars"
-            :key="scholar.id"
-            class="hover:bg-gray-50"
-          >
-            <td class="p-4">{{ index + 1 }}</td>
-            <td class="p-4">{{ scholar.first_name }}</td>
-            <td class="p-4">{{ scholar.last_name }}</td>
-            <td class="p-4">{{ scholar.email }}</td>
-            <td class="p-4">{{ scholar.course }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div> -->
-
-
-    <!-- <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
-      <div class="font-semibold text-xl mb-4"><span>{{ scholarship.name }} </span> Scholars</div>
-      <DataTable v-model:expandedRows="expandedRows" :value="scholars" dataKey="id" tableStyle="min-width: 60rem">
-        <template #header>
-          <div class="flex justify-between w-full mb-4">
-            <div class="flex flex-wrap gap-2">
-              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
-              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
-            </div>
-            <form @submit.prevent="uploadCSV">
-              <div class="card">
-                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
-                  customUpload @change="handleFileUpload" />
-              </div>
-            </form>
-          </div>
-        </template>
-        <Column expander style="width: 5rem" />
-        <Column field="id" header="#" :sortable="true">
-              <template #body="slotProps">
-                {{ slotProps.rowIndex + 1 }}
-              </template>
-            </Column>
-            <Column field="first_name" header="First Name" :sortable="true" />
-            <Column field="last_name" header="Last Name" :sortable="true" />
-            <Column field="email" header="Email" :sortable="true" />
-            <Column field="course" header="Course" :sortable="true" />
-        <template #expansion="slotProps">
-          <div class="p-4">
-            <h5>Orders for {{ slotProps.data.name }}</h5>
-            <DataTable :value="slotProps.data.orders">
-              <Column field="id" header="Id" sortable></Column>
-              <Column field="customer" header="Customer" sortable></Column>
-              <Column field="date" header="Date" sortable></Column>
-              <Column field="amount" header="Amount" sortable>
-                <template #body="slotProps">
-                  {{ formatCurrency(slotProps.data.amount) }}
-                </template>
-              </Column>
-              <Column field="status" header="Status" sortable>
-                <template #body="slotProps">
-                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
-                </template>
-              </Column>
-              <Column headerStyle="width:4rem">
-                <template #body>
-                  <Button icon="pi pi-search" />
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-        </template>
-      </DataTable>
-    </div> -->
-
-    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
-      <div class="w-full mx-auto p-3 rounded-xl text-white">
+    <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-x-auto">
+      <div class="w-full mx-auto p-3 rounded-xl text-white overflow-x-auto">
           <div class="breadcrumbs text-sm text-gray-400 mb-5">
             <ul>
               <li>
@@ -141,30 +35,75 @@
                 Add Scholars
             </button>
         </div>
-        
-      
       </div>
-      <DataTable v-model:expandedRows="expandedRows" dataKey="id" 
-      :value="scholars" tableStyle="min-width: 60rem">
-        <template #header>
-          <div class="flex justify-between w-full mb-4">
-            <div class="flex flex-wrap gap-2">
-              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
-              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
-            </div>
-          </div>
-        </template>
-        <Column expander style="width: 5rem" />
-        <Column field="id" header="#" :sortable="true">
-              <template #body="slotProps">
-                {{ slotProps.rowIndex + 1 }}
+
+      <!-- table -->
+      <div class="bg-white">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Expand</span>
+                </th>
+                <th scope="col" class="px-6 py-3">URScholar ID</th>
+                <th scope="col" class="px-6 py-3">Name</th>
+                <th scope="col" class="px-6 py-3">Course</th>
+                <th scope="col" class="px-6 py-3">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="(scholar, index) in scholars" :key="scholar.id">
+                <!-- Main Row -->
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td class="px-6 py-4 text-left">
+                    <button @click="toggleRow(index)" class="text-blue-600 hover:text-blue-800 dark:text-blue-500">
+                      <svg v-if="expandedRows.includes(index)" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </button>
+                  </td>
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ scholar.id }}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{ `${scholar.first_name} ${scholar.last_name}` }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ scholar.course }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ scholar.email }}
+                  </td>
+                </tr>
+                
+                <!-- Expanded Row -->
+                <tr v-if="expandedRows.includes(index)" class="bg-gray-50 dark:bg-gray-700">
+                  <td colspan="5" class="px-6 py-4">
+                    <div class="space-y-2">
+                      <h5 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Requirements for {{ scholar.first_name }} {{ scholar.last_name }}
+                      </h5>
+                      <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                        <li v-for="(requirement, reqIndex) in scholar.requirements" 
+                            :key="reqIndex" 
+                            class="ml-4">
+                          {{ requirement }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
               </template>
-            </Column>
-            <Column field="first_name" header="First Name" :sortable="true" />
-            <Column field="last_name" header="Last Name" :sortable="true" />
-            <Column field="email" header="Email" :sortable="true" />
-            <Column field="course" header="Course" :sortable="true" />
-      </DataTable>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
       <div class="flex flex-col items-center">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
@@ -186,7 +125,7 @@
     <!-- Right side panel with transition -->
     <Transition name="slide">
       <div v-show="showPanel" 
-          class="h-full overflow-y-auto bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
+          class="h-full overflow-y-auto z-50 bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
           <div class="p-4 border-b flex justify-between items-center">
             <h2 class="text-xl font-semibold">Add Scholars</h2>
             <button 
@@ -206,6 +145,7 @@
                 :maxFileSize="1000000"
                 customUpload 
                 @select="handleFileUpload"
+                @clear="clearPreview"
                 id="file-upload"
               />
             </div>
@@ -260,35 +200,9 @@
   </AuthenticatedLayout>
 </template>
 
-<!-- <template #expansion="slotProps">
-          <div class="p-4">
-            <h5>Orders for {{ slotProps.data.name }}</h5>
-            <DataTable :value="slotProps.data.orders">
-              <Column field="id" header="Id" sortable></Column>
-              <Column field="customer" header="Customer" sortable></Column>
-              <Column field="date" header="Date" sortable></Column>
-              <Column field="amount" header="Amount" sortable>
-                <template #body="slotProps">
-                  {{ formatCurrency(slotProps.data.amount) }}
-                </template>
-              </Column>
-              <Column field="status" header="Status" sortable>
-                <template #body="slotProps">
-                  <Tag :value="slotProps.data.status.toLowerCase()" :severity="getOrderSeverity(slotProps.data)" />
-                </template>
-              </Column>
-              <Column headerStyle="width:4rem">
-                <template #body>
-                  <Button icon="pi pi-search" />
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-        </template> -->
-
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, onBeforeMount, reactive } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -304,6 +218,27 @@ const components = {
   Papa,
 };
 
+const expandedRows = ref([]);
+
+function expandAll() {
+    expandedRows.value = products.value.reduce((acc, p) => (acc[p.id] = true) && acc, {});
+}
+
+function collapseAll() {
+    expandedRows.value = null;
+}
+
+const toggleRow = (index) => {
+  const position = this.expandedRows.indexOf(index)
+  if (position !== -1) {
+    this.expandedRows.splice(position, 1)
+  } else {
+    this.expandedRows.push(index)
+  }
+}
+
+// testing
+
 const showPanel = ref(false)
 
 const toggleCreate = () => {
@@ -311,7 +246,11 @@ const toggleCreate = () => {
 }
 
 const closePanel = () => {
+  previewData.value = [];
+    headers.value = [];
+    document.getElementById('file-upload').value = null;
   showPanel.value = false
+  
 }
 
 const props = defineProps({
@@ -371,7 +310,13 @@ const handleFileUpload = (event) => {
     };
     reader.readAsText(file);
   }
+  
 };
+
+const clearPreview = () => {
+    previewData.value = [];
+    headers.value = [];
+  };
 
 const onUpload = async (event) => {
   form.file = event.files[0];

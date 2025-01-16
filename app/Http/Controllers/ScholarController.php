@@ -14,7 +14,7 @@ class ScholarController extends Controller
     {
         $scholars = $scholarship->scholars;
 
-        return Inertia::render('Coordinator/Scholarships/Scholars', [
+        return Inertia::render('Super_Admin/Scholarships/Scholars', [
             'scholarship' => $scholarship,
             'scholars' => $scholars,
         ]);
@@ -60,5 +60,15 @@ class ScholarController extends Controller
         Scholar::insert($insertData);
 
         return response()->json(['message' => 'Scholars uploaded successfully!']);
+    }
+
+    public function send(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
+
+        return Inertia::render('Super_Admin/Scholarships/SendingAccess', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
     }
 }

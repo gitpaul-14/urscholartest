@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
+Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
         ->name('coordinator.dashboard');
@@ -52,6 +52,8 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
     // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
+    
+    Route::get('/scholarships/{scholarship}/send-access', [ScholarshipController::class, 'send'])->name('scholarships.send');
 
     //Scholars
     Route::get('/scholarships/{scholarship}', [ScholarController::class, 'show'])->name('scholars.index');
@@ -74,10 +76,12 @@ Route::middleware(['auth', 'usertype:coordinator'])->group(function () {
 });
 
 Route::middleware(['auth', 'usertype:student'])->group(function () {
+    // dashboard
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
 
-    
+    // scholarship
+    Route::get('/student/scholarship', [StudentController::class, 'scholarship'])->name('student.scholarships');
         
     Route::get('/available-scholarships', [ApplicationController::class, 'index'])->name('available.index');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');;

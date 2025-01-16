@@ -16,8 +16,14 @@
                         </li>
                         <li>
                             <a>
-                                <span class="text-blue-400 font-semibold">View Sponsors</span>
+                                <Link :href="route('sponsor.index')">
+                                    <span class="text-blue-400 font-semibold">View Sponsors</span>
+                                </Link>
+                                
                             </a>
+                        </li>
+                        <li>
+                            <span class="text-blue-400 font-semibold">Create Scholarships</span>
                         </li>
                     </ul>
                 </div>
@@ -25,14 +31,14 @@
                 <div class="flex justify-between items-center mb-4">
                     <h1
                         class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">
-                        URS Partnered Scholarships</h1>
+                        Fetch mo yung Name dito</h1>
 
-                    <button class="btn" @click="toggleCreate">
+                    <!-- <button class="btn" @click="toggleCreate">
                         <span class="material-symbols-rounded">
                             library_add
                         </span>
                         New Sponsor
-                    </button>
+                    </button> -->
                 </div>
 
                 <!-- List of Scholarships -->
@@ -66,14 +72,12 @@
                                     <button @click="editScholarship(scholarship)"
                                         class="btn btn-warning btn-sm">Edit</button> -->
                                     <div class="flex justify-end space-x-4">
-                                        <Link :href="`/sponsors/${sponsor.id}`">
-                                        <div class="text-sm text-gray-500 cursor-pointer">
+                                        <div class="text-sm text-gray-500 cursor-pointer" @click="toggleSetActive">
                                             <span
                                                 class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
                                                 open_in_browser
                                             </span>
                                         </div>
-                                        </Link >
                                         <div class="text-sm text-gray-500">
                                             <span
                                                 class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">

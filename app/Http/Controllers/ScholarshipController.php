@@ -14,13 +14,20 @@ class ScholarshipController extends Controller
     public function index()
     {
         $scholarships = Scholarship::all();
-        return inertia('Coordinator/Scholarships/Index', ['scholarships' => $scholarships]);
+        return inertia('Super_Admin/Scholarships/Index', ['scholarships' => $scholarships]);
     }
 
-    public function scholarship()
+    public function scholarship(Sponsor $sponsors)
     {
+
         $scholarships = Scholarship::all();
-        return inertia('Coordinator/Scholarships/Scholarships', ['scholarships' => $scholarships]);
+        $sponsors = Sponsor::all();
+        // $scholarships = $sponsors->scholarships;
+
+        return inertia('Super_Admin/Scholarships/Scholarships', [
+        'sponsors' => $sponsors,
+        'scholarships' => $scholarships,
+        ]);
     }
 
     // public function scholarship(Sponsor $sponsors)
@@ -37,7 +44,7 @@ class ScholarshipController extends Controller
     public function create(Sponsor $sponsor)
     {
 
-        return Inertia::render('Coordinator/Scholarships/CreateScholarships', [
+        return Inertia::render('Super_Admin/Scholarships/CreateScholarships', [
             'sponsor' => $sponsor,
         ]);
 
@@ -52,6 +59,7 @@ class ScholarshipController extends Controller
             'scholarshipType' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',
             'semester' => 'required|string',
+            // 'requirements' => 'required|array'
             // 'application' => 'required|date',
             // 'deadline' => 'required|date',
         ]);
@@ -60,6 +68,16 @@ class ScholarshipController extends Controller
         Scholarship::create($request->all());
 
         return redirect()->route('scholarships.index');
+    }
+
+    public function send(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
+
+        return Inertia::render('Super_Admin/Scholarships/SendingAccess', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
     }
 
 

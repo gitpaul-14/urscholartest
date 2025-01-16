@@ -1,16 +1,5 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
-
-</script>
-
 <template>
-    <Head title="Dashboard" />
-
-    <AuthenticatedLayout>
-        <template #default>
-            <div class="grid grid-cols-4 gap-3 px-3 py-3 h-full box-border">
+    <div class="grid grid-cols-4 gap-3 px-3 py-3 h-full box-border">
         <!-- 75% Column -->
         <div class="col-span-3 h-full flex flex-col space-y-3">
             <!-- First Layer with 2 Column Cards -->
@@ -29,6 +18,20 @@ import { Link } from '@inertiajs/vue3';
             <div class="bg-black rounded h-[65%]"></div>
         </div>
     </div>
-        </template>
-    </AuthenticatedLayout>
+
 </template>
+
+<script >
+// import ContentComponent from './admin/admin_dashboard.vue';
+
+export default {
+// components: {
+//     ContentComponent
+// }
+}
+
+</script>
+
+<style>
+
+</style>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->date('application_start')->nullable();
             $table->date('deadline')->nullable();
+            $table->json('requirements');
             $table->timestamps();
         });
     }

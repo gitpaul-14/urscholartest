@@ -13,7 +13,11 @@
           <ul class="flex space-x-12 font-poppins">
               <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Home</a></li>
               <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</a></li>
-              <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</a></li>
+              <li>
+                <Link :href="(route('student.scholarships'))">
+                  <p class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</p>
+                </Link>
+              </li>
           </ul>
         </div>
 
