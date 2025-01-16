@@ -29,7 +29,7 @@
               <span>{{ scholarship.name }}</span> Scholars</h1>
 
             <div class="space-x-2">
-              <Link>
+              <Link :href="`/scholarships/${scholarship.id}/send-access`">
                 <button class="btn bg-blue-900 text-white">
                   <span class="material-symbols-rounded">
                   forward_to_inbox

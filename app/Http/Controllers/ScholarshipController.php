@@ -70,6 +70,16 @@ class ScholarshipController extends Controller
         return redirect()->route('scholarships.index');
     }
 
+    public function send(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
+
+        return Inertia::render('Super_Admin/Scholarships/SendingAccess', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
+    }
+
 
     public function update(Request $request, $id)
     {

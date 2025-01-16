@@ -52,6 +52,8 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
     // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
+    
+    Route::get('/scholarships/{scholarship}/send-access', [ScholarshipController::class, 'send'])->name('scholarships.send');
 
     //Scholars
     Route::get('/scholarships/{scholarship}', [ScholarController::class, 'show'])->name('scholars.index');
