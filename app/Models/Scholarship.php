@@ -6,11 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Scholarship extends Model
 {
-    protected $fillable = ['name', 'sponsor_id', 'school_year', 'scholarshipType',  'semester',  'created_by','requirements', ];
-
-    protected $casts = [
-        'requirements' => 'array'
-    ];
+    protected $fillable = ['name', 'sponsor_id', 'school_year', 'scholarshipType',  'semester', 'status', 'created_by' ];
 
     public function scholars()
     {
@@ -19,6 +15,11 @@ class Scholarship extends Model
     public function applicants()
     {
         return $this->hasMany(Applicant::class);
+    }
+
+    public function requirements()
+    {
+        return $this->belongsTo(Requirements::class);
     }
 
     public function sponsor()

@@ -3,12 +3,14 @@
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,8 +37,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
-    Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
-        ->name('coordinator.dashboard');
+    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])
+        ->name('super_admin.dashboard');
 
     //Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');
@@ -47,13 +49,13 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/sponsors/{sponsor}', [ScholarshipController::class, 'create'])->name('scholarships.create');
     Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
 
-
     
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
     // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
-    
-    Route::get('/scholarships/{scholarship}/send-access', [ScholarshipController::class, 'send'])->name('scholarships.send');
+
+    Route::get('/scholarships/{scholarship}/send-access', [EmailController::class, 'index'])->name('requirements.index');
+    Route::post('/scholarships/{scholarship}/send-access/send', [EmailController::class, 'send'])->name('requirements.send');
 
     //Scholars
     Route::get('/scholarships/{scholarship}', [ScholarController::class, 'show'])->name('scholars.index');
