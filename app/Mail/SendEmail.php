@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
@@ -13,12 +14,14 @@ class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $mailData;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
     }
 
     /**
@@ -27,6 +30,7 @@ class SendEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address('urscholar@ursbinangonan.com', 'Ethanol Hotshot'),
             subject: 'Send Email',
         );
     }
@@ -37,7 +41,7 @@ class SendEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.sendGmail'
         );
     }
 

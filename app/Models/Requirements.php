@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirements extends Model
 {
-    protected $fillable = ['scholar_id', 'requirements', 'application_start', 'deadline'];
+    protected $fillable = ['scholar_id', 'scholarship_id', 'requirements', 'application_start', 'deadline'];
 
     protected $casts = [
         'requirements' => 'array'
@@ -18,6 +18,6 @@ class Requirements extends Model
     }
     public function scholarship()
     {
-        return $this->belongsTo(Scholarship::class);
+        return $this->hasMany(Scholarship::class);
     }
 }

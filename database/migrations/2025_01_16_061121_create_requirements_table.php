@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('requirements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('scholar_id')->constrained()->onDelete('cascade');
+            $table->foreignId('scholarship_id')->constrained()->onDelete('cascade');
             $table->json('requirements');
             $table->date('application_start');
             $table->date('deadline');

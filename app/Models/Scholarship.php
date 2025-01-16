@@ -19,7 +19,7 @@ class Scholarship extends Model
 
     public function requirements()
     {
-        return $this->hasMany(Requirements::class);
+        return $this->belongsTo(Requirements::class);
     }
 
     public function sponsor()
