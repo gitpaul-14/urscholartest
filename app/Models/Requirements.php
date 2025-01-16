@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirements extends Model
 {
-    protected $fillable = ['sponsor_id', 'requirements', 'status'];
+    protected $fillable = ['scholarship_id', 'requirements', 'status'];
 
     protected $casts = [
         'requirements' => 'array'
