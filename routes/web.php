@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
-    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])
+    Route::get('/admin/dashboard', [SuperAdminController::class, 'dashboard'])
         ->name('super_admin.dashboard');
 
     //Sponsors
@@ -79,12 +79,20 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
 Route::middleware(['auth', 'usertype:student'])->group(function () {
     // dashboard
-    Route::get('/student/dashboard', [StudentController::class, 'dashboard'])
+    Route::get('/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
 
     // scholarship
     Route::get('/student/scholarship', [StudentController::class, 'scholarship'])->name('student.scholarships');
         
+    // application
+    Route::get('/student/application', [StudentController::class, 'application'])->name('student.application');
+
+
+
+
+
+
     Route::get('/available-scholarships', [ApplicationController::class, 'index'])->name('available.index');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');;
 });

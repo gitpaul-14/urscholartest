@@ -12,13 +12,13 @@
         <div>
           <ul class="flex space-x-12 font-poppins">
               <li>
-                <Link>
+                <Link :href="(route('student.dashboard'))">
                   <p class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</p>
                 </Link>
               </li>
               <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</a></li>
               <li>
-                <Link :href="(route('student.scholarships'))">
+                <Link :href="(route('student.application'))">
                   <p class="text-primary-foreground hover:text-primary-foreground transition">Application</p>
                 </Link>
               </li>
