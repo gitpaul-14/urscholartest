@@ -57,6 +57,8 @@ class DatabaseSeeder extends Seeder
             'usertype' => 'student'
         ]);
 
+
+        //sponsor 
         // $this->call(UserTableSeeder::class);
     }
 }
