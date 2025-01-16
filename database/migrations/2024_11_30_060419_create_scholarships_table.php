@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('scholarshipType');
             $table->string('semester');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
-            $table->date('application_start')->nullable();
-            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }

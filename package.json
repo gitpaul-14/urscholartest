@@ -29,6 +29,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.8",
         "@primevue/themes": "^4.2.5",
         "@tailwindcss/line-clamp": "^0.4.4",
+        "@vueuse/core": "^12.4.0",
         "boxicons": "^2.1.4",
         "date-fns": "^4.1.0",
         "flowbite": "^2.5.2",

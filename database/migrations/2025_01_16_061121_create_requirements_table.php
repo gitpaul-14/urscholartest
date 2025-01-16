@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('scholar_id')->constrained()->onDelete('cascade');
             $table->json('requirements');
-            $table->enum('status', ['Active', 'Inactive'])->default('Active');
+            $table->date('application_start');
+            $table->date('deadline');
+            $table->enum('status', ['Approved', 'Pending', 'Returned'])->default('Pending');
             $table->timestamps();
         });
     }
