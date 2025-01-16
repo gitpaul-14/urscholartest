@@ -14,7 +14,7 @@ class ScholarshipController extends Controller
     public function index()
     {
         $scholarships = Scholarship::all();
-        return inertia('Coordinator/Scholarships/Index', ['scholarships' => $scholarships]);
+        return inertia('Super_Admin/Scholarships/Index', ['scholarships' => $scholarships]);
     }
 
     public function scholarship(Sponsor $sponsors)
@@ -24,7 +24,7 @@ class ScholarshipController extends Controller
         $sponsors = Sponsor::all();
         // $scholarships = $sponsors->scholarships;
 
-        return inertia('Coordinator/Scholarships/Scholarships', [
+        return inertia('Super_Admin/Scholarships/Scholarships', [
         'sponsors' => $sponsors,
         'scholarships' => $scholarships,
         ]);
@@ -44,7 +44,7 @@ class ScholarshipController extends Controller
     public function create(Sponsor $sponsor)
     {
 
-        return Inertia::render('Coordinator/Scholarships/CreateScholarships', [
+        return Inertia::render('Super_Admin/Scholarships/CreateScholarships', [
             'sponsor' => $sponsor,
         ]);
 
@@ -59,7 +59,7 @@ class ScholarshipController extends Controller
             'scholarshipType' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',
             'semester' => 'required|string',
-            'requirements' => 'required|array'
+            // 'requirements' => 'required|array'
             // 'application' => 'required|date',
             // 'deadline' => 'required|date',
         ]);
