@@ -9,6 +9,7 @@ use App\Http\Controllers\ScholarController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,8 +36,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
-    Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])
-        ->name('coordinator.dashboard');
+    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])
+        ->name('super_admin.dashboard');
 
     //Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');

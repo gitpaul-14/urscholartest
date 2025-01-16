@@ -28,10 +28,10 @@
             </svg>
             </div>
             
-            <Link :href="(route('coordinator.dashboard'))" >
+            <Link :href="(route('super_admin.dashboard'))" >
               <div :class="[
                 'py-3 cursor-pointer hover:bg-blue-700 hover:text-white',
-                { 'active bg-blue-900': $page.url === '/coordinator/dashboard' }
+                { 'active bg-blue-900': $page.url === '/super_admin/dashboard' }
               ]">
               <div :class="['flex items-center space-x-2 text-blue-900 hover:text-white font-quicksand font-semibold pl-2 text-[16px]', { 'active text-white': $page.url === '/coordinator/dashboard' }]">
                 <span :class="['material-symbols-rounded', { 'active text-white': $page.url === '/coordinator/dashboard' }]" :style="['text-blue-900 hover:text-white', { 'active text-white hover:text-white': $page.url === '/coordinator/dashboard' }]"
