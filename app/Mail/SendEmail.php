@@ -31,7 +31,7 @@ class SendEmail extends Mailable
     {
         return new Envelope(
             from: new Address('urscholar@ursbinangonan.com', 'Ethanol Hotshot'),
-            subject: 'Send Email',
+            subject: 'You have been selected as a scholar!',
         );
     }
 
