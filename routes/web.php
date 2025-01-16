@@ -47,12 +47,11 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/sponsors/{sponsor}', [ScholarshipController::class, 'create'])->name('scholarships.create');
     Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
 
-
     
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
     // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
-    
+
     Route::get('/scholarships/{scholarship}/send-access', [ScholarshipController::class, 'send'])->name('scholarships.send');
 
     //Scholars
