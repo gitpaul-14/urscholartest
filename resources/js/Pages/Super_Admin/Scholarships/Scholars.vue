@@ -54,29 +54,22 @@
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-3">
-                  <span class="sr-only">Expand</span>
-                </th>
                 <th scope="col" class="px-6 py-3">URScholar ID</th>
                 <th scope="col" class="px-6 py-3">Name</th>
                 <th scope="col" class="px-6 py-3">Course</th>
                 <th scope="col" class="px-6 py-3">Email</th>
+                <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Expand</span>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Expand</span>
+                </th>
               </tr>
             </thead>
             <tbody>
               <template v-for="(scholar, index) in scholars" :key="scholar.id">
                 <!-- Main Row -->
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <td class="px-6 py-4 text-left">
-                    <button @click="toggleRow(index)" class="text-blue-600 hover:text-blue-800 dark:text-blue-500">
-                      <svg v-if="expandedRows.includes(index)" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m18 15-6-6-6 6"/>
-                      </svg>
-                      <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m6 9 6 6 6-6"/>
-                      </svg>
-                    </button>
-                  </td>
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ scholar.id }}
                   </th>
@@ -89,25 +82,23 @@
                   <td class="px-6 py-4">
                     {{ scholar.email }}
                   </td>
-                </tr>
-                
-                <!-- Expanded Row -->
-                <tr v-if="expandedRows.includes(index)" class="bg-gray-50 dark:bg-gray-700">
-                  <td colspan="5" class="px-6 py-4">
-                    <div class="space-y-2">
-                      <h5 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Requirements for {{ scholar.first_name }} {{ scholar.last_name }}
-                      </h5>
-                      <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
-                        <li v-for="(requirement, reqIndex) in scholar.requirements" 
-                            :key="reqIndex" 
-                            class="ml-4">
-                          {{ requirement }}
-                        </li>
-                      </ul>
-                    </div>
+                  <td class="px-6 py-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                    <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                    </svg>
+                    Pending
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-right">
+                    <button>
+                      <span class="material-symbols-rounded">
+                      unfold_more
+                      </span>
+                    </button>
                   </td>
                 </tr>
+    
               </template>
             </tbody>
           </table>
