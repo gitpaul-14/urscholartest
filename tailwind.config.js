@@ -21,6 +21,7 @@ export default {
                 sora: ['Sora', 'sans-serif'],
                 inter: ['Inter', 'sans-serif'],
                 quicksand: ['Quicksand', 'sans-serif'],
+                albert: ['Albert Sans', 'sans-serif'],
             },
             colors: {
                 primary: '#003366',

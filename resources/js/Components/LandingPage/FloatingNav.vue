@@ -1,7 +1,7 @@
 <template>
-    <nav class="flex items-center justify-between shadow-md bg-black mx-[200px] sticky top-3 rounded-lg z-50">
+    <nav class="flex items-center justify-between shadow-md bg-primary mx-[200px] sticky top-3 rounded-lg z-50">
         <div class="flex items-center">
-            <img src="../../../assets/images/logo-hori-whitecopy.png" alt="Logo" class="h-20 ml-5" />
+            <img src="../../../assets/images/logo-hori-whitecopy.png" alt="Logo" class="h-16 ml-5" />
         </div>
         <div>
             <ul class="flex space-x-12 font-poppins">
@@ -12,12 +12,12 @@
         </div>
         <div class="flex items-center space-x-4 mr-5 font-poppins">
             <Link :href="route('login')"
-                class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
             >
                 Log in
             </Link>
             <Link :href="route('register')"
-                class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
             >
                 Register
             </Link>

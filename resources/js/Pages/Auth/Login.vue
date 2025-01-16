@@ -31,11 +31,11 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
-
+        <!-- <Head title="Log in" /> -->
+<!-- 
         <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
-        </div>
+        </div> -->
 
         <form @submit.prevent="submit" class="fit-content flex flex-col items-center justify-center"> 
             <!-- inside here naka comment -->
