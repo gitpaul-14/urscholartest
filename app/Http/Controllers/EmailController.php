@@ -31,7 +31,7 @@ class EmailController extends Controller
             'deadline' => 'required|date'
         ]);
         
-        // dd($request);
+        // dd($request->all());
         // Get all scholars
         $scholars = Scholar::all();
 

@@ -81,12 +81,12 @@
                                                 Timeline</h3>
                                             <div class="flex flex-row gap-3 w-full">
                                                 <div class="relative w-full">
-                                                    <DatePicker class="w-full" v-model="form.application"
-                                                        @input="formatDate" placeholder="Submission Start" />
+                                                    <DatePicker class="w-full" v-model="selectedStart"
+                                                    @update:model-value="handleDateStart" placeholder="Submission Start" />
                                                 </div>
                                                 <div class="relative w-full">
-                                                    <DatePicker class="w-full" v-model="form.deadline"
-                                                        @input="formatDate" placeholder="Submission Deadline" />
+                                                    <DatePicker class="w-full" v-model="selectedEnd"
+                                                    @update:model-value="handleDateEnd" placeholder="Submission Deadline" />
                                                 </div>
                                             </div>
                                         </div>
@@ -150,14 +150,35 @@ const directives = {
     DatePicker
 };
 
+const selectedStart = ref(null);
+const selectedEnd = ref(null);
+const formattedStart = ref('');
+const formattedEnd = ref('');
+
 const form = ref({
     subject: '',
     content: '',
-    requirements: {},
+    requirements: [],
     application: '',
     deadline: '',
 });
 
+const formatDateTime = (date) => {
+    if (!date) return '';
+    
+    const d = new Date(date);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
+const handleDateStart = () => {
+    formattedStart.value = formatDateTime(selectedStart.value);
+    form.value.application = formattedStart.value;
+};
+
+const handleDateEnd = () => {
+    formattedEnd.value = formatDateTime(selectedEnd.value);
+    form.value.deadline = formattedEnd.value;
+};
 
 // dynamic requirements
 const newItem = ref('');
