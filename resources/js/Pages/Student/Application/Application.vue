@@ -92,3 +92,86 @@ const removeFile = () => {
 
 
 
+
+
+const requirements = ref([])
+const loading = ref(true)
+const error = ref(null)
+
+const fetchRequirements = async () => {
+  try {
+    const response = await axios.get('/requirements')
+    requirements.value = response.data
+    loading.value = false
+  } catch (err) {
+    error.value = 'Failed to load requirements'
+    loading.value = false
+  }
+}
+
+// Display methods for different types of requirement data
+const displayRequirement = (requirement) => {
+  if (Array.isArray(requirement)) {
+    return requirement
+  }
+  if (typeof requirement === 'object') {
+    return Object.entries(requirement)
+  }
+  return [requirement]
+}
+
+onMounted(() => {
+  fetchRequirements()
+})
+</script>
+
+<template>
+  <div class="requirements-container p-4">
+    <div v-if="loading" class="text-center">
+      Loading requirements...
+    </div>
+    
+    <div v-else-if="error" class="text-red-500">
+      {{ error }}
+    </div>
+    
+    <div v-else>
+      <div v-for="item in requirements" :key="item.id" class="mb-6 bg-white rounded-lg shadow p-4">
+        <h3 class="text-lg font-semibold mb-2">Requirement #{{ item.id }}</h3>
+        
+        <!-- Option 1: Simple List -->
+        <div v-if="Array.isArray(item.requirements_json)" class="space-y-2">
+          <div v-for="(req, index) in item.requirements_json" 
+               :key="index"
+               class="p-2 bg-gray-50 rounded">
+            {{ req }}
+          </div>
+        </div>
+        
+        <!-- Option 2: Key-Value Display -->
+        <div v-else-if="typeof item.requirements_json === 'object'" class="space-y-2">
+          <div v-for="(value, key) in item.requirements_json" 
+               :key="key"
+               class="p-2 bg-gray-50 rounded flex justify-between">
+            <span class="font-medium">{{ key }}:</span>
+            <span>{{ value }}</span>
+          </div>
+        </div>
+        
+        <!-- Option 3: Nested Data -->
+        <div v-if="typeof item.requirements_json === 'object' && item.requirements_json.nested">
+          <div v-for="(category, catIndex) in item.requirements_json.nested" 
+               :key="catIndex"
+               class="mt-4">
+            <h4 class="font-medium mb-2">{{ catIndex }}</h4>
+            <div v-for="(req, reqIndex) in displayRequirement(category)" 
+                 :key="reqIndex"
+                 class="ml-4 p-2 bg-gray-50 rounded mb-2">
+              {{ Array.isArray(req) ? `${req[0]}: ${req[1]}` : req }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
