@@ -329,7 +329,7 @@
         <div class="w-full flex flex-row items-center space-x-6">
           <!-- Dashboard Link -->
           <div class="flex items-center cursor-pointer">
-            <Link :href="route('coordinator.dashboard')" class="flex items-center space-x-2 text-blue-900 font-quicksand font-semibold">
+            <Link :href="route('super_admin.dashboard')" class="flex items-center space-x-2 text-blue-900 font-quicksand font-semibold">
               <span class="material-symbols-rounded text-[24px]" style="color: #0D47A1;" v-tooltip.right="'Dashboard'">
                 dashboard
               </span>
