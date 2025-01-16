@@ -12,4 +12,9 @@ class Scholar extends Model
     {
         return $this->belongsTo(Scholarship::class);
     }
+
+    public function requirements()
+    {
+        return $this->belongsTo(Requirements::class);
+    }
 }

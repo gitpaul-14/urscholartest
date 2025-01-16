@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scholarships', function (Blueprint $table) {
+        Schema::create('requirements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('sponsor_id')->constrained()->onDelete('cascade');
-            $table->string('school_year');
-            $table->string('scholarshipType');
-            $table->string('semester');
+            $table->foreignId('scholar_id')->constrained()->onDelete('cascade');
+            $table->json('requirements');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
-            $table->date('application_start')->nullable();
-            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scholarships');
+        Schema::dropIfExists('requirements');
     }
 };

@@ -47,17 +47,8 @@
                     <div class="w-full h-[30%] px-5 py-5 bg-[white] shadow-md space-y-5">
                         <h3 class="font-semibold text-gray-900 dark:text-white">
                             Recipients</h3>
-                        <div class="flex flex-wrap gap-2 bg-gray-50 w-full h-full border border-gray-300 rounded-lg p-2.5">
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Carl Vincent Catarantaduhan</span>
+                        <div  class="flex flex-wrap gap-2 bg-gray-50 w-full h-full border border-gray-300 rounded-lg p-2.5">
+                            <span v-for="(scholar, index) in scholars" :key="scholar.id" class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">{{ scholar.email }}</span>
                         </div>
 
                         <h3 class="font-semibold text-gray-900 dark:text-white">
@@ -124,12 +115,12 @@ import { Head, useForm, Link } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 
 const props = defineProps({
-    sponsors: {
+    scholars: {
         type: Array,
         required: true
     },
     scholarships: {
-        type: Array,
+        type: Object,
         required: true
     }
 });
