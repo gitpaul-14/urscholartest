@@ -102,6 +102,8 @@ Route::middleware(['auth'])->group(function () {
 
     //VerifyAccount
     Route::get('/verify-account', [StudentController::class, 'verifyAccount'])->name('student.verify-account');
+    Route::post('/verify-account/verifying', [StudentController::class, 'verifyingAccount'])->name('student.verify-account.verifying');
+
 
 });
 

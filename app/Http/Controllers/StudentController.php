@@ -9,6 +9,8 @@ use App\Models\Scholar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -21,13 +23,40 @@ class StudentController extends Controller
         return Inertia::render('Student/VerificationAccount/Verification');
     }
 
+    public function verifyingAccount(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'password' => ['required'],
+            'confirm_password' => ['required', 'same:password'],
+            
+        ]);
+
+        // dd($request->all());
+
+        $password = Hash::make($request->password);
+
+        $user = User::where('email', $request->email)->first();
+
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'password' => $password,
+            'email_verified_at' => $user->markEmailAsVerified()
+        ]);
+        
+        event(new Verified($user));
+        
+        return response()->json(['message' => 'Account updated successfully.'], 200);
+    }
+
     public function scholarship()
     {
         return Inertia::render('Student/Scholarship');
     }
     public function application(User $user)
     {
-
 
         // $scholars = $user->scholars;
         $scholars = Scholar::where('email', Auth::user()->email)->with('scholarship')->get();
