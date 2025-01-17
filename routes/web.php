@@ -87,6 +87,7 @@ Route::middleware(['auth', 'usertype:student'])->group(function () {
         
     // application
     Route::get('/student/application', [StudentController::class, 'application'])->name('student.application');
+    Route::post('/student/application/upload', [StudentController::class, 'applicationUpload'])->name('student.application.upload');
 
 
 

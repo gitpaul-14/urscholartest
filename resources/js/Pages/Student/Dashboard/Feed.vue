@@ -14,7 +14,7 @@ import { Head } from '@inertiajs/vue3';
             <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 ">
                 <div class="overflow-hidden bg-white rounded-lg shadow-sm mb-10">
                     <div class="bg-primary text-white text-3xl font-sans font-bold p-7 rounded-lg">
-                        Greetings! {call mo firstname}
+                        Greetings! {{$page.props.auth.user.name}}
                     </div>
                     <div class="bg-gray-200 h-full space-y-2 flex flex-col items-center justify-start px-2 pt-2">
                         <div class="w-full bg-white border rounded-lg">

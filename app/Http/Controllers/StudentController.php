@@ -12,15 +12,17 @@ use Inertia\Inertia;
 
 class StudentController extends Controller
 {
-    public function dashboard() {
+    public function dashboard()
+    {
         return Inertia::render('Student/Dashboard/Feed');
     }
 
-    public function scholarship() {
+    public function scholarship()
+    {
         return Inertia::render('Student/Scholarship');
     }
-
-    public function application(User $user) {
+    public function application(User $user)
+    {
 
 
         // $scholars = $user->scholars;
@@ -36,5 +38,38 @@ class StudentController extends Controller
             'scholarships' => $scholarships,
             'requirements' => $requirements
         ]);
+    }
+
+    public function applicationUpload(Request $request, Scholar $scholar)
+    {
+
+        $request->validate([
+            'files.*' => 'required|file|',
+        ]);
+
+        $scholar = Scholar::where('email', Auth::user()->email)->first();
+
+        $scholar_id = $scholar->id;
+        $requirement = Requirements::where('id', $scholar_id)->first();
+
+
+        $uploadedFiles = [];
+
+        foreach ($request->file('files') as $index => $file) {
+            if ($file) {
+                $path = $file->store('requirements/' . Auth::user()->name, 'public');
+                $uploadedFiles = [
+                    'requirement_index' => $index,
+                    'path' => $path,
+                    'original_name' => $file->getClientOriginalName()
+                ];
+            }
+        }
+
+        $requirement->update([
+            'submitted_requirements' => json_encode($uploadedFiles)
+        ]);
+
+        return redirect()->back()->with('message', 'Files uploaded successfully');
     }
 }
