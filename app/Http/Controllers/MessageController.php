@@ -22,7 +22,7 @@ class MessageController extends Controller
         $messages = Message::with('user')->latest()->get();
 
         // Return the chat page using Inertia, passing the messages and user data
-        return Inertia::render('Coordinator/Messaging/Messaging', [
+        return Inertia::render('Super_Admin/Messaging/Messaging', [
             'messages' => $messages,
             'currentUser' => Auth::user(),
         ]);
