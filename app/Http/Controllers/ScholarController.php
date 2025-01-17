@@ -71,4 +71,13 @@ class ScholarController extends Controller
             'scholars' => $scholars,
         ]);
     }
+
+
+    // public function index()
+    // {
+    //     // Assuming your model is named Requirement
+    //     $requirements = Requirement::select('id', 'requirements_json')->get();
+        
+    //     return response()->json($requirements);
+    // }
 }
