@@ -24,21 +24,21 @@ class ScholarshipController extends Controller
         $sponsors = Sponsor::all();
         // $scholarships = $sponsors->scholarships;
 
-        return inertia('Super_Admin/Scholarships/Scholarships', [
+        return inertia('Super_Admin/Scholarships/ViewScholarships', [
         'sponsors' => $sponsors,
         'scholarships' => $scholarships,
         ]);
     }
 
-    // public function scholarship(Sponsor $sponsors)
-    // {
-    //     $scholarships = $sponsors->scholarships;
+    public function show(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
 
-    //     return Inertia::render('Coordinator/Scholarships/Scholarships', [
-    //         'sponsors' => $sponsors,
-    //         'scholarships' => $scholarships,
-    //     ]);
-    // }
+        return Inertia::render('Super_Admin/Scholarships/Scholarship', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
+    }
 
 
     public function create(Sponsor $sponsor)
