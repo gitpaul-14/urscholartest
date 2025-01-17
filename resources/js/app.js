@@ -22,6 +22,7 @@ import 'flowbite/dist/flowbite.css';
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import Datepicker from 'primevue/datepicker';
+import InputText from 'primevue/inputtext';
 import Aura from '@primevue/themes/aura';
 // import { format, isToday } from 'date-fns';
 
@@ -48,7 +49,7 @@ createInertiaApp({
             })
             .use(initFlowbite)
             .component('FontAwesomeIcon', FontAwesomeIcon)
-            .directive('tooltip', Tooltip, 'datepicker', Datepicker)
+            .directive('tooltip', Tooltip, 'datepicker', Datepicker, InputText)
             .mount(el);
     },
     progress: {

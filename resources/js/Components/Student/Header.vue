@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-[F8F8FA] border">
+    <div class="w-full bg-[F8F8FA]">
       <!-- desktop -->
       <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center px-10">
         <div class="flex items-center space-x-4">
@@ -12,13 +12,13 @@
         <div>
           <ul class="flex space-x-12 font-poppins">
               <li>
-                <Link>
+                <Link :href="(route('student.dashboard'))">
                   <p class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</p>
                 </Link>
               </li>
               <li><a href="#" class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</a></li>
               <li>
-                <Link :href="(route('student.scholarships'))">
+                <Link :href="(route('student.application'))">
                   <p class="text-primary-foreground hover:text-primary-foreground transition">Application</p>
                 </Link>
               </li>

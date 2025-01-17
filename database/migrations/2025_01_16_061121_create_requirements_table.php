@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('scholar_id')->constrained()->onDelete('cascade');
             $table->foreignId('scholarship_id')->constrained()->onDelete('cascade');
             $table->json('requirements');
+            $table->json('submitted_requirements')->nullable();
             $table->date('application_start');
             $table->date('deadline');
             $table->enum('status', ['Approved', 'Pending', 'Returned'])->default('Pending');

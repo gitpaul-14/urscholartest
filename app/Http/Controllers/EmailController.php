@@ -62,8 +62,6 @@ class EmailController extends Controller
                 ]);
             }
 
-
-
             //Sending Emails
             $mailData = [
                 'title' => 'Your Scholarship Application Login Details',
