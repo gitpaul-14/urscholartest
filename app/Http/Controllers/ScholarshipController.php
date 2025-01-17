@@ -106,6 +106,16 @@ class ScholarshipController extends Controller
     //         return response()->json(['error' => 'Failed to delete scholarship', 'details' => $e->getMessage()], 500);
     //     }
     // }
+
+    public function requirementsTab(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
+
+        return Inertia::render('Super_Admin/Scholarships/ScholarshipTabs/Requirements', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
+    }
 }
 
 
