@@ -16,6 +16,10 @@ class StudentController extends Controller
     {
         return Inertia::render('Student/Dashboard/Feed');
     }
+    public function verifyAccount()
+    {
+        return Inertia::render('Student/VerificationAccount/Verification');
+    }
 
     public function scholarship()
     {

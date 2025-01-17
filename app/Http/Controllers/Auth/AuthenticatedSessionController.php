@@ -42,7 +42,14 @@ class AuthenticatedSessionController extends Controller
             $url = '/coordinator/dashboard';
         }
         elseif ($request->user()->usertype === 'student') {
-            return redirect()->route('student.dashboard');
+
+            if ($request->user()->hasVerifiedEmail()) {
+                return redirect()->route('student.dashboard');
+            }
+            else {
+                return redirect()->route('student.verify-account');
+            }
+            
         }
         else {
             $url = 'dashboard';

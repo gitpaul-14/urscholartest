@@ -77,7 +77,7 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'usertype:student'])->group(function () {
+Route::middleware(['auth', 'usertype:student', 'verified'])->group(function () {
     // dashboard
     Route::get('/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
@@ -90,12 +90,19 @@ Route::middleware(['auth', 'usertype:student'])->group(function () {
     Route::post('/student/application/upload', [StudentController::class, 'applicationUpload'])->name('student.application.upload');
 
 
-
-
+    //VerifyAccount
+    Route::get('/verify-account', [StudentController::class, 'verifyAccount'])->name('student.verify-account');
 
 
     Route::get('/available-scholarships', [ApplicationController::class, 'index'])->name('available.index');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('application.store');;
+});
+
+Route::middleware(['auth'])->group(function () {
+
+    //VerifyAccount
+    Route::get('/verify-account', [StudentController::class, 'verifyAccount'])->name('student.verify-account');
+
 });
 
 
