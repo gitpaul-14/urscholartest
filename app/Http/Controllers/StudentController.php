@@ -48,7 +48,7 @@ class StudentController extends Controller
         
         event(new Verified($user));
         
-        return response()->json(['message' => 'Account updated successfully.'], 200);
+        return redirect()->route('student.dashboard');
     }
 
     public function scholarship()
