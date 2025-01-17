@@ -53,12 +53,12 @@ const submit = () => {
                             <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
 
                             <FloatLabel variant="on" class="w-full">
-                                <InputText id="on_label" v-model="form.name" class="w-full" />
+                                <InputText id="on_label" v-model="form.first_name" class="w-full" />
                                 <label for="on_label">First Name</label>
                             </FloatLabel>
 
                             <FloatLabel variant="on" class="w-full">
-                                <InputText id="on_label" v-model="form.name" class="w-full" />
+                                <InputText id="on_label" v-model="form.last_name" class="w-full" />
                                 <label for="on_label">Last Name</label>
                             </FloatLabel>
 
@@ -117,17 +117,17 @@ const submit = () => {
                             </FloatLabel> -->
 
                             <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.name" class="w-full" />
+                                <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
                                 <label for="on_label">Email</label>
                             </FloatLabel>
 
                             <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.name" class="w-full" />
+                                <InputText id="on_label" v-model="form.password" class="w-full" />
                                 <label for="on_label">Set New Password</label>
                             </FloatLabel>
 
                             <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.name" class="w-full" />
+                                <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
                                 <label for="on_label">Confirm Password</label>
                             </FloatLabel>
                             
