@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Scholarship;
+use App\Models\Requirements;
 use App\Models\Scholar;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
@@ -34,9 +35,13 @@ class ScholarshipController extends Controller
     {
         $scholars = $scholarship->scholars;
 
+        
+        $requirements = Requirements::where('scholarship_id', $scholarship->first()->id)->get();
+
         return Inertia::render('Super_Admin/Scholarships/Scholarship', [
             'scholarship' => $scholarship,
             'scholars' => $scholars,
+            'requirements' => $requirements,
         ]);
     }
 

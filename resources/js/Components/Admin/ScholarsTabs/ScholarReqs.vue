@@ -37,10 +37,9 @@
             <tr>
               <th scope="col" class="px-6 py-3">URScholar ID</th>
               <th scope="col" class="px-6 py-3">Full Name</th>
-              <th scope="col" class="px-6 py-3">Req1</th>
-              <th scope="col" class="px-6 py-3">Req2</th>
-              <th scope="col" class="px-6 py-3">Req3</th>
-              <th scope="col" class="px-6 py-3">Req4</th>
+              <th v-for="(requirement, index) in requirements" :key="index" scope="col" class="px-6 py-3">
+      {{ requirement.requirements[index]}}
+    </th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Expand</span>
               </th>
@@ -50,7 +49,7 @@
             </tr>
           </thead>
           <tbody>
-            <template v-for="(scholar, index) in scholars" :key="scholar.id">
+            <template v-for="(scholar) in scholars" :key="scholar.id">
               <!-- Main Row -->
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -59,12 +58,9 @@
                 <td class="px-6 py-4">
                   {{ `${scholar.first_name} ${scholar.last_name}` }}
                 </td>
-                <td class="px-6 py-4">
-                  {{ scholar.course }}
-                </td>
-                <td class="px-6 py-4">
-                  {{ scholar.email }}
-                </td>
+                <th v-for="(requirement, index) in requirements" :key="index" scope="col" class="px-6 py-3">
+      {{ requirement.requirements[index]}}
+    </th>
                 <td class="px-6 py-4">
                   <span class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                   <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -230,7 +226,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
   
   const props = defineProps({
     scholarship: Object,
-    scholars: Array
+    scholars: Array,
+    requirements: Array,
   });
   
   const form = useForm({

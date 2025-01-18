@@ -98,7 +98,7 @@
                     <ScholarsTab :scholarship="scholarship" :scholars="scholars"/>
                 </div>
                 <div v-if="activeTab === 'requirements'">
-                <ScholarReqs :scholarship="scholarship" :scholars="scholars"/>
+                <ScholarReqs :scholarship="scholarship" :scholars="scholars" :requirements="requirements"/>
                 </div>
                 <!-- <div v-if="activeTab === 'monitoring'">
                 <MonitoringTab />
@@ -158,7 +158,8 @@ const toggleMonitoring = () => {
 
 const props = defineProps({
     scholarship: Object,
-    scholars: Array
+    scholars: Array,
+    requirements: Array,
 });
 
 const formData = ref({
