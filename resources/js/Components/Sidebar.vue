@@ -1,6 +1,6 @@
 <template>
     <div
-    class="lg:max-h-screen bg-white flex flex-col border-r transition-all duration-300"
+    class="lg:max-h-screen bg-white flex flex-col border-r transition-all duration-300 dark:bg-black"
     id="side-bar"
     :class="{
       'side-bar-visible': dataOpenSideBar,
