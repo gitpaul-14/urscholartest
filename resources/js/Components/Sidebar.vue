@@ -460,7 +460,7 @@ const clickHamburger = (event) => {
 
     const ScholarshipItems = [
       { label: 'Add Sponsors', route: { name: route('sponsor.index'), active: 'sponsor.index' }, },
-      { label: 'View Scholarships', route: { name: route('scholarships.show'), active: 'scholarships.show' }, },
+      { label: 'View Scholarships', route: { name: route('scholarships.index'), active: 'scholarships.index' }, },
       { label: 'Archives', route: '/scholarships/add' }
     ]
 
