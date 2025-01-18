@@ -3,6 +3,8 @@ import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
+
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -30,6 +32,22 @@ export default {
                 lightblue: '#D2CFFE',
                 dirtywhite: '#F8F8FA',
                 myblack: '#18181A',
+
+
+                // dark mode
+                //dprimary: '#121A26',
+                dprimary: '#0B132B', //pede
+
+                dtext: '#D9E2EC',
+                
+                // dcontainer: '#1B263B',
+                dcontainer: '#1C2541',
+                //dprimary: '#112240', //pede
+                //dprimary: '#1C2541', //pede
+                dnavy: '#3A4C7E',
+                dlightblue: '#D2CFFE',
+                ddirtywhite: '#F8F8FA',
+                dmyblack: '#18181A',
             },
         },
     },

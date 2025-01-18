@@ -56,16 +56,16 @@
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ scholar.id }}
+                  1
                 </th>
                 <td class="px-6 py-4">
-                  {{ `${scholar.first_name} ${scholar.last_name}` }}
+                  1
                 </td>
                 <td class="px-6 py-4">
-                  {{ scholar.course }}
+                  1
                 </td>
                 <td class="px-6 py-4">
-                  {{ scholar.email }}
+                  1
                 </td>
                 <td class="px-6 py-4">
                   <span

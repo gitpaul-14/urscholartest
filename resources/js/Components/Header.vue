@@ -1,17 +1,22 @@
 <template>
-    <div class="w-full bg-[F8F8FA] border">
+    <div class="w-full bg-white border-b dark:bg-[#0B132B] dark:border-b dark:border-gray-600">
       <!-- desktop -->
       <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center">
         <div class="flex items-center space-x-4">
           <div class="pl-1">
-            <img src="../../assets/images/logo-hori.png" alt="" class="w-[180px] h-[45px]">
+            <img src="../../assets/images/logo-hori.png" alt="Light Mode Logo" 
+                class="w-[180px] h-[40px] dark:hidden">
+
+            <!-- Dark Mode Logo -->
+            <img src="../../assets/images/logo-hori-white.png" alt="Dark Mode Logo" 
+                class="w-[180px] h-[40px] hidden dark:block">
           </div>
         </div>
 
         <!-- Theme and Notification -->
         <div class="flex items-center space-x-4 pr-5">
           <!-- Theme Toggle -->
-          <div class="border border-gray-300 inline-flex items-center justify-center w-10 h-10 text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 rounded-lg" type="button">
+          <div class="border border-gray-300 inline-flex items-center justify-center w-10 h-10 text-sm font-medium text-center text-gray-500 hover:text-gray-200 focus:outline-none dark:hover:text-white dark:text-gray-400 rounded-lg" type="button">
             <label class="swap swap-rotate h-[25px] w-[25px]">
               <!-- Hidden Checkbox -->
               <input 
@@ -22,15 +27,16 @@
               />
               <!-- Sun Icon -->
               <svg
-                class="swap-off h-full w-full fill-current"
+                class="swap-off h-full w-full fill-current text-white hover:text-gray-400"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
                   d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
               </svg>
+
               <!-- Moon Icon -->
               <svg
-                class="swap-on h-full w-full fill-current"
+                class="swap-on h-full w-full fill-current text-dprimary hover:text-gray-400"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -146,45 +152,117 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { ref, onMounted, defineProps } from 'vue';
+
+  const props = defineProps({
+    dataOpenSideBar: Boolean,
+    clickHamburger: Function
+  });
   
-  export default {
-    props: {
-      dataOpenSideBar: Boolean,
-      clickHamburger: Function
-    },
-    name: 'headerTop',
-    mounted() {
-      window.initFlowbite();
-    },
-    data() {
-      return {
-        items: [
-          {
-            label: 'Logout',
-            icon: 'pi pi-refresh',
-            command: () => {
-              this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-            }
-          },
-          {
-            label: 'Change Password',
-            icon: 'pi pi-times',
-            command: () => {
-              this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-            }
-          },
-        ]
+  const items = ref([
+    {
+      label: 'Logout',
+      icon: 'pi pi-refresh',
+      command: () => {
+        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
       }
     },
-    methods: {
-      toggle(event) {
-        this.$refs.menu.toggle(event);
-      },
+    {
+      label: 'Change Password',
+      icon: 'pi pi-times',
+      command: () => {
+        this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
+      }
     }
-  
+  ]);
+
+  const isDark = ref(false)
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  if (isDark.value) {
+    document.documentElement.classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+    localStorage.setItem('theme', 'light')
   }
+}
+
+// Check theme preference on page load
+onMounted(() => {
+  window.initFlowbite();
+  
+  // First check localStorage
+  const savedTheme = localStorage.getItem('theme')
+  
+  if (savedTheme) {
+    // If user has a saved preference, use that
+    isDark.value = savedTheme === 'dark'
+  } else {
+    // If no saved preference, check system preference
+    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+
+  // Apply the theme
+  if (isDark.value) {
+    document.documentElement.classList.add('dark')
+  }
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // Only update if user hasn't set a preference
+    if (!localStorage.getItem('theme')) {
+      isDark.value = e.matches
+      if (e.matches) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    }
+  })
+})
+
+  // export default {
+  //   props: {
+  //     dataOpenSideBar: Boolean,
+  //     clickHamburger: Function
+  //   },
+  //   name: 'headerTop',
+
+  //   theme: = ref={"dark"},
+  //   mounted() {
+  //     window.initFlowbite();
+  //   },
+  //   data() {
+  //     return {
+  //       items: [
+  //         {
+  //           label: 'Logout',
+  //           icon: 'pi pi-refresh',
+  //           command: () => {
+  //             this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
+  //           }
+  //         },
+  //         {
+  //           label: 'Change Password',
+  //           icon: 'pi pi-times',
+  //           command: () => {
+  //             this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
+  //           }
+  //         },
+  //       ]
+  //     }
+  //   },
+  //   methods: {
+  //     toggle(event) {
+  //       this.$refs.menu.toggle(event);
+  //     },
+  //   }
+  
+  // }
   </script>
   
   <style scoped>

@@ -1,6 +1,6 @@
 <template>
     <div
-    class="lg:max-h-screen bg-white flex flex-col border-r transition-all duration-300 dark:bg-black"
+    class="lg:max-h-screen flex flex-col border-r transition-all duration-300"
     id="side-bar"
     :class="{
       'side-bar-visible': dataOpenSideBar,
@@ -8,20 +8,20 @@
     }"
   >
       <!-- desktop -->
-      <div class="hidden lg:flex flex-col justify-between h-full bg-white">
-        <div :class="['menu-man text-left whitespace-nowrap', dataOpenSideBar ? 'px-1' : 'px-1']">
+      <div class="hidden lg:flex flex-col justify-between h-full bg-white dark:bg-dprimary dark:border-r dark:border-gray-600">
+        <div :class="['text-left', dataOpenSideBar ? 'px-1' : 'px-1']">
           <!-- Hamburger Icon -->
             <div class="p-1 cursor-pointer hover:bg-gray-100 hover:rounded-md flex items-center" @click="clickHamburger"
             :class="[
               dataOpenSideBar ? 'justify-between' : 'justify-center',
               'min-h-[50px]'
             ]">
-            <span v-if="dataOpenSideBar" class="text-blue-900 opacity-90 font-poppins text-sm font-semibold">
+            <span v-if="dataOpenSideBar" class="text-blue-900 opacity-90 font-poppins text-sm font-semibold dark:text-dtext">
               Main Menu
             </span>
 
             <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" 
-              class="w-6 h-6 pointer-events-none transition-transform duration-300 text-blue-900"
+              class="w-6 h-6 pointer-events-none transition-transform duration-300 text-blue-900 dark:text-dtext"
               :class="{ 'rotate-180': dataOpenSideBar }">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M3 8a4 4 0 014-4h10a4 4 0 014 4v8a4 4 0 01-4 4H7a4 4 0 01-4-4V8zm13-2.5A2.5 2.5 0 0013.5 8v8a2.5 2.5 0 002.5 2.5h1a2.5 2.5 0 002.5-2.5V8A2.5 2.5 0 0017 5.5h-1zm-3.123 13A3.984 3.984 0 0112 16V8c0-.946.328-1.815.877-2.5H7A2.5 2.5 0 004.5 8v8A2.5 2.5 0 007 18.5h5.877z"></path>
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.25 12a.75.75 0 01-.22.53l-2 2a.75.75 0 01-1.06-1.06L8.44 12l-1.47-1.47a.75.75 0 111.06-1.06l2 2c.141.14.22.331.22.53z"></path>
@@ -33,7 +33,7 @@
                 'py-3 cursor-pointer hover:bg-blue-700 hover:text-white',
                 { 'active bg-blue-900': $page.url === '/super_admin/dashboard' }
               ]">
-              <div :class="['flex items-center space-x-2 text-blue-900 hover:text-white font-quicksand font-semibold pl-2 text-[16px]', { 'active text-white': $page.url === '/coordinator/dashboard' }]">
+              <div :class="['flex items-center space-x-2 text-blue-900 dark:text-dtext hover:text-white font-quicksand font-semibold pl-2 text-[16px]', { 'active text-white': $page.url === '/coordinator/dashboard' }]">
                 <span :class="['material-symbols-rounded', { 'active text-white': $page.url === '/coordinator/dashboard' }]" :style="['text-blue-900 hover:text-white', { 'active text-white hover:text-white': $page.url === '/coordinator/dashboard' }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                 dashboard
@@ -46,11 +46,11 @@
           <!-- cascading scholarship menu -->
           <div :class="['relative py-3 hover:bg-gray-100 hover:rounded-md', { 'active bg-blue-900': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
             <!-- Main menu item -->
-            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholarships'"></span> 
-                <span class="material-symbols-rounded" :class="['text-blue-900', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+                <span class="material-symbols-rounded" :class="['text-blue-900 dark:text-dtext', { 'active text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
@@ -96,12 +96,12 @@
           <div class="relative py-3 hover:bg-gray-100 hover:rounded-md ">
             <!-- Main menu item -->
             <div 
-              class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 pl-0"
+              class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0"
               @click="toggleScholarsMenu"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholars'"></span> 
-                <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
+                <span class="material-symbols-rounded text-blue-900 dark:text-dtext"  v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
                 school
                 </span>
               <span v-show="dataOpenSideBar">Scholars</span>
@@ -140,11 +140,11 @@
             </Transition>
           </div>
   
-            <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
+            <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
-              <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <box-icon type='solid' name='book-content' color="#0D47A1" class="icon-size"
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
+              <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2 text-blue-900 dark:text-dtext">
+                <box-icon type='solid' name='book-content' class="icon-size fill-[#0D47A1] dark:fill-[#FFFFFF]"
                 v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
                     <span v-show="dataOpenSideBar"></span>
                   </box-icon>
@@ -153,9 +153,9 @@
             </div>
             
             <Link :href="route('messaging.index')">
-              <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                     forum
                     </span>
                   <span v-show="dataOpenSideBar">Messaging</span>
@@ -163,38 +163,41 @@
               </div>
             </Link>
           
-            <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
-              <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
                     price_check
                     </span>
                   <span v-show="dataOpenSideBar">Payouts</span>
                 </router-link>
               </div>
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
               <router-link to="/activation" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <box-icon type='solid' name='report' color="#0D47A1" class="icon-size"
-                v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
-                    <span v-show="dataOpenSideBar"></span>
-                  </box-icon>
+                <box-icon 
+                  type="solid" 
+                  name="report" 
+                  class="icon-size fill-[#0D47A1] dark:fill-[#FFFFFF]"
+                  v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
+                  <span v-show="dataOpenSideBar"></span>
+                </box-icon>
                 <span v-show="dataOpenSideBar">Reports</span>
               </router-link>
             </div>
-          <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+          <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
             <div class="flex space-x-2 font-quicksand font-semibold pl-2">
-              <box-icon type='solid' name='archive' color="#0D47A1" class="icon-size"
+              <box-icon type='solid' name='archive' class="icon-size fill-[#0D47A1] dark:fill-[#FFFFFF]"
               v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon>
               <span v-show="dataOpenSideBar">Archives</span>
             </div>
           </div>
-          <div class="text-blue-900 opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
+          <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
           <Link :href="route('settings.index')">
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 hover:bg-gray-100 hover:rounded-md">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 hover:rounded-md">
               <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                  <span class="material-symbols-rounded" style="color: #0D47A1;" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
                   settings
                   </span>
                 <span v-show="dataOpenSideBar">Settings</span>
@@ -544,7 +547,6 @@ const clickHamburger = (event) => {
   width: 22px;
   height: 22px;
 }
-
 /* .active {
   background-color: #f3f4f6;
   font-weight: bold; 
