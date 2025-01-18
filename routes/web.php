@@ -50,7 +50,7 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
 
     
-    Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');
+    Route::get('/scholarships', [ScholarshipController::class, 'show'])->name('scholarships.show');
     // Route::post('/scholarships', [ScholarshipController::class, 'store'])->name('scholarships.store');
     Route::put('/scholarships/{id}', [ScholarshipController::class, 'update'])->name('scholarships.update');
 
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/scholarships/{scholarship}/send-access', [EmailController::class, 'index'])->name('requirements.index');
 
     //Scholars
-    Route::get('/scholarships/{scholarship}', [ScholarshipController::class, 'show'])->name('scholarship.show');
+    Route::get('/scholarships/{scholarship}', [ScholarshipController::class, 'scholarship'])->name('scholarship.scholarship');
     Route::post('/scholarships/{scholarship}/upload', [ScholarController::class, 'upload'])->name('scholars.upload');
 
     // Messaging
