@@ -109,14 +109,8 @@ import { Head, useForm, Link } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 
 const props = defineProps({
-    sponsors: {
-        type: Array,
-        required: true
-    },
-    scholarships: {
-        type: Array,
-        required: true
-    }
+  scholarship: Object,
+  scholars: Array
 });
 
 const directives = {
