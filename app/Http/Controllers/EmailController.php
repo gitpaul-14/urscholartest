@@ -38,15 +38,15 @@ class EmailController extends Controller
         // dd($request->all());
         $scholars = Scholar::where('scholarship_id', $scholarship->id)->get();
 
+        Requirements::create([
+            'scholarship_id' => $scholarship->id,
+            'requirements' => $request['requirements'],
+            'application_start' => $request['application'],
+            'deadline' => $request['deadline'],
+        ]);
+        
         // Create the same requirement for all scholars
         foreach ($scholars as $scholar) {
-            Requirements::create([
-                'scholar_id' => $scholar->id,
-                'scholarship_id' => $scholarship->id,
-                'requirements' => $request['requirements'],
-                'application_start' => $request['application'],
-                'deadline' => $request['deadline'],
-            ]);
 
             $userExists = User::where('email', $scholar['email'])->exists();
 

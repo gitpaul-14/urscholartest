@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirements extends Model
 {
-    protected $fillable = ['scholar_id', 'scholarship_id', 'requirements', 'submitted_requirements', 'application_start', 'deadline'];
+    protected $fillable = ['scholarship_id', 'requirements', 'application_start', 'deadline'];
 
     protected $casts = [
         'requirements' => 'array',
-        'submitted_requirements' => 'array'
     ];
 
     public function scholars()

@@ -33,10 +33,12 @@ class ScholarshipController extends Controller
 
     public function show(Scholarship $scholarship)
     {
+
+        
         $scholars = $scholarship->scholars;
 
         
-        $requirements = Requirements::where('scholarship_id', $scholarship->first()->id)->get();
+        $requirements = Requirements::where('scholarship_id', $scholarship->id)->get();
 
         return Inertia::render('Super_Admin/Scholarships/Scholarship', [
             'scholarship' => $scholarship,

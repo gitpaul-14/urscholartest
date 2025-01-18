@@ -58,9 +58,6 @@
                 <td class="px-6 py-4">
                   {{ `${scholar.first_name} ${scholar.last_name}` }}
                 </td>
-                <th v-for="(requirement, index) in requirements" :key="index" scope="col" class="px-6 py-3">
-      {{ requirement.requirements[index]}}
-    </th>
                 <td class="px-6 py-4">
                   <span class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                   <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -99,77 +96,6 @@
     </div>
   </div>
 
-  <!-- Overlay to detect clicks outside -->
-  <Transition name="slide">
-      <div 
-        v-show="showPanel" 
-        class="fixed inset-0 z-50 flex justify-end"
-        @click.self="closePanel" 
-      >
-        <!-- Right side panel -->
-        <div 
-          class="h-full overflow-y-auto bg-white w-4/12 shadow-lg transition-transform duration-300"
-          @click.stop 
-        >
-          <div class="p-4 border-b flex justify-between items-center">
-            <h2 class="text-xl font-semibold">Add Scholars</h2>
-            <button 
-              @click="closePanel"
-              class="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <span class="material-symbols-rounded">close</span>
-            </button>
-          </div>
-  
-          <!-- File Upload -->
-          <div class="card">
-            <FileUpload 
-              name="demo[]" 
-              @uploader="onUpload" 
-              :multiple="true" 
-              accept=".csv" 
-              :maxFileSize="1000000"
-              customUpload 
-              @select="handleFileUpload"
-              @clear="clearPreview"
-              id="file-upload"
-            />
-          </div>
-  
-          <!-- Error Message -->
-          <div v-if="error" class="text-red-500 mb-4">
-            {{ error }}
-          </div>
-  
-          <!-- Preview Table -->
-          <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
-            <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                  <th v-for="header in headers" :key="header" class="px-6 py-3">
-                    {{ header }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(row, rowIndex) in previewData" :key="rowIndex" class="bg-white border-b hover:bg-gray-50">
-                  <td v-for="(header, colIndex) in headers" :key="colIndex" class="px-6 py-4 whitespace-nowrap">
-                    {{ row[header] }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-  
-            <!-- Empty State -->
-            <div v-if="previewData.length === 0 && !error" class="text-center py-4 text-gray-500">
-              No data to display. Please upload a CSV file.
-            </div>
-          </div>
-        </div>
-      </div>
-    </Transition>
-  
-  
 </template>
 
 <script setup>
@@ -227,7 +153,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
   const props = defineProps({
     scholarship: Object,
     scholars: Array,
-    requirements: Array,
+    requirements: Object,
   });
   
   const form = useForm({
