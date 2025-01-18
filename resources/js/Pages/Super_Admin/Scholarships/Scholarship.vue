@@ -28,18 +28,13 @@
                     <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left">
                         <span>{{ scholarship.name }}</span> Scholars 2024-2025 ganyan
                     </h1>
-                </div>
+                </div>    
 
-                <div>
-                    <h1 class="text-black">
-                        bfbeafbaefpbefeafagergre
-                    </h1>
-                </div>
-
-                <!--<Scholars>
-                    
-                </Scholars>-->
+                <ScholarsTab />
+                <!-- <SlidingAddScholars /> -->
             </div>
+            <!-- add here -->
+                
         </div>
     </AuthenticatedLayout>
 </template>
@@ -54,12 +49,20 @@ import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import Papa from 'papaparse';
 
+import ScholarsTab from '../../../Components/Admin/ScholarsTabs/ScholarsTab.vue';
+
+import SlidingAddScholars from '../../../Components/Admin/ScholarsTabs/SlidingAddScholars.vue';
+import Test from '@/Components/Admin/ScholarsTabs/ScholarsTab 2.vue';
+
+// components
+
 const components = {
     DataTable,
     Column,
     Button,
     FileUpload,
     Papa,
+    SlidingAddScholars,
 };
 
 const expandedRows = ref([]);

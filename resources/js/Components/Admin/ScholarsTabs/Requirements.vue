@@ -1,40 +1,6 @@
 <template>
-  <AuthenticatedLayout>
     <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-x-auto">
       <div class="w-full mx-auto p-3 rounded-xl text-white overflow-x-auto">
-          <div class="breadcrumbs text-sm text-gray-400 mb-5">
-            <ul>
-              <li>
-              <a>
-                  <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
-                  dashboard
-                  </span>
-                  Home
-              </a>
-              </li>
-              <li>
-              <a>
-                  <span>Scholarships</span>
-              </a>
-              </li>
-              <li>
-              <a>
-                  <span class="text-blue-400 font-semibold">{{ scholarship.name }} Dashboard</span>
-              </a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex justify-between items-center mb-4">
-            <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left">
-              <span>{{ scholarship.name }}</span> Scholars 2024-2025 ganyan</h1>
-          </div>
-
-          <div>
-            <h1 class="text-black">
-              bfbeafbaefpbeafaiefbapeb
-            </h1>
-          </div>
-
           <div class="w-full h-full bg-[#F8F8FA] justify-between items-center mb-4 px-32">
             <!-- table -->
             <div class="bg-white">
@@ -83,7 +49,6 @@
           </div>
       </div>
     </div>
-    </AuthenticatedLayout>
 </template>
 
 <script setup>
@@ -242,7 +207,6 @@ const uploadCSV = () => {
 </script>
 
 <style>
-/* override the prime vue componentss */
 
 .p-fileupload-choose-button {
   background-color: #003366 !important;
@@ -265,7 +229,6 @@ const uploadCSV = () => {
   transform: translateX(0);
 }
 
-/* Fade transition for backdrop */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
