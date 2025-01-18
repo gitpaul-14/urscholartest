@@ -44,7 +44,7 @@ const submit = () => {
             <div class="relative flex items-center justify-center">
                 <!-- logo -->
                 <div class="absolute z-10 w-[50%] h-full">
-                    <img src="../../../assets/images/logo-hori-white.png" alt="">
+                    <img src="../../../assets/images/logo-hori-white_login.png" alt="">
                 </div>
                 <!-- bg -->
                 <img src="../../../assets/images/login-bg.png" alt="" class="w-full h-full object-cover">

@@ -9,7 +9,7 @@
   >
       <!-- desktop -->
       <div class="hidden lg:flex flex-col justify-between h-full bg-white dark:bg-dprimary dark:border-r dark:border-gray-600">
-        <div :class="['text-left', dataOpenSideBar ? 'px-1' : 'px-1']">
+        <div :class="[ dataOpenSideBar ? 'px-1' : 'px-1']">
           <!-- Hamburger Icon -->
             <div class="p-1 cursor-pointer hover:bg-gray-100 hover:rounded-md flex items-center" @click="clickHamburger"
             :class="[
@@ -75,7 +75,7 @@
             >
               <div 
                 v-show="isScholarshipMenuOpen" 
-                class="fixed top-0 bg-white w-48 z-50 cursor-pointer"
+                class="fixed top-0 bg-white dark:bg-dprimary w-48 z-50 cursor-pointer"
                 :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }"
               >
                 <ul class="space-y-0">
