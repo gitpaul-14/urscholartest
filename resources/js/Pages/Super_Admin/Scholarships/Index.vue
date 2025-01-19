@@ -44,7 +44,7 @@
                                 <div class="card-body p-5 space-y-2">
                                     <!-- logo -->
                                     <div>
-                                        <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-16 h-16 rounded-full" />
+                                        <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-20 h-20 rounded-full" />
                                     </div>
 
                                     <p class="text-xs text-gray-500">Created on: {{ new
@@ -74,7 +74,7 @@
                                         <Link :href="`/sponsors/${sponsor.id}`">
                                         <div class="text-sm text-gray-500 cursor-pointer">
                                             <span
-                                                class="material-symbols-rounded text-blue-900 bg-blue-100 p-3 border rounded-lg">
+                                                class="material-symbols-rounded text-blue-900 bg-blue-100 hover:bg-blue-300 p-3 border rounded-lg">
                                                 open_in_browser
                                             </span>
                                         </div>

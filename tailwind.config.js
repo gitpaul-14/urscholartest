@@ -33,12 +33,17 @@ export default {
                 dirtywhite: '#F8F8FA',
                 myblack: '#18181A',
 
+                lprimary: '#F5F7FA',
+                lhover: '#A3B1C6',
+                ltext: '#F5F7FA',
+
 
                 // dark mode
                 //dprimary: '#121A26',
                 dprimary: '#0B132B', //pede
                 dsecondary: '#1C2541', //muted blue
                 lightblue: '#5BC0BE', //aqua teal
+                dhover: '#1C2541',
 
                 dtext: '#D9E2EC',
                 

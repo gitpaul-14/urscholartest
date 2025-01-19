@@ -1,19 +1,15 @@
 <template>
-  <div class="w-full bg-[F8F8FA]">
+  <div class="w-full bg-[F8F8FA] shadow-lg">
     <!-- desktop -->
     <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center px-10">
       <div class="flex items-center space-x-4">
         <div class="pl-1">
-          <img src="../../../assets/images/logo-hori.png" alt="" class="w-[180px] h-[45px]">
+          <img src="../../../assets/images/logo-hori.png" alt="" class="w-[180px] h-[40px]">
         </div>
-      </div>
-
-      <!-- navigations -->
-      <div>
-        <ul class="flex space-x-12 font-poppins">
+        <ul class="flex pl-10 space-x-10 font-inter font-semibold text-navy">
           <li>
             <Link :href="(route('student.dashboard'))">
-            <p class="text-primary-foreground hover:text-primary-foreground transition">Dashboard</p>
+            <p class="text-primary-foreground hover:text-primary-foreground transition">Feed</p>
             </Link>
           </li>
           <li>
@@ -21,12 +17,12 @@
             <p class="text-primary-foreground hover:text-primary-foreground transition">Scholarship</p>
             </Link>
           </li>
-          <li>
-            <Link :href="(route('student.application'))">
-            <p class="text-primary-foreground hover:text-primary-foreground transition">Application</p>
-            </Link>
-          </li>
         </ul>
+      </div>
+
+      <!-- navigations -->
+      <div>
+        
       </div>
 
       <!-- Theme and Notification -->

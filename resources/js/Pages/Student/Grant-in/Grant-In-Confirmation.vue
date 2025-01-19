@@ -1,8 +1,8 @@
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
-        <div class="w-full bg-white shadow-sm ">
+    <AuthenticatedLayout class="shadow-md z-10">
+        <div class="w-full bg-dirtywhite shadow-sm ">
             <h1 class="text-3xl font-bold font-sora text-left p-3 mx-10">Confirmation</h1>
         </div>
         <div class="pt-3 pb-24 overflow-auto h-full scroll-py-4">
