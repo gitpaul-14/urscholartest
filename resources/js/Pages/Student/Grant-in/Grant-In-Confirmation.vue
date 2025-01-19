@@ -13,16 +13,16 @@
                         <img src="../../../../assets/images/qualifiedvector.png" alt="Congrats">
                     </div>
                     <h1 class="font-bold text-2xl font-albert text-center mt-4">
-                        Congratulations! You are qualified for the {Scholarship}
+                        Congratulations! You are qualified for the {{ scholarship.name }} Scholarship!
                     </h1>
                     <div class="p-24 font-inter text-lg">
-                        <p>Dear [Student's Name],</p>
+                        <p>Dear {{ scholar.last_name + ', ' + scholar.first_name }},</p>
                         <br>
-                        <p class="leading-loose indent-6">We are thrilled to inform you that you have been officially qualified for a scholarship under [Scholarship Name] in the URScholar System! Your dedication and hard work have truly paid off, and we are excited to support you on your academic journey.</p>
+                        <p class="leading-loose indent-6">We are thrilled to inform you that you have been officially qualified for a scholarship under {{ scholarship.name }} in the URScholar System! Your dedication and hard work have truly paid off, and we are excited to support you on your academic journey.</p>
                         <br>
                         <h1 class="font-bold">Next Steps: Submission of Requirements</h1>
                         <br>
-                        <p class="leading-loose indent-6">To complete your scholarship application and ensure your eligibility for the grant, please submit the following required documents no later than [Deadline Date]:</p>
+                        <p class="leading-loose indent-6">To complete your scholarship application and ensure your eligibility for the grant, please submit the following required documents no later than {{requirements.deadline}}:</p>
                         <br>
 
                         <div>
@@ -131,8 +131,8 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    scholars: Object,
-    scholarships: Object,
+    scholar: Object,
+    scholarship: Object,
     requirements: Object,
 });
 

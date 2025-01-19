@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('submitted_requirements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('scholar_id')->constrained()->onDelete('cascade');
+            $table->foreignId('requirement_id')->constrained()->onDelete('cascade');
             $table->json('submitted_requirements');
             $table->enum('status', ['Approved', 'Pending', 'Returned'])->default('Pending');
             $table->timestamps();

@@ -13,8 +13,8 @@ class Scholar extends Model
         return $this->belongsTo(Scholarship::class);
     }
 
-    public function requirements()
+    public function submittedRequirements()
     {
-        return $this->belongsTo(Requirements::class);
+        return $this->hasMany(SubmittedRequirements::class);
     }
 }

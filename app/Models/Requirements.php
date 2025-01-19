@@ -20,4 +20,9 @@ class Requirements extends Model
     {
         return $this->hasMany(Scholarship::class);
     }
+
+    public function submittedRequirements()
+    {
+        return $this->hasMany(SubmittedRequirements::class);
+    }
 }

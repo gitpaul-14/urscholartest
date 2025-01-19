@@ -58,9 +58,10 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    scholars: Object,
-    scholarships: Object,
+    scholar: Object,
+    scholarship: Object,
     requirements: Object,
+    submitRequirements: Object,
 });
 
 // Form to handle multiple files for different requirements

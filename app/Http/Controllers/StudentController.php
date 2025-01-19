@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Scholarship;
 use App\Models\Requirements;
+use App\Models\SubmittedRequirements;
 use App\Models\User;
 use App\Models\Scholar;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,51 @@ class StudentController extends Controller
 
     public function scholarship()
     {
-        return Inertia::render('Student/Grant-in/Grant-In');
+        $scholar = Scholar::where('email', Auth::user()->email)->first();
+
+        $scholarship = Scholarship::where('id', $scholar->scholarship_id)->first();
+
+        $requirements = Requirements::where('id', $scholarship->id)->get();
+
+        $reqID = $requirements->pluck('id')->first();
+
+        $submitRequirements = SubmittedRequirements::where('id', $reqID)->exists();
+
+
+        if ($submitRequirements) {
+            return Inertia::render('Student/Grant-in/Grant-In', [
+            'scholarship' => $scholarship,
+            'scholar' => $scholar,
+            'requirements' => $requirements,
+        ]);
+        } 
+        else {
+            return redirect()->route('student.confirmation');
+        }
+
+        
+    }
+
+    public function confirmation()
+    {
+
+        $scholar = Scholar::where('email', Auth::user()->email)->first();
+
+        $scholarship = Scholarship::where('id', $scholar->scholarship_id)->first();
+
+        $requirements = Requirements::where('id', $scholarship->id)->get();
+
+        $reqID = $requirements->pluck('id')->first();
+
+        $submitRequirements = SubmittedRequirements::where('id', $reqID)->exists();
+
+
+        return Inertia::render('Student/Grant-in/Grant-In-Confirmation', [
+            'scholarship' => $scholarship,
+            'scholar' => $scholar,
+            'requirements' => $requirements,
+        ]);
+    
     }
 
     public function profile()
@@ -69,7 +114,7 @@ class StudentController extends Controller
         $scholarshipIds = $scholars->pluck('scholarship_id')->unique();
         $scholarships = Scholarship::whereIn('id', $scholarshipIds)->with('requirements')->get();
 
-        $requirements = Requirements::where('scholar_id', $scholars->first()->id)->get();
+        $requirements = Requirements::where('scholarship_id', $scholarships->first()->id)->get();
 
         return Inertia::render('Student/Application/Application', [
             'scholars' => $scholars,
@@ -78,7 +123,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function applicationUpload(Request $request, Scholar $scholar)
+    public function applicationUpload(Request $request)
     {
 
         $request->validate([
@@ -87,8 +132,11 @@ class StudentController extends Controller
 
         $scholar = Scholar::where('email', Auth::user()->email)->first();
 
-        $scholar_id = $scholar->id;
-        $requirement = Requirements::where('id', $scholar_id)->first();
+        $scholarship = Scholarship::where('id', $scholar->scholarship_id)->first();
+
+        $requirements = Requirements::where('id', $scholarship->id)->get();
+
+        $reqID = $requirements->pluck('id')->first();
 
 
         $uploadedFiles = [];
@@ -104,10 +152,19 @@ class StudentController extends Controller
             }
         }
 
-        $requirement->update([
-            'submitted_requirements' => json_encode($uploadedFiles)
+        // $requirement->update([
+        //     'submitted_requirements' => json_encode($uploadedFiles)
+        // ]);
+
+        $doneSubmit = SubmittedRequirements::create([
+            'scholar_id' => $scholar->id,
+            'requirement_id' => $reqID,
+            'submitted_requirements' => $uploadedFiles
         ]);
 
-        return redirect()->back()->with('message', 'Files uploaded successfully');
+        if ($doneSubmit) {
+            return redirect()->route('student.scholarship');
+        }
+
     }
 }

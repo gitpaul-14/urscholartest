@@ -38,7 +38,7 @@
               <th scope="col" class="px-6 py-3">URScholar ID</th>
               <th scope="col" class="px-6 py-3">Full Name</th>
               <th v-for="(requirement, index) in requirements" :key="index" scope="col" class="px-6 py-3">
-      {{ requirement.requirements[index]}}
+      {{ requirement.requirements }}
     </th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Expand</span>
@@ -116,25 +116,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     Papa,
   };
   
-  const expandedRows = ref([]);
-  
-  function expandAll() {
-      expandedRows.value = products.value.reduce((acc, p) => (acc[p.id] = true) && acc, {});
-  }
-  
-  function collapseAll() {
-      expandedRows.value = null;
-  }
-  
-  const toggleRow = (index) => {
-    const position = this.expandedRows.indexOf(index)
-    if (position !== -1) {
-      this.expandedRows.splice(position, 1)
-    } else {
-      this.expandedRows.push(index)
-    }
-  }
-  
   // testing
   
   const showPanel = ref(false)
@@ -153,7 +134,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
   const props = defineProps({
     scholarship: Object,
     scholars: Array,
-    requirements: Object,
+    requirements: Array,
   });
   
   const form = useForm({
