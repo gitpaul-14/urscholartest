@@ -1,43 +1,34 @@
 <template>
     <AuthenticatedLayout>
-        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-x-auto">
+        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] dark:bg-dprimary overflow-x-auto">
             <div class="w-full mx-auto p-3 rounded-xl text-white overflow-x-auto">
                 <div class="breadcrumbs text-sm text-gray-400 mb-5">
                     <ul>
-                        <li>
-                            <a>
-                                <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
-                                    dashboard
-                                </span>
+                        <li class="hover:text-gray-600">
                                 Home
-                            </a>
                         </li>
-                        <li>
-                            <a>
+                        <li class="hover:text-gray-600">
                                 <span>Scholarships</span>
-                            </a>
                         </li>
                         <li>
-                            <a>
                                 <span class="text-blue-400 font-semibold">{{ scholarship.name }} Dashboard</span>
-                            </a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="w-full flex flex-row justify-between bg-white shadow-md p-5 rounded-xl mb-3">
+                <div class="w-full flex flex-row justify-between bg-white dark:bg-dcontainer dark:border dark:border-gray-600 shadow-md p-5 rounded-xl mb-3">
                     <div class="w-9/12 flex justify-between items-">
                         <div>
                             <img class="w-36 h-36" :src="scholarship.logo" alt="logo" />
                         </div>
                         <div class="flex flex-col space-y-1">
-                            <h1 class="text-4xl font-sora font-extrabold text-[darkblue] text-left">
+                            <h1 class="text-4xl font-sora font-extrabold text-[darkblue] text-left dark:text-dtext">
                                 <span>{{ scholarship.name }}</span> Scholars 2024-2025 ganyan
                             </h1>
-                            <h1 class="text-lg font-quicksand font-semibold text-[darkblue] text-left">
+                            <h1 class="text-lg font-quicksand font-semibold text-[darkblue] text-left dark:text-dtext">
                                 Funded by Sponsor since Sponsor
                             </h1>
-                            <h1 class="text-base font-quicksand font-normal text-[darkblue] text-left">
+                            <h1 class="text-base font-quicksand font-normal text-[darkblue] text-left dark:text-dtext">
                                 Lorem ipsum door sit amet. Ut sunt dolor ut corrupti facilis non excepturi nobis vel sapiente nemo aut rerum libero. Et odio sunt aut perspiciatis distinctio et tenetur esse et dolorum autem et veritatis officiis eos neque officiis qui voluptatem adipisci. Ea quia fuga qui accusantium minus et nisi voluptas sed amet suscipit sit cumque consequatur.
                             </h1>
                             <div class="avatar-group -space-x-3 rtl:space-x-reverse pt-1">

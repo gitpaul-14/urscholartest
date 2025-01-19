@@ -176,7 +176,7 @@ defineProps({
                 />
 
                 <!-- Main Content -->
-                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100 dark:text-dprimary">
+                <div class="flex-1 lg:h-full h-auto lg:ml-0 dark:text-dprimary">
                 <slot></slot>
                 </div>
             </div>

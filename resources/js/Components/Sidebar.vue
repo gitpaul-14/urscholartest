@@ -1,17 +1,11 @@
 <template>
-    <div
-    class="lg:max-h-screen flex flex-col border-r transition-all duration-300"
-    id="side-bar"
-    :class="{
-      'side-bar-visible': dataOpenSideBar,
-      'side-bar-close': !dataOpenSideBar
-    }"
-  >
+    <div class="lg:max-h-screen flex flex-col border-r border-gray-200 dark:border-r dark:border-t dark:border-gray-600 transition-all duration-300" id="side-bar"
+    :class="{'side-bar-visible': dataOpenSideBar, 'side-bar-close': !dataOpenSideBar}">
       <!-- desktop -->
-      <div class="hidden lg:flex flex-col justify-between h-full bg-white dark:bg-dprimary dark:border-r dark:border-gray-600">
+      <div class="hidden lg:flex flex-col justify-between h-full dark:bg-dprimary dark:border-r dark:border-gray-600">
         <div :class="[ dataOpenSideBar ? 'px-1' : 'px-1']">
           <!-- Hamburger Icon -->
-            <div class="p-1 cursor-pointer hover:bg-gray-100 hover:rounded-md flex items-center" @click="clickHamburger"
+            <div class="p-1 cursor-pointer flex items-center" @click="clickHamburger"
             :class="[
               dataOpenSideBar ? 'justify-between' : 'justify-center',
               'min-h-[50px]'
@@ -30,21 +24,21 @@
             
             <Link :href="(route('super_admin.dashboard'))" >
               <div :class="[
-                'py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md',
-                { 'active bg-primary': $page.url === '/admin/dashboard' }
+                'py-3 cursor-pointer rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md',
+                { 'active bg-gray-200 dark:bg-primary': $page.url === '/admin/dashboard' }
               ]">
               <div :class="['flex items-center space-x-2 text-blue-900 dark:text-dtext font-quicksand font-semibold pl-2 text-[16px]']">
                 <span :class="['material-symbols-rounded', { 'active text-white': $page.url === '/coordinator/dashboard' }]" :style="['text-blue-900 hover:text-white', { 'active text-white hover:text-white': $page.url === '/coordinator/dashboard' }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                 dashboard
                 </span>
-                <span v-show="dataOpenSideBar">Dashboard</span>
+                <span v-show="dataOpenSideBar" class="pl-2">Dashboard</span>
               </div>
               </div>
             </Link>
 
           <!-- cascading scholarship menu -->
-          <div :class="['relative py-3 hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md', { 'active bg-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
+          <div :class="['relative py-3 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gray-200 dark:bg-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
             <!-- Main menu item -->
             <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
             >
@@ -54,7 +48,7 @@
                 v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
-              <span v-show="dataOpenSideBar">Scholarship</span>
+              <span v-show="dataOpenSideBar" class="pl-2">Scholarship</span>
               </div>
               <font-awesome-icon 
                 icon="fa-solid fa-chevron-right" 
@@ -76,13 +70,13 @@
               <div 
                 v-show="isScholarshipMenuOpen" 
                 class="fixed top-0 bg-white dark:bg-dprimary w-48 z-50 cursor-pointer"
-                :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 9}px` }"
+                :style="{ top: `${menuPosition - 12}px`, left: `${sidebarWidth + 8}px` }"
               >
                 <ul class="space-y-0">
                   <li v-for="(item, index) in ScholarshipItems" :key="index">
                     <Link
                       :href="item.route.name"
-                      class="block px-4 py-3 text-md font-quicksand font-bold border text-blue-900 hover:bg-gray-100 dark:text-white dark:hover:bg-dhover transition-colors duration-200"
+                      class="block px-4 py-3 text-md font-quicksand font-bold border border-gray-200 dark:bg-dsecondary dark:border-gray-600 text-blue-900 hover:bg-gray-100 dark:text-white dark:hover:bg-dprimary transition-colors duration-200"
                     >
                       {{ item.label }}
                     </Link>
@@ -93,7 +87,7 @@
           </div>
   
           <!-- cascading scholars menu -->
-          <div class="relative py-3 hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+          <div class="relative py-3 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
             <!-- Main menu item -->
             <div 
               class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0"
@@ -104,7 +98,7 @@
                 <span class="material-symbols-rounded text-blue-900 dark:text-dtext"  v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
                 school
                 </span>
-              <span v-show="dataOpenSideBar">Scholars</span>
+              <span v-show="dataOpenSideBar" class="pl-2">Scholars</span>
               </div>
               <font-awesome-icon 
                 icon="fa-solid fa-chevron-right" 
@@ -130,7 +124,7 @@
                   <li v-for="(item, index) in ScholarItems" :key="item.label">
                     <router-link 
                       :to="item.route" 
-                      class="block px-4 py-3 text-md font-quicksand font-bold border text-blue-900 hover:bg-gray-100 transition-colors duration-200"
+                      class="block px-4 py-3 text-md font-quicksand font-bold border border-gray-200 dark:border-gray-600 dark:bg-dsecondary text-blue-900 hover:bg-gray-100 dark:text-white dark:hover:bg-dprimary transition-colors duration-200"
                     >
                       {{ item.label }}
                     </router-link>
@@ -142,38 +136,38 @@
   
             <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
               <router-link to="/contact" class="flex space-x-2 font-quicksand font-semibold pl-2 text-blue-900 dark:text-dtext">
                 <box-icon type='solid' name='book-content' class="icon-size fill-[#0D47A1] dark:fill-[#FFFFFF]"
                 v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
                     <span v-show="dataOpenSideBar"></span>
                   </box-icon>
-                <span v-show="dataOpenSideBar">Feed</span>
+                <span v-show="dataOpenSideBar" class="pl-2">Feed</span>
               </router-link>
             </div>
             
             <Link :href="route('messaging.index')">
-              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
                     <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
                     forum
                     </span>
-                  <span v-show="dataOpenSideBar">Messaging</span>
+                  <span v-show="dataOpenSideBar" class="pl-2">Messaging</span>
                   </div>
               </div>
             </Link>
           
             <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
 
-              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+              <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
                   <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
                     price_check
                     </span>
-                  <span v-show="dataOpenSideBar">Payouts</span>
+                  <span v-show="dataOpenSideBar" class="pl-2">Payouts</span>
                 </router-link>
               </div>
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
               <router-link to="/activation" class="flex space-x-2 font-quicksand font-semibold pl-2">
                 <box-icon 
                   type="solid" 
@@ -182,41 +176,37 @@
                   v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon>
-                <span v-show="dataOpenSideBar">Reports</span>
+                <span v-show="dataOpenSideBar" class="pl-2">Reports</span>
               </router-link>
             </div>
-          <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+          <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
             <div class="flex space-x-2 font-quicksand font-semibold pl-2">
               <box-icon type='solid' name='archive' class="icon-size fill-[#0D47A1] dark:fill-[#FFFFFF]"
               v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
                   <span v-show="dataOpenSideBar"></span>
                 </box-icon>
-              <span v-show="dataOpenSideBar">Archives</span>
+              <span v-show="dataOpenSideBar" class="pl-2">Archives</span>
             </div>
           </div>
           <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
 
           <Link :href="route('settings.index')">
-            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dhover hover:rounded-md">
+            <div class="py-3 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
               <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
                   <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
                   settings
                   </span>
-                <span v-show="dataOpenSideBar">Settings</span>
+                <span v-show="dataOpenSideBar" class="pl-2">Settings</span>
               </div>
             </div>
           </Link>
         </div>
-        <!-- <div class="menu-man text-left px-2 justify-self-end whitespace-nowrap">
-          <div class="py-3 rounded-md cursor-pointer text-gray-300 hover:text-white">
-            <a href="https://website-nuxt-front.vercel.app/" target="_blank" class="px-2 flex space-x-2"><span class="pi pi-question" v-tooltip.right="'About Me'"></span> <span v-show="dataOpenSideBar">About Me</span></a>
-          </div>
-        </div> -->
+
         <!-- account -->
         <div class="menu-man pb-5 w-full text-left px-2 justify-self-end">
           <!-- Dropdown Toggle Button -->
           <button id="dropdownTopButton" data-dropdown-toggle="dropdownTop" data-dropdown-placement="top" type="button"
-            v-show="dataOpenSideBar" class="w-full text-white bg-blue-100 hover:bg-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 justify-between">
+            v-show="dataOpenSideBar" class="w-full text-white bg-blue-100 hover:bg-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 inline-flex items-center dark:bg-primary dark:hover:bg-dcontainer dark:focus:ring-blue-800 justify-between">
             <div class="w-full flex px-1 items-center justify-between">
               <div class="justify-start flex items-center space-x-3">
                 <!-- Avatar (displayed only when !dataOpenSideBar) -->
@@ -229,7 +219,7 @@
                   </div>
                 </div>
                   <!-- Text (displayed only when dataOpenSideBar) -->
-                <div class="flex flex-col items-start text-[12px] text-blue-900">
+                <div class="flex flex-col items-start text-[12px] text-blue-900 dark:text-dtext">
                   <span v-show="dataOpenSideBar">{{ $page.props.auth.user.email }}</span>
                   <span v-show="dataOpenSideBar">{{ $page.props.auth.user.usertype }}</span>
                 </div>
@@ -256,12 +246,12 @@
           </button>
   
           <!-- Dropdown Menu -->
-          <div id="dropdownTop" class="z-10 hidden bg-gray-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+          <div id="dropdownTop" class="z-10 hidden bg-gray-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-primary">
+            <ul class="text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownTopButton">
-              <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                <Link :href="route('profile.edit')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  <span class="material-symbols-rounded" style="color: black;">
+              <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 hover:rounded-t-lg dark:hover:bg-dcontainer dark:hover:text-white">
+                <Link :href="route('profile.edit')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2 ">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
                     person
                   </span>
                   <span class="font-poppins">Profile</span>
@@ -278,9 +268,9 @@
                   </button>
                 </form>
               </li> -->
-              <li class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                <Link :href="route('logout')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  <span class="material-symbols-rounded" style="color: black;">
+              <li class="flex items-center space-x-2 px-4 py-2 hover:rounded-b-lg hover:bg-gray-100 dark:hover:bg-dcontainer dark:hover:text-white">
+                <Link :href="route('logout')" method="post" as="button" class="flex items-center space-x-2 px-4 py-2">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
                     logout
                   </span>
                   <span class="font-poppins">Logout</span>
@@ -328,6 +318,7 @@
         </div>
       </div>
     </div>
+    
     <!-- Mobile -->
     <div class="w-full lg:hidden flex items-center bg-white px-4 py-2 overflow-x-auto scrollbar-hidden">
         <!-- Sidebar and Navigation Section -->

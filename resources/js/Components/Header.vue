@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white border-b dark:bg-[#0B132B] dark:border-b dark:border-gray-600">
+    <div class="w-full bg-white border-b dark:bg-dprimary dark:border-b dark:border-gray-600">
       <!-- desktop -->
       <div class="hidden lg:flex justify-between items-center h-[50px] place-content-center">
         <div class="flex items-center space-x-4">

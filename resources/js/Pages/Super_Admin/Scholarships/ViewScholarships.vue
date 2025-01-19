@@ -1,28 +1,21 @@
 <template>
     <Head title="Scholarships" />
     <AuthenticatedLayout>
-        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA]">
+        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] dark:bg-dprimary">
             <div class="w-full mx-auto p-3 rounded-xl text-white">
                 <div class="breadcrumbs text-sm text-gray-400 mb-5">
                     <ul>
-                        <li>
-                        <a>
-                            <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
-                            dashboard
-                            </span>
+                        <li class="hover:text-gray-600">
                             Home
-                        </a>
-                        </li>
+                        </li class="hover:text-gray-600">
                         <li>
-                        <a>
-                            <span class="text-blue-400 font-semibold">Scholarships</span>
-                        </a>
+                            <span class="text-blue-400 font-semibold dark:text-gray-300">Scholarships</span>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left">Active Scholarships</h1>
+                    <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left dark:text-dtext">Active Scholarships</h1>
 
                     <!-- <button class="btn" @click="toggleCreate" >
                         <span class="material-symbols-rounded">
@@ -35,18 +28,20 @@
                 <div class="container mx-auto py-5">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div v-for="scholarship in scholarships" :key="scholarship.id"
-                            class="card border bg-white hover:shadow-xl hover:border-gray-400">
+                            class="card border bg-white hover:shadow-xl hover:border-gray-400 dark:bg-dcontainer dark:border-gray-600 dark:hover:border-gray-400">
                             <Link :href="`/scholarships/${scholarship.id}`">
                                 <div class="card-body p-5 space-y-2">
-                                    <div class="badge badge-yellow text-[14px] font-sora bg-yellow-200">Ongoing</div>
-                                    <p class="text-xs text-gray-500">Created on: {{ new
-                                        Date(scholarship.created_at).toLocaleDateString() }}</p>
-                                    <p class="text-xs text-gray-500">Sponsoring Since: {{ new
-                                    Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
-                                    <h2 class="card-title text-3xl text-gray-800 font-sora font-semibold">{{ scholarship.name }}</h2>
+                                    <div class="badge badge-yellow text-[14px] font-sora bg-yellow-200 dark:bg-blue-400">Ongoing</div>
+                                    
+                                    <h2 class="card-title text-4xl text-gray-800 font-sora font-semibold dark:text-dtext">{{
+                                        scholarship.name }}</h2>
                                     <div class="badge badge-primary text-[12px] badge-outline">
                                         {{ getSponsorName(scholarship.sponsor_id) }}
                                     </div>
+                                    <p class="leading-relaxed text-sm text-gray-400">
+                                        <span >Created on: {{ new Date(scholarship.created_at).toLocaleDateString() }}</span><br>
+                                        <span >Sponsoring Since: {{ new Date(scholarship.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
+                                    </p>
                                     <p class="text-md text-gray-600 mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full" style=" display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
                                         {{ scholarship.description }}
                                     </p>

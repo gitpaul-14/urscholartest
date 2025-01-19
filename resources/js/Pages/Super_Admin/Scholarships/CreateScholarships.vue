@@ -2,51 +2,44 @@
 
     <Head title="Scholarships" />
     <AuthenticatedLayout>
-        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-auto">
+        <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] dark:bg-dprimary overflow-auto">
             <form @submit.prevent="submitForm">
                 <div class="w-full mx-auto p-3 rounded-xl text-white">
                     <div class="flex flex-row justify-between">
                         <div class="breadcrumbs text-sm text-gray-400 mb-5">
                             <ul>
-                                <li>
-                                    <a>
-                                        <span class="material-symbols-rounded mr-2" style="color: #0D47A1; font-size: 20px;">
-                                            dashboard
-                                        </span>
+                                <li class="hover:text-gray-600">
                                         Home
-                                    </a>
                                 </li>
-                                <li>
-                                    <a>
+                                <li class="hover:text-gray-600">
                                         <Link :href="route('sponsor.index')">
                                             <span class="font-normal">View Sponsors</span>
                                         </Link>
                                         
-                                    </a>
                                 </li>
                                 <li>
-                                    <span class="text-blue-400 font-semibold">Create Scholarships</span>
+                                    <span class="text-blue-400 font-semibold dark:text-gray-300">Create Scholarships</span>
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <button type="submit" class="btn bg-blue-500 text-white">
+                        <div class="mr-20">
+                            <button class="btn border-gray-600 dark:bg-dprimary dark:text-dtext" type="submit">
                                 Create
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="w-full h-full space-y-5 mb-3">
+                <div class="w-full h-full space-y-5 px-24 mb-3">
                     <!-- partnership content -->
-                    <div class="w-full h-[30%] px-10 py-5 bg-[white] shadow-md">
-                        <h2 class="text-base font-semibold text-primary font-quicksand">
+                    <div class="w-full h-[30%] px-10 py-5 bg-white shadow-md rounded-lg dark:bg-dsecondary dark:border-gray-200 dark:border">
+                        <h2 class="text-lg font-semibold text-primary font-quicksand dark:text-dtext">
                             {{ sponsor.name }}
                         </h2>
                     </div>
 
                     <!-- creating -->
-                    <div class="w-full inline-block bg-white shadow-md">
-                        <div class="w-full bg-blue-900 h-8 flex items-center justify-center">
+                    <div class="w-full inline-block bg-white shadow-md rounded-lg dark:bg-dsecondary dark:border dark:border-gray-200">
+                        <div class="w-full bg-blue-900 dark:bg-primary h-8 flex items-center justify-center rounded-t-lg">
                             <h2 class="text-base font-semibold text-white font-quicksand">Scholarship Information
                             </h2>
                         </div>
@@ -55,18 +48,18 @@
                                     <div class="w-full">
                                         <div class="relative">
                                             <div class="flex flex-row gap-3 w-full mb-3">
-                                                <div class="w-full flex flex-col">
+                                                <div class="w-full flex flex-col space-y-2">
                                                     <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
                                                         Name</h3>
                                                     <input v-model="form.name" type="text" id="name"
                                                         placeholder="Enter Scholarship Name"
-                                                        class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
+                                                        class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600" />
                                                 </div>
-                                                <div class="w-full flex flex-col">
+                                                <div class="w-full flex flex-col space-y-2">
                                                     <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
                                                         Type</h3>
                                                     <select v-model="form.scholarshipType" id="scholarshipType"
-                                                        class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
+                                                        class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600">
                                                         <option value="" disabled>Select Scholarship Type</option>
                                                         <option value="merit">Merit-based</option>
                                                         <option value="need">Need-based</option>
@@ -81,16 +74,16 @@
                                 <div class="h-full w-full flex flex-row gap-3">
                                     <div class="w-full">
                                         <div class="flex flex-row gap-3 w-full mb-3">
-                                            <div class="w-full flex flex-col">
+                                            <div class="w-full flex flex-col space-y-2">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">School Year</h3>
                                                 <input v-model="form.school_year" type="text" id="name"
                                                     placeholder="School Year"
-                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full" />
+                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600" />
                                             </div>
-                                            <div class="w-full flex flex-col">
+                                            <div class="w-full flex flex-col space-y-2">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Semester</h3>
                                                 <select v-model="form.semester" id="scholarshipType"
-                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full">
+                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600">
                                                     <option value="" disabled>Select Semester</option>
                                                     <option value="merit">First Semester</option>
                                                     <option value="need">Second Semester</option>
