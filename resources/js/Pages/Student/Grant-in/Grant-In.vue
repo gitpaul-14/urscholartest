@@ -10,7 +10,7 @@ import { Head } from '@inertiajs/vue3';
         <div class="w-full bg-white shadow-sm ">
             <h1 class="text-3xl font-bold font-sora text-left p-3 mx-10">My Feed</h1>
         </div>
-        <div class="pt-3 overflow-auto scrollbar-thin scrollbar-thumb-blue-900 scrollbar-track-gray-100 scrollbar-thumb-rounded h-full">
+        <div class="pt-3 overflow-auto h-full">
             <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 ">
                 <div class="rounded-lg mb-10">
                     <div class="bg-primary text-white text-3xl font-sans font-bold p-7 rounded-lg">

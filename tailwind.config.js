@@ -37,6 +37,8 @@ export default {
                 // dark mode
                 //dprimary: '#121A26',
                 dprimary: '#0B132B', //pede
+                dsecondary: '#1C2541', //muted blue
+                lightblue: '#5BC0BE', //aqua teal
 
                 dtext: '#D9E2EC',
                 
@@ -56,5 +58,6 @@ export default {
         forms,require('daisyui'),
         require('flowbite/plugin'),
         require('@tailwindcss/line-clamp'),
+        require('tailwind-scrollbar'),
     ],
 };
