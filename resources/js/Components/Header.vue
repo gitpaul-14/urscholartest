@@ -182,45 +182,38 @@
 
 const toggleTheme = () => {
   isDark.value = !isDark.value
-  if (isDark.value) {
+  applyTheme(isDark.value, true)
+}
+
+const applyTheme = (dark, savePreference = false) => {
+  if (dark) {
     document.documentElement.classList.add('dark')
-    localStorage.setItem('theme', 'dark')
+    if (savePreference) localStorage.setItem('theme', 'dark')
   } else {
     document.documentElement.classList.remove('dark')
-    localStorage.setItem('theme', 'light')
+    if (savePreference) localStorage.setItem('theme', 'light')
   }
 }
 
-// Check theme preference on page load
 onMounted(() => {
   window.initFlowbite();
-  
-  // First check localStorage
+
   const savedTheme = localStorage.getItem('theme')
-  
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
   if (savedTheme) {
-    // If user has a saved preference, use that
     isDark.value = savedTheme === 'dark'
   } else {
-    // If no saved preference, check system preference
-    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+    isDark.value = systemPrefersDark
   }
 
-  // Apply the theme
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
+  applyTheme(isDark.value)
 
   // Listen for system theme changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    // Only update if user hasn't set a preference
     if (!localStorage.getItem('theme')) {
       isDark.value = e.matches
-      if (e.matches) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
+      applyTheme(isDark.value)
     }
   })
 })
