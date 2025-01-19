@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* :root[data-theme="light"] {
+    --background-color: white;
+    --text-color: black;
+  }
+  
+  :root[data-theme="dark"] {
+    --background-color: white;
+    --text-color: white;
+  } */
+
+@layer base {
+:root {
+    --background-color: #ffffff;  
+    --text-color: #1a202c; 
+}
+
+/* Dark Mode */
+.dark {
+    --background-color: #0B132B;  
+    --text-color: #E5E7EB; 
+}
+}

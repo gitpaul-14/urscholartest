@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Scholarship;
+use App\Models\Requirements;
 use App\Models\Scholar;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
@@ -24,21 +25,27 @@ class ScholarshipController extends Controller
         $sponsors = Sponsor::all();
         // $scholarships = $sponsors->scholarships;
 
-        return inertia('Super_Admin/Scholarships/Scholarships', [
+        return inertia('Super_Admin/Scholarships/ViewScholarships', [
         'sponsors' => $sponsors,
         'scholarships' => $scholarships,
         ]);
     }
 
-    // public function scholarship(Sponsor $sponsors)
-    // {
-    //     $scholarships = $sponsors->scholarships;
+    public function show(Scholarship $scholarship)
+    {
 
-    //     return Inertia::render('Coordinator/Scholarships/Scholarships', [
-    //         'sponsors' => $sponsors,
-    //         'scholarships' => $scholarships,
-    //     ]);
-    // }
+        
+        $scholars = $scholarship->scholars;
+
+        
+        $requirements = Requirements::where('scholarship_id', $scholarship->id)->get();
+
+        return Inertia::render('Super_Admin/Scholarships/Scholarship', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+            'requirements' => $requirements,
+        ]);
+    }
 
 
     public function create(Sponsor $sponsor)
@@ -106,6 +113,16 @@ class ScholarshipController extends Controller
     //         return response()->json(['error' => 'Failed to delete scholarship', 'details' => $e->getMessage()], 500);
     //     }
     // }
+
+    public function requirementsTab(Scholarship $scholarship)
+    {
+        $scholars = $scholarship->scholars;
+
+        return Inertia::render('Super_Admin/Scholarships/ScholarshipTabs/Requirements', [
+            'scholarship' => $scholarship,
+            'scholars' => $scholars,
+        ]);
+    }
 }
 
 

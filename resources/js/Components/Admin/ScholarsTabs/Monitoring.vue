@@ -1,5 +1,4 @@
 <template>
-  <AuthenticatedLayout>
     <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] overflow-x-auto">
       <div class="w-full mx-auto p-3 rounded-xl text-white overflow-x-auto">
           <div class="breadcrumbs text-sm text-gray-400 mb-5">
@@ -14,39 +13,72 @@
               </li>
               <li>
               <a>
-                  <span>Ongoing Scholarships</span>
+                  <span>Scholarships</span>
               </a>
               </li>
               <li>
               <a>
-                  <span class="text-blue-400 font-semibold">List of Scholars</span>
+                  <span class="text-blue-400 font-semibold">{{ scholarship.name }} Dashboard</span>
               </a>
               </li>
             </ul>
           </div>
           <div class="flex justify-between items-center mb-4">
-            <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">
-              <span>{{ scholarship.name }}</span> Scholars</h1>
-
-            <div class="space-x-2">
-              <Link :href="`/scholarships/${scholarship.id}/send-access`">
-                <button class="btn bg-blue-900 text-white">
-                  <span class="material-symbols-rounded">
-                  forward_to_inbox
-                  </span>
-                  Send Access Details
-                </button>
-              </Link>
-
-              <button class="btn bg-gray-300" @click="toggleCreate" >
-                <span class="material-symbols-rounded">
-                library_add
-                </span>
-                Add Scholars
-              </button>
-            </div>
+            <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left">
+              <span>{{ scholarship.name }}</span> Scholars 2024-2025 ganyan</h1>
           </div>
         </div>
+
+        <!-- line sections -->
+        <div class="flex flex-row justify-between items-center mb-4">
+
+          <div class="flex justify-between items-center">
+              <div>
+              <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Scholars</button>
+            </div>
+
+            <div>
+              <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Requirements</button>
+            </div>
+
+            <div>
+              <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Monitoring</button>
+            </div>
+
+            <div>
+              <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Remind Submissions</button>
+            </div>
+
+            <div>
+              <button @click="toggleCreate" type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Add Scholars</button>
+            </div>
+
+            <Link :href="`/scholarships/${scholarship.id}/send-access`">
+              <div>
+                <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                  Send Access Details</button>
+              </div>
+            </Link>
+          </div>
+
+          <form class="w-3/12">   
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="search" id="default-search" class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Scholar" required />
+                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-0.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            </div>
+          </form>
+      </div>
 
       <!-- table -->
       <div class="bg-white">
@@ -106,17 +138,17 @@
       </div>
 
 
-      <div class="flex flex-col items-center">
+      <div class="mt-5 flex flex-col items-left">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
-            Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
+            Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Scholars
         </span>
         <!-- Buttons -->
         <div class="inline-flex mt-2 xs:mt-0">
-            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-blue-800 rounded-s hover:bg-blue-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 Prev
             </button>
-            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-blue-800 border-0 border-s border-gray-700 rounded-e hover:bg-blue-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 Next
             </button>
         </div>
@@ -124,83 +156,77 @@
     </div>
 
     
-    <!-- Right side panel with transition -->
-    <Transition name="slide">
-      <div v-show="showPanel" 
-          class="h-full overflow-y-auto z-50 bg-white w-3/12 fixed right-0 top-0 shadow-lg transition-transform duration-300">
-          <div class="p-4 border-b flex justify-between items-center">
-            <h2 class="text-xl font-semibold">Add Scholars</h2>
-            <button 
-              @click="closePanel"
-              class="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <span class="material-symbols-rounded">close</span>
-            </button>
+    <!-- Overlay to detect clicks outside -->
+  <Transition name="slide">
+    <div 
+      v-show="showPanel" 
+      class="fixed inset-0 z-50 flex justify-end"
+      @click.self="closePanel" 
+    >
+      <!-- Right side panel -->
+      <div 
+        class="h-full overflow-y-auto bg-white w-4/12 shadow-lg transition-transform duration-300"
+        @click.stop 
+      >
+        <div class="p-4 border-b flex justify-between items-center">
+          <h2 class="text-xl font-semibold">Add Scholars</h2>
+          <button 
+            @click="closePanel"
+            class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+
+        <!-- File Upload -->
+        <div class="card">
+          <FileUpload 
+            name="demo[]" 
+            @uploader="onUpload" 
+            :multiple="true" 
+            accept=".csv" 
+            :maxFileSize="1000000"
+            customUpload 
+            @select="handleFileUpload"
+            @clear="clearPreview"
+            id="file-upload"
+          />
+        </div>
+
+        <!-- Error Message -->
+        <div v-if="error" class="text-red-500 mb-4">
+          {{ error }}
+        </div>
+
+        <!-- Preview Table -->
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
+          <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th v-for="header in headers" :key="header" class="px-6 py-3">
+                  {{ header }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row, rowIndex) in previewData" :key="rowIndex" class="bg-white border-b hover:bg-gray-50">
+                <td v-for="(header, colIndex) in headers" :key="colIndex" class="px-6 py-4 whitespace-nowrap">
+                  {{ row[header] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Empty State -->
+          <div v-if="previewData.length === 0 && !error" class="text-center py-4 text-gray-500">
+            No data to display. Please upload a CSV file.
           </div>
-          <!-- <form @submit.prevent="uploadCSV"> -->
-            <div class="card">
-              <FileUpload 
-                name="demo[]" 
-                @uploader="onUpload" 
-                :multiple="true" 
-                accept=".csv" 
-                :maxFileSize="1000000"
-                customUpload 
-                @select="handleFileUpload"
-                @clear="clearPreview"
-                id="file-upload"
-              />
-            </div>
-
-            <!-- Error Message -->
-            <div v-if="error" class="text-red-500 mb-4">
-              {{ error }}
-            </div>
-
-            <!-- Preview Table -->
-            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
-              <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                  <tr>
-                    <th
-                      v-for="header in headers"
-                      :key="header"
-                      class="px-6 py-3"
-                    >
-                      {{ header }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(row, rowIndex) in previewData"
-                    :key="rowIndex"
-                    class="bg-white border-b hover:bg-gray-50"
-                  >
-                    <td
-                      v-for="(header, colIndex) in headers"
-                      :key="colIndex"
-                      class="px-6 py-4 whitespace-nowrap"
-                    >
-                      {{ row[header] }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <!-- Empty State -->
-              <div
-                v-if="previewData.length === 0 && !error"
-                class="text-center py-4 text-gray-500"
-              >
-                No data to display. Please upload a CSV file.
-              </div>
-            </div>
-          <!-- </form> -->
+        </div>
       </div>
-    </Transition>
-  </AuthenticatedLayout>
+    </div>
+  </Transition>
 </template>
+
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -251,8 +277,7 @@ const closePanel = () => {
   previewData.value = [];
     headers.value = [];
     document.getElementById('file-upload').value = null;
-  showPanel.value = false
-  
+  showPanel.value = false 
 }
 
 const props = defineProps({
@@ -330,8 +355,6 @@ const onUpload = async (event) => {
     previewData.value = [];
     error.value = "";
     document.getElementById('file-upload').value = null; // Clear file input
-    // Optionally, you can also refresh the scholars list here if needed
-    // For example, you can emit an event or call a method to fetch the updated list
   } else {
     error.value = "Failed to upload file. Please try again.";
   }
@@ -357,70 +380,6 @@ const uploadCSV = () => {
     preserveScroll: true,
   });
 };
-
-// const preview = () => {
-//   document.getElementById('file-upload').addEventListener('change', function(event) {
-//     const file = event.target.files[0];
-//     if (file) {
-//       Papa.parse(file, {
-//         header: true,
-//         complete: function(results) {
-//           console.log(results.data);
-//         }
-//       });
-//     }
-//   });
-
-//   function renderCSV(data) {
-//     const table = document.getElementById('csvPreview');
-//     table.innerHTML = '';
-
-//     if(data.length > 0) {
-//       const headers = Object.keys(data[0]);
-//       const headerRow = document.createElement('tr');
-//       headers.forEach(header => {
-//         const th = document.createElement('th');
-//         th.textContent = header;
-//         headerRow.appendChild(th);
-//       });
-//       table.appendChild(headerRow);
-
-//       data.forEach(row => {
-//         const tr = document.createElement('tr');
-//         headers.forEach(header => {
-//           const td = document.createElement('td');
-//           td.textContent = row[header];
-//           tr.appendChild(td);
-//         });
-//         table.appendChild(tr);
-//       });
-//     }
-//     else {
-//       table.innerHTML = '<tr><td>No data to display</td></tr>';
-//     }
-//   }
-// };
-
-
-// const handleFileUpload = (event) => {
-//   const file = event.target.files[0];
-//   if (file) {
-//     Papa.parse(file, {
-//       header: true,
-//       complete: (results) => {
-//         if (results.data && results.data.length > 0) {
-//           headers.value = Object.keys(results.data[0]);
-//           previewData.value = results.data;
-//           error.value = '';
-//         } else {
-//           error.value = 'No data found in the file';
-//           previewData.value = [];
-//           headers.value = [];
-//         }
-//       },
-//     });
-//   }
-// };
 
 </script>
 

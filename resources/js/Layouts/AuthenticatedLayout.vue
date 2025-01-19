@@ -172,11 +172,11 @@ defineProps({
                 <sidebar 
                 :dataOpenSideBar="openSidebar" 
                 :clickHamburger="toggleSidebar" 
-                class="lg:w-[250px] w-full lg:h-full h-auto bg-white"
+                class="lg:w-[250px] w-full lg:h-full h-auto dark:bg-dprimary dark:border-r dark:border-gray-600"
                 />
 
                 <!-- Main Content -->
-                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100">
+                <div class="flex-1 lg:h-full h-auto lg:ml-0 bg-gray-100 dark:text-dprimary">
                 <slot></slot>
                 </div>
             </div>
@@ -214,12 +214,6 @@ import sidebar from '../Components/Sidebar.vue'
 import HeaderNav from '../Components/Student/Header.vue'
 import { ref } from 'vue';
 
-// const openSidebar = ref(localStorage.getItem('sidebarState') === 'true' || 'false'); 
-
-// function toggleSidebar() {
-//     openSidebar.value = !openSidebar.value;
-//     localStorage.setItem('sidebarState', JSON.stringify(openSidebar.value)); // Persist the state
-// }
 </script>
 
 <style>

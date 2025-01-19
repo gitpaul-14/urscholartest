@@ -11,7 +11,7 @@ import ContentDashboard from '@/Pages/Super_Admin/Dashboard/Content-Dashboard.vu
     <AuthenticatedLayout>
         <template #default>
             <!-- Your dashboard content goes here -->
-            <ContentDashboard />
+            <ContentDashboard class="w-full h-full dark:bg-dprimary dark:border dark:border-gray-600"/>
         </template>
     </AuthenticatedLayout>
 </template>

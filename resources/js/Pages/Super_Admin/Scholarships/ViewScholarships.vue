@@ -15,21 +15,21 @@
                         </li>
                         <li>
                         <a>
-                            <span class="text-blue-400 font-semibold">Ongoing Scholarships</span>
+                            <span class="text-blue-400 font-semibold">Scholarships</span>
                         </a>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-3xl font-poppins font-extrabold text-[darkblue] text-left underline underline-offset-4">Active Scholarships</h1>
+                    <h1 class="text-4xl font-poppins font-extrabold text-[darkblue] text-left">Active Scholarships</h1>
 
-                    <button class="btn" @click="toggleCreate" >
+                    <!-- <button class="btn" @click="toggleCreate" >
                         <span class="material-symbols-rounded">
                         library_add
                         </span>
                         New Scholarship
-                    </button>
+                    </button> -->
                 </div>
 
                 <div class="container mx-auto py-5">
@@ -118,7 +118,6 @@ const props = defineProps({
         required: true
     }
 });
-
 const directives = {
     Tooltip,
 };
