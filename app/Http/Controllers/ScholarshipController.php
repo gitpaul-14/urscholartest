@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Scholarship;
 use App\Models\Requirements;
 use App\Models\Scholar;
+use App\Models\SubmittedRequirements;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -39,10 +40,15 @@ class ScholarshipController extends Controller
 
         $requirements = Requirements::where('scholarship_id', $scholarship->id)->get();
 
+        $reqID = $requirements->pluck('id')->first();
+
+        $submitRequirements = SubmittedRequirements::where('id', $reqID)->get();
+
         return Inertia::render('Super_Admin/Scholarships/Scholarship', [
             'scholarship' => $scholarship,
             'scholars' => $scholars,
             'requirements' => $requirements,
+            'submitRequirements' => $submitRequirements,
         ]);
     }
 

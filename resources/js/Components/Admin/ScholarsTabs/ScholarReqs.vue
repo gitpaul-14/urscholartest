@@ -38,7 +38,7 @@
               <th scope="col" class="px-6 py-3">URScholar ID</th>
               <th scope="col" class="px-6 py-3">Full Name</th>
               <th v-for="(requirement, index) in requirements" :key="index" scope="col" class="px-6 py-3">
-      {{ requirement.requirements }}
+      {{ requirement.requirements[index] }}
     </th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Expand</span>
@@ -49,14 +49,17 @@
             </tr>
           </thead>
           <tbody>
-            <template v-for="(scholar) in scholars" :key="scholar.id">
+            <template v-for="(submitted, index) in submitRequirements" :key="index">
               <!-- Main Row -->
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ scholar.id }}
+                  {{ submitted.scholar_id }}
                 </th>
                 <td class="px-6 py-4">
-                  {{ `${scholar.first_name} ${scholar.last_name}` }}
+                  
+                </td>
+                <td class="px-6 py-4">
+                  {{ submitted.submitted_requirements }}
                 </td>
                 <td class="px-6 py-4">
                   <span class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
@@ -134,7 +137,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
   const props = defineProps({
     scholarship: Object,
     scholars: Array,
-    requirements: Array,
+    requirements: Object,
+    submitRequirements: Array,
   });
   
   const form = useForm({
