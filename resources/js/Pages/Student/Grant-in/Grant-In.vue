@@ -8,7 +8,7 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <div class="w-full bg-white shadow-sm ">
-            <h1 class="text-3xl font-bold font-sora text-left p-3 mx-10">My Feed</h1>
+            <h1 class="text-3xl font-bold font-sora text-left p-3 mx-10">grant me like this</h1>
         </div>
         <div class="pt-3 overflow-auto h-full">
             <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 ">

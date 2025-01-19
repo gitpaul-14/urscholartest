@@ -53,7 +53,12 @@ class StudentController extends Controller
 
     public function scholarship()
     {
-        return Inertia::render('Student/Scholarship');
+        return Inertia::render('Student/Grant-in/Grant-In');
+    }
+
+    public function profile()
+    {
+        return Inertia::render('Student/Profile/Scholar-Profile');
     }
     public function application(User $user)
     {
