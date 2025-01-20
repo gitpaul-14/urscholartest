@@ -79,11 +79,11 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 text-right">
-                  <button>
-                    <span class="material-symbols-rounded">
-                      unfold_more
-                    </span>
-                  </button>
+                  <Link :href="route('requirements.expand_requirements')">
+                      <span class="material-symbols-rounded">
+                        unfold_more
+                      </span>
+                  </Link>
                 </td>
               </tr>
             </template>

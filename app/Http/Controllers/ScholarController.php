@@ -72,6 +72,12 @@ class ScholarController extends Controller
         ]);
     }
 
+    public function expand_requirements()
+    {
+        return Inertia::render('Super_Admin/Scholarships/ScholarRequirements', [
+        ]);
+    }
+
 
     // public function index()
     // {
