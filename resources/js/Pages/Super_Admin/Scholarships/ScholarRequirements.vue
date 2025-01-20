@@ -11,7 +11,7 @@
                                 <span>Scholarships</span>
                         </li>
                         <li class="hover:text-gray-600">
-                                <span>{{ scholarship.name }} Dashboard</span>
+                                <!-- <span>{{ scholarship.name }} Dashboard</span> -->
                         </li>
                         <li>
                                 <span class="text-blue-400 font-semibold">Submitted Documents</span>

@@ -70,11 +70,11 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 text-right">
-                  <button>
+                  <Link :href="route('requirements.expand_requirements')">
                     <span class="material-symbols-rounded cursor-pointer">
                     open_in_full
                     </span>
-                  </button>
+                  </Link>
                 </td>
               </tr>
             </template>
