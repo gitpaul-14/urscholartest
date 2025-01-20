@@ -71,8 +71,8 @@
                 </td>
                 <td class="px-6 py-4 text-right">
                   <button>
-                    <span class="material-symbols-rounded">
-                    unfold_more
+                    <span class="material-symbols-rounded cursor-pointer">
+                    open_in_full
                     </span>
                   </button>
                 </td>

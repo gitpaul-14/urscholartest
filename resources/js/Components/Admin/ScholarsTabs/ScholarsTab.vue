@@ -114,12 +114,12 @@
 
   <!-- Overlay to detect clicks outside -->
   <Transition name="slide">
-    <div v-show="showPanel" class="fixed inset-0 z-50 flex justify-end" @click.self="closePanel">
+    <div v-show="showPanel" class="fixed inset-0 bg-dprimary bg-opacity-80 z-50 flex justify-end" @click.self="closePanel">
       <!-- Right side panel -->
-      <div class="h-full overflow-y-auto bg-white w-4/12 shadow-lg transition-transform duration-300" @click.stop>
+      <div class="h-full overflow-y-auto bg-white dark:bg-gray-900 w-4/12 shadow-lg transition-transform duration-300" @click.stop>
         <div class="p-4 border-b flex justify-between items-center">
-          <h2 class="text-xl font-semibold">Add Scholars</h2>
-          <button @click="closePanel" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <h2 class="text-xl font-semibold text-primary dark:text-dtext">Add Scholars</h2>
+          <button @click="closePanel" class="p-2 text-primary dark:text-dtext hover:bg-gray-100 rounded-full transition-colors">
             <span class="material-symbols-rounded">close</span>
           </button>
         </div>
@@ -127,7 +127,7 @@
         <!-- File Upload -->
         <div class="card">
           <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
-            customUpload @select="handleFileUpload" @clear="clearPreview" id="file-upload" />
+            customUpload @select="handleFileUpload" @clear="clearPreview" id="file-upload" unstyled="" class="bg-gray-900" />
         </div>
 
         <!-- Error Message -->
