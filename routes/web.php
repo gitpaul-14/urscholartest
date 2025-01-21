@@ -40,6 +40,9 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/admin/dashboard', [SuperAdminController::class, 'dashboard'])
         ->name('super_admin.dashboard');
 
+    //Admin-dashboard
+    // Route::get('/admin/dashboard', [ScholarshipController::class, 'dashboard_scholarship'])->name('scholarships.dashboard_scholarship');
+
     //Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');
     Route::post('/sponsors', [SponsorController::class, 'store'])->name('sponsor.store');

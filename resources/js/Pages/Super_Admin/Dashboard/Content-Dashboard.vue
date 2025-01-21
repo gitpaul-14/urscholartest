@@ -5,8 +5,12 @@
             <div class="col-span-3 h-full flex flex-col space-y-3">
                 <!-- First Layer with 2 Column Cards -->
                 <div class="grid grid-cols-2 gap-3 h-[35%]">
-                <div class="bg-black h-full rounded dark:bg-dcontainer"></div>
-                <div class="bg-black h-full rounded dark:bg-dcontainer"></div>
+                <div class="h-full rounded-xl shadow-md dark:bg-dcontainer">
+                    <QuickPost />
+                </div>
+                <div class="h-full rounded-xl shadow-md dark:bg-dcontainer">
+                    <ActiveScholarship :sponsors="sponsors" :scholarships="scholarships" />
+                </div>
                 </div>
                 <!-- Second Layer with Single Card -->
                 <div class="bg-black box-border rounded h-[65%] dark:bg-dcontainer">
@@ -23,14 +27,27 @@
 
 </template>
 
-<script >
-// import ContentComponent from './admin/admin_dashboard.vue';
+<script setup>
+import { ref } from 'vue';
 
-export default {
-// components: {
-//     ContentComponent
-// }
-}
+import ActiveScholarship from '../../../Components/Admin/Dashboard/ActiveScholarship.vue';
+import QuickPost from '../../../Components/Admin/Dashboard/QuickPost.vue';
+
+const components = {
+    ActiveScholarship,
+    QuickPost,
+};
+
+const props = defineProps({
+    sponsors: {
+        type: Array,
+        required: true
+    },
+    scholarships: {
+        type: Array,
+        required: true
+    }
+});
 
 </script>
 

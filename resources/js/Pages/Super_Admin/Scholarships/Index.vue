@@ -20,7 +20,7 @@
                         class="text-4xl font-albert font-extrabold text-[darkblue] dark:text-dtext text-left">
                         URS Partnered Scholarships</h1>
 
-                    <button class="btn shadow-md dark:border-gray-600 dark:bg-dprimary dark:text-dtext" @click="toggleCreate">
+                    <button class="btn shadow-md dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" @click="toggleCreate">
                         <span class="material-symbols-rounded dark:text-dtext">
                             library_add
                         </span>

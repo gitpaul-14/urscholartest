@@ -1,8 +1,8 @@
 <template>
-    <div class="lg:max-h-screen flex flex-col border-r border-gray-200 dark:border-r dark:border-t dark:border-gray-600 transition-all duration-300" id="side-bar"
+    <div class="lg:max-h-screen flex flex-col border-r border-gray-200 dark:border-r dark:border-gray-600 transition-all duration-300" id="side-bar"
     :class="{'side-bar-visible': dataOpenSideBar, 'side-bar-close': !dataOpenSideBar}">
       <!-- desktop -->
-      <div class="hidden lg:flex flex-col justify-between h-full dark:bg-dprimary dark:border-r dark:border-gray-">
+      <div class="hidden lg:flex flex-col justify-between h-full dark:bg-dprimary">
         <div class="space-y-1" :class="[ dataOpenSideBar ? 'px-1' : 'px-1']">
           <!-- Hamburger Icon -->
             <div class="p-1 cursor-pointer flex items-center" @click="clickHamburger"
@@ -267,19 +267,19 @@
             </button>
   
             <!-- Dropdown Menu if collapsed -->
-            <div id="dropdownTopcollapsed" class="z-10 hidden bg-gray-100 divide-y divide-gray-100 rounded-lg w-9 dark:bg-gray-700">
+            <div id="dropdownTopcollapsed" class="z-10 hidden bg-gray-100 divide-y divide-gray-100 rounded-lg w-9 dark:bg-primary">
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownTopButton">
-                <li class="flex items-center justify-center space-x-1 px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
+                <li class="flex items-center justify-center space-x-1 px-2 py-1 hover:bg-gray-200 dark:hover:bg-dcontainer dark:hover:text-white">
                   <Link :href="route('profile.edit')" method="post" as="button">
-                    <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Account' : ''">
+                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext"  v-tooltip.right="!dataOpenSideBar ? 'Account' : ''">
                       person
                     </span>
                   </Link>
                 </li>
-                <li class="flex items-center justify-center space-x-1 px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
+                <li class="flex items-center justify-center space-x-1 px-2 py-1 hover:bg-gray-200 dark:hover:bg-dcontainer dark:hover:text-white">
                   <Link :href="route('logout')" method="post" as="button">
-                    <span class="material-symbols-rounded" style="color: black;" v-tooltip.right="!dataOpenSideBar ? 'Logout' : ''">
+                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Logout' : ''">
                       logout
                     </span>
                   </Link>

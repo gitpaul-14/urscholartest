@@ -32,9 +32,21 @@ class ScholarshipController extends Controller
         ]);
     }
 
+    // for dashboard
+    // public function dashboard_scholarship(Sponsor $sponsors)
+    // {
+    //     $scholarships = Scholarship::all();
+    //     $sponsors = Sponsor::all();
+    //     // $scholarships = $sponsors->scholarships;
+
+    //     return inertia('Components/Admin/Dashboard/ActiveScholarship', [
+    //     'sponsors' => $sponsors,
+    //     'scholarships' => $scholarships,
+    //     ]);
+    // }
+
     public function show(Scholarship $scholarship)
     {
-
         
         $scholars = $scholarship->scholars;
 
