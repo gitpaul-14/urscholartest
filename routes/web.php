@@ -74,7 +74,7 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
     Route::get('/scholarships/{scholarship}/applicants', [ApplicationController::class, 'show'])->name('scholarships.applicants');
 
     //Settings
-    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::get('/settings/univ-calendar', [SettingsController::class, 'index'])->name('settings.index');
 
     // Route::get('/scholarships/{scholarship}', [ScholarController::class, 'index'])->name('scholars.index');
     // Route::get('/coordinator/scholarships/scholars', [ScholarController::class, 'index'])->name('scholars.index');
