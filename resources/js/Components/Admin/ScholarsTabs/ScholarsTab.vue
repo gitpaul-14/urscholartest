@@ -4,10 +4,14 @@
     <div class="flex flex-row justify-between items-center mb-4">
       <div class="flex justify-between items-center">
 
-        <div>
-          <button @click="toggleCreate" type="button"
+        <div class="">
+          <button @click="toggleAdd" type="button"
             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             Add Scholars</button>
+
+            <button @click="toggleUpload" type="button"
+            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            Bulk Upload</button>
         </div>
 
       </div>
@@ -112,9 +116,9 @@
     </div>
   </div>
 
-  <!-- Overlay to detect clicks outside -->
+  <!-- Adding Panel -->
   <Transition name="slide">
-    <div v-show="showPanel" class="fixed inset-0 bg-dprimary bg-opacity-80 z-50 flex justify-end" @click.self="closePanel">
+    <div v-show="addingPanel" class="fixed inset-0 bg-dprimary bg-opacity-80 z-50 flex justify-end" @click.self="closePanel">
       <!-- Right side panel -->
       <div class="h-full overflow-y-auto bg-white dark:bg-gray-900 w-4/12 shadow-lg transition-transform duration-300" @click.stop>
         <div class="p-4 border-b flex justify-between items-center">
@@ -124,10 +128,88 @@
           </button>
         </div>
 
+        <div class="p-10">
+          <form @submit.prevent="addEntry">
+            <div class="flex flex-col w-full gap-4">
+              <div>
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
+                <input v-model="formData.first_name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+              </div>
+              <div>
+                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
+                <input v-model="formData.last_name" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+              </div>
+              <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input v-model="formData.email" type="email" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+              </div>
+              <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
+                <input v-model="formData.course" type="email" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+              </div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button type="button" @click="addEntry" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Add Scholar</button>
+              <button type="button" @click="previewEntries" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Preview</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Preview Table -->
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-primary dark:text-dtext">Preview Added</h3>
+          <div v-if="entries.length > 0" class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
+            <table class="w-full text-black text-sm text-left">
+              <thead>
+                <tr>
+                  <th v-for="header in addingheaders" :key="header" class="px-6 py-3">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(entry, index) in entries" :key="index">
+                  <td class="px-6 py-4">{{ entry.first_name }}</td>
+                  <td class="px-6 py-4">{{ entry.last_name }}</td>
+                  <td class="px-6 py-4">{{ entry.email }}</td>
+                  <td class="px-6 py-4">{{ entry.course }}</td>
+                  <td class="px-6 py-4">
+                    <button @click="removeEntry(index)" class="text-red-600 hover:text-red-800 font-medium items-center justify-center">
+                      <span class="material-symbols-rounded">
+                      remove
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button @click="submitForm" class="btn mt-4 mb-4 mx-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              Confirm & Submit
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </Transition>
+
+
+  <!-- Upload Panel -->
+  <Transition name="slide">
+    <div v-show="uploadingPanel" class="fixed inset-0 bg-dprimary bg-opacity-80 z-50 flex justify-end" @click.self="closePanel">
+      <!-- Right side panel -->
+      <div class="h-full overflow-y-auto bg-white dark:bg-gray-900 w-4/12 shadow-lg transition-transform duration-300" @click.stop>
+        <div class="p-4 border-b flex justify-between items-center">
+          <h2 class="text-xl font-semibold text-primary dark:text-dtext">Upload Scholars</h2>
+          <button @click="closePanel" class="p-2 text-primary dark:text-dtext hover:bg-gray-100 rounded-full transition-colors">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+
         <!-- File Upload -->
         <div class="card">
           <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
-            customUpload @select="handleFileUpload" @clear="clearPreview" id="file-upload" unstyled="" class="bg-gray-900" />
+            customUpload @select="handleFileUpload" @clear="clearPreview" id="file-upload" class="bg-gray-900" />
         </div>
 
         <!-- Error Message -->
@@ -183,28 +265,30 @@ const components = {
   Papa,
 };
 
+const addingPanel = ref(false)
+const uploadingPanel = ref(false)
 
-// testing
+const toggleAdd = () => {
+  addingPanel.value = !addingPanel.value
+}
 
-const showPanel = ref(false)
-
-const toggleCreate = () => {
-  showPanel.value = !showPanel.value
+const toggleUpload = () => {
+  uploadingPanel.value = !uploadingPanel.value
 }
 
 const closePanel = () => {
   previewData.value = [];
   headers.value = [];
   document.getElementById('file-upload').value = null;
-  showPanel.value = false
-
+  uploadingPanel.value = false
+  addingPanel.value = false
+  entries.value = false
 }
 
 const props = defineProps({
   scholarship: Object,
   scholars: Array,
 });
-
 
 
 const form = useForm({
@@ -261,13 +345,6 @@ const handleFileUpload = (event) => {
     };
     reader.readAsText(file);
   }
-
-};
-
-
-const clearPreview = () => {
-  previewData.value = [];
-  headers.value = [];
 };
 
 const onUpload = async (event) => {
@@ -285,7 +362,66 @@ const onUpload = async (event) => {
     error.value = "Failed to upload file. Please try again.";
   }
 }
+
+
+//adding
+
+const addingheaders = ["First Name", "Last Name", "Email", "Course"]
+
+const formData = reactive({
+  first_name: '',
+  last_name: '',
+  email: '',
+  course: ''
+})
+const entries = ref([])
+
+const addEntry = () => {
+  if (formData.first_name && formData.last_name && formData.email && formData.course) {
+    entries.value.push({ ...formData })
+    resetForm()
+  }
+}
+
+const resetForm = () => {
+  formData.first_name = ''
+  formData.last_name = ''
+  formData.email = ''
+  formData.course = ''
+}
+
+const removeEntry = (index) => {
+  entries.value.splice(index, 1)
+}
+
+
+const submitForm = async () => {
+  try {
+    if (entries.value.length === 0) {
+      alert('No data to submit!');
+      return;
+    }
+
+    const response = await fetch('/api/insert-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entries.value)
+    });
+
+    if (!response.ok) throw new Error('Failed to submit');
+
+    alert('Data submitted successfully!');
+
+    // Clear entries after successful submission
+    entries.value = [];
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
 </script>
+
 
 <style>
 /* override the prime vue componentss */
