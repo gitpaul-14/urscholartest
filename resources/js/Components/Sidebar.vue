@@ -25,14 +25,14 @@
             <Link :href="(route('super_admin.dashboard'))" >
               <div :class="[
                 'py-2 cursor-pointer rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md',
-                { 'active bg-gray-200 dark:bg-primary': $page.url === '/admin/dashboard' }
+                { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/admin/dashboard' }
               ]">
               <div :class="['flex items-center space-x-2 text-blue-900 dark:text-dtext font-quicksand font-semibold pl-2 text-[16px]']">
-                <span :class="['material-symbols-rounded', { 'active text-white': $page.url === '/coordinator/dashboard' }]" :style="['text-blue-900 hover:text-white', { 'active text-white hover:text-white': $page.url === '/coordinator/dashboard' }]"
+                <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/admin/dashboard' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/admin/dashboard' }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
                 dashboard
                 </span>
-                <span v-show="dataOpenSideBar" class="pl-2">Dashboard</span>
+                <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/admin/dashboard' }]">Dashboard</span>
               </div>
               </div>
             </Link>
