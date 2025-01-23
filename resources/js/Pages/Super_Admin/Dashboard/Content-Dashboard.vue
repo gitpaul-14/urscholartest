@@ -19,7 +19,9 @@
             </div>
             <!-- 25% Column -->
             <div class="w-full h-full flex flex-col space-y-3">
-                <div class="bg-black rounded h-[35%] dark:bg-dcontainer"></div>
+                <div class="h-full rounded-xl shadow-md dark:bg-dcontainer">
+                    <Calendar />
+                </div>
                 <div class="bg-black rounded h-[65%] dark:bg-dcontainer"></div>
             </div>
         </div>
@@ -32,10 +34,12 @@ import { ref } from 'vue';
 
 import ActiveScholarship from '../../../Components/Admin/Dashboard/ActiveScholarship.vue';
 import QuickPost from '../../../Components/Admin/Dashboard/QuickPost.vue';
+import Calendar from '../../../Components/Admin/Dashboard/Calendar.vue';
 
 const components = {
     ActiveScholarship,
     QuickPost,
+    Calendar,
 };
 
 const props = defineProps({

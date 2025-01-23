@@ -84,6 +84,6 @@ class SponsorController extends Controller
             'logo' => $originalFileName, // Save only the filename in the database
         ]);
 
-        return redirect()->route('sponsor.index');
+        return redirect()->route('sponsor.index')->with('success', 'Sponsor added successfully!');
     }
 }

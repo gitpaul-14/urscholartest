@@ -38,17 +38,17 @@
             </Link>
 
           <!-- cascading scholarship menu -->
-          <div :class="['relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gray-200 dark:bg-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
+          <div :class="['relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
             <!-- Main menu item -->
             <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholarships'"></span> 
-                <span class="material-symbols-rounded" :class="['text-blue-900 dark:text-dtext', { 'active text-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+                <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/sponsors' || $page.url === '/scholarships' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
-              <span v-show="dataOpenSideBar" class="pl-2">Scholarship</span>
+              <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/sponsors' || $page.url === '/scholarships' }]">Scholarship</span>
               </div>
               <font-awesome-icon 
                 icon="fa-solid fa-chevron-right" 
@@ -186,12 +186,13 @@
           <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
 
           <Link :href="route('settings.index')">
-            <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+            <div :class="['py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/settings/univ-calendar' }]">
               <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
+                  <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/settings/univ-calendar' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/settings/univ-calendar' }]"
+                   v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
                   settings
                   </span>
-                <span v-show="dataOpenSideBar" class="pl-2">Settings</span>
+                <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/settings/univ-calendar' }]">Settings</span>
               </div>
             </div>
           </Link>

@@ -110,6 +110,7 @@
                         </button>
                     </div>
 
+                
                     <form @submit.prevent="submitForm" class="space-y-4 p-4">
                         <div class="space-y-3">
                             <h3 class="font-semibold text-gray-900 dark:text-white">Sponsor</h3>
@@ -180,19 +181,33 @@
                         <button type="submit" class="text-white font-sans w-full bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-900/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">
                             {{ isEditing ? 'Update Scholarship' : 'Create Scholarship' }}</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
+        <ToastProvider>
+            <ToastRoot 
+                v-if="toastVisible" 
+                class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full"
+            >
+                <ToastTitle class="font-semibold dark:text-dtext">Sponsor Added Successfully!</ToastTitle>
+                <ToastDescription class="text-gray-100 dark:text-dtext">{{ toastMessage }}</ToastDescription>
+            </ToastRoot>
+
+            <ToastViewport class="fixed bottom-4 right-4" />
+        </ToastProvider>
+
     </AuthenticatedLayout>
 </template>
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { ref, onMounted } from 'vue';
-import { Head, useForm, Link, } from '@inertiajs/vue3';
+import { ref, onMounted, watchEffect } from 'vue';
+import { usePage } from "@inertiajs/vue3";
+import { Head, useForm, Link, router } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
-import { set } from 'date-fns';
 import { DatePicker } from 'primevue';
+import { ToastAction, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
 
 
 defineProps({
@@ -338,14 +353,14 @@ const viewApplicants = (scholarshipId) => {
 const submitForm = async () => {
     try {
         if (isEditing.value) {
-            await useForm(form.value).put(`/sponsors/${form.value.id}`);
+            router.put(`/sponsors/${form.value.id}`, form.value);
         } else {
-            await useForm(form.value).post('/sponsors');
+            router.post("/sponsors", form.value);
         }
 
         closeModal();
     } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error("Error submitting form:", error);
     }
 };
 
@@ -358,12 +373,48 @@ const activeateForm = async () => {
     }
 };
 
-</script>
 
+
+// radix vue testing
+
+const toastVisible = ref(false);
+const toastMessage = ref("");
+
+watchEffect(() => {
+    const flashMessage = usePage().props.flash?.success;
+    
+    if (flashMessage) {
+        console.log("Showing toast with message:", flashMessage);
+        toastMessage.value = flashMessage;
+        toastVisible.value = true;
+
+        setTimeout(() => {
+            console.log("Hiding toast...");
+            toastVisible.value = false;
+        }, 3000);
+    }
+});
+
+// onMounted(() => {
+//     setTimeout(() => {
+//         toastMessage.value = "Test Toast!";
+//         toastVisible.value = true;
+
+//         setTimeout(() => {
+//             toastVisible.value = false;
+//         }, 30000);
+//     }, 1000);
+// });
+
+</script>
 
 <style scoped>
 .p-tooltip-text {
     margin-left: 0px;
     font-size: 13px !important;
+}
+
+.test {
+    z-index: 9999;
 }
 </style>

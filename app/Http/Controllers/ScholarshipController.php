@@ -91,7 +91,7 @@ class ScholarshipController extends Controller
         // dd($request);
         Scholarship::create($request->all());
 
-        return redirect()->route('scholarships.index');
+        return redirect()->route('scholarships.index')->with('success', 'Check out view scholarships');
     }
 
     public function send(Scholarship $scholarship)
