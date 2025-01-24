@@ -94,25 +94,37 @@
                 <!-- <div v-if="activeTab === 'monitoring'">
                 <MonitoringTab />
                 </div> -->
-               
                 <!-- <ScholarReqs /> -->
                 <!-- <SlidingAddScholars /> -->
             </div>
             <!-- add here -->
-
         </div>
+
+        <ToastProvider>
+            <ToastRoot 
+                v-if="toastVisible" 
+                class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full"
+            >
+                <ToastTitle class="font-semibold dark:text-dtext">Scholars Added Successfully!</ToastTitle>
+                <ToastDescription class="text-gray-100 dark:text-dtext">{{ toastMessage }}</ToastDescription>
+            </ToastRoot>
+
+            <ToastViewport class="fixed bottom-4 right-4" />
+        </ToastProvider>
+        
     </AuthenticatedLayout>
 </template>
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { defineProps, ref, onBeforeMount, reactive } from 'vue';
-import { useForm, Link } from '@inertiajs/vue3';
+import { defineProps, ref, watchEffect, onBeforeMount, reactive } from 'vue';
+import { useForm, Link, usePage } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import Papa from 'papaparse';
+import { ToastAction, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
 
 import ScholarsTab from '../../../Components/Admin/ScholarsTabs/ScholarsTab.vue';
 import ScholarReqs from '../../../Components/Admin/ScholarsTabs/ScholarReqs.vue';
@@ -162,6 +174,25 @@ const formData = ref({
 const updateFile = (file) => {
   formData.value.file = file;
 };
+
+
+const toastVisible = ref(false);
+const toastMessage = ref("");
+
+watchEffect(() => {
+    const flashMessage = usePage().props.flash?.success;
+    
+    if (flashMessage) {
+        console.log("Showing toast with message:", flashMessage);
+        toastMessage.value = flashMessage;
+        toastVisible.value = true;
+
+        setTimeout(() => {
+            console.log("Hiding toast...");
+            toastVisible.value = false;
+        }, 3000);
+    }
+});
 
 </script>
 

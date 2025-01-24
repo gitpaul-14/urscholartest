@@ -59,7 +59,8 @@ class ScholarController extends Controller
 
         Scholar::insert($insertData);
 
-        return response()->json(['message' => 'Scholars uploaded successfully!']);
+        // return response()->json(['message' => 'Scholars uploaded successfully!']);
+        return redirect()->back()->with('success', 'Scholars added to the scholarship!');
     }
 
     public function send(Scholarship $scholarship)

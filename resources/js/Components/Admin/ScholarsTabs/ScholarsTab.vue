@@ -244,18 +244,30 @@
       </div>
     </div>
   </Transition>
+  <!-- <ToastProvider>
+      <ToastRoot 
+          v-if="toastVisible" 
+          class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full"
+      >
+          <ToastTitle class="font-semibold dark:text-dtext">Scholars Added Successfully!</ToastTitle>
+          <ToastDescription class="text-gray-100 dark:text-dtext">{{ toastMessage }}</ToastDescription>
+      </ToastRoot>
+
+      <ToastViewport class="fixed bottom-4 right-4" />
+  </ToastProvider> -->
 
 
 </template>
 
 <script setup>
-import {  ref, onBeforeMount, reactive , defineEmits } from 'vue';
-import { useForm, Link } from '@inertiajs/vue3';
+import {  ref, onBeforeMount, reactive , defineEmits, watchEffect } from 'vue';
+import { useForm, Link, usePage } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import Papa from 'papaparse';
+import { ToastAction, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
 
 const components = {
   DataTable,
@@ -282,6 +294,7 @@ const closePanel = () => {
   document.getElementById('file-upload').value = null;
   uploadingPanel.value = false
   addingPanel.value = false
+  addingPanel = ref(false)
   entries.value = false
 }
 
@@ -302,7 +315,6 @@ const error = ref('');
 const handleFileUpload = (event) => {
   // eto ay para mafetch yung file
   const file = event.files[0];
-
 
   // eto naman ay para mafetch yung file as object
   if (event && event.files && event.files.length > 0) {
@@ -356,8 +368,9 @@ const onUpload = async (event) => {
     previewData.value = [];
     error.value = "";
     document.getElementById('file-upload').value = null; // Clear file input
-    // Optionally, you can also refresh the scholars list here if needed
-    // For example, you can emit an event or call a method to fetch the updated list
+
+    usePage().props.flash = { success: 'Scholars added to the scholarship!' };
+    closePanel()
   } else {
     error.value = "Failed to upload file. Please try again.";
   }
@@ -410,7 +423,7 @@ const submitForm = async () => {
 
     if (!response.ok) throw new Error('Failed to submit');
 
-    alert('Data submitted successfully!');
+    // alert('Data submitted successfully!');
 
     // Clear entries after successful submission
     entries.value = [];

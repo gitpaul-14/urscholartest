@@ -74,6 +74,6 @@ class EmailController extends Controller
             Mail::to($scholar->email)->send(new SendEmail($mailData));
         }
 
-        return redirect()->route('requirements.index', $scholarship->id);
+        return redirect()->route('requirements.index', $scholarship->id)->with('success', 'Messages has been sent to scholars');
     }
 }
