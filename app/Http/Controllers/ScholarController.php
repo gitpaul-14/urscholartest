@@ -20,48 +20,85 @@ class ScholarController extends Controller
         ]);
     }
 
+    // public function upload(Request $request, Scholarship $scholarship)
+    // {
+    //     $file = $request->file('file');
+
+    //     dd($file);
+
+    //     $data = array_map('str_getcsv', file($file->getRealPath()));
+    //     $header = array_shift($data);
+    //     $requiredHeaders = ['first_name', 'last_name', 'email', 'course'];
+
+    //     if (array_diff($requiredHeaders, $header)) {
+    //         return response()->json(['message' => 'Invalid CSV format'], 422);
+    //     }
+
+    //     $insertData = [];
+    //     foreach ($data as $row) {
+    //         $rowData = array_combine($header, $row);
+    //         $insertData[] = [
+    //             'first_name' => $rowData['first_name'],
+    //             'last_name' => $rowData['last_name'],
+    //             'email' => $rowData['email'],
+    //             'course' => $rowData['course'],
+    //             'scholarship_id' => $scholarship->id,
+    //             'created_at' => now(),
+    //             'updated_at' => now(),
+    //         ];
+    //     }
+
+    //     Scholar::insert($insertData);
+
+    //     // return response()->json(['message' => 'Scholars uploaded successfully!']);
+    //     return redirect()->back()->with('success', 'Scholars added to the scholarship!');
+    // }
+
     public function upload(Request $request, Scholarship $scholarship)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'scholarship_id' => 'required|exists:scholarships,id',
-        //     'file' => 'required|mimes:csv,txt',
-        // ]);
-    
-        // if ($validator->fails()) {
-        //     return response()->json(['errors' => $validator->errors()], 422);
-        // }
-
+        // Check if file exists in the request
         $file = $request->file('file');
 
-        // dd($file);
+        \Log::info('Request data:', ['files' => $request->all()]);
 
-        $data = array_map('str_getcsv', file($file->getRealPath()));
-        $header = array_shift($data);
-        $requiredHeaders = ['first_name', 'last_name', 'email', 'course'];
-
-        if (array_diff($requiredHeaders, $header)) {
-            return response()->json(['message' => 'Invalid CSV format'], 422);
+        
+        if (!$file) {
+            return response()->json(['message' => 'No file uploaded'], 400);
         }
 
-        $insertData = [];
-        foreach ($data as $row) {
-            $rowData = array_combine($header, $row);
-            $insertData[] = [
-                'first_name' => $rowData['first_name'],
-                'last_name' => $rowData['last_name'],
-                'email' => $rowData['email'],
-                'course' => $rowData['course'],
-                'scholarship_id' => $scholarship->id,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        // Proceed with file processing
+        try {
+            $data = array_map('str_getcsv', file($file->getRealPath()));
+            $header = array_shift($data);
+            $requiredHeaders = ['first_name', 'last_name', 'email', 'course'];
+
+            if (array_diff($requiredHeaders, $header)) {
+                return response()->json(['message' => 'Invalid CSV format'], 422);
+            }
+
+            $insertData = [];
+            foreach ($data as $row) {
+                $rowData = array_combine($header, $row);
+                $insertData[] = [
+                    'first_name' => $rowData['first_name'],
+                    'last_name' => $rowData['last_name'],
+                    'email' => $rowData['email'],
+                    'course' => $rowData['course'],
+                    'scholarship_id' => $scholarship->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            Scholar::insert($insertData);
+
+            return redirect()->back()->with('success', 'Scholars added to the scholarship!');
+        } catch (\Exception $e) {
+            \Log::error('Error during file upload: ' . $e->getMessage());
+            return response()->json(['message' => 'Error during file upload'], 500);
         }
-
-        Scholar::insert($insertData);
-
-        // return response()->json(['message' => 'Scholars uploaded successfully!']);
-        return redirect()->back()->with('success', 'Scholars added to the scholarship!');
     }
+
 
     public function send(Scholarship $scholarship)
     {

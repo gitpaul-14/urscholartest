@@ -206,45 +206,80 @@
           </button>
         </div>
 
-        <!-- File Upload -->
-        <div class="card">
-          <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000"
-            customUpload @select="handleFileUpload" @clear="clearPreview" id="file-upload" class="bg-gray-900" />
-        </div>
+        <form @submit.prevent="uploadFile" multipart="multipart/form-data" class="p-4">
+          <div class="w-full h-full flex flex-col space-y-3">
+            <!-- File Drop Zone -->
+            <label for="dropzone-file" @dragover.prevent="handleFileDragOver" @dragleave="handleFileDragLeave" @drop.prevent="handleFileDrop"
+                  class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  :class="{ 'border-blue-500 bg-blue-50': isDragging }">
+                  <div v-if="!form.file" class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg
+                      class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 16"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                      />
+                    </svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                      <span class="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Only CSV files are allowed</p>
+                  </div>
+                  <div v-else class="flex flex-col items-center justify-center">
+                    <img :src="form.filePreview" alt="Uploaded Preview" class="max-h-24 mb-2 rounded-lg" />
+                    <p class="text-sm text-gray-500">{{ form.fileName }}</p>
+                  </div>
+                  <input id="dropzone-file" type="file" class="hidden" accept=".csv" @change="(e) => handleFile(e.target.files[0])" @select="handleFileUpload"  />
+                </label>
+              </div> 
+            
+            <!-- Preview Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
+              <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th v-for="header in headers" :key="header" class="px-6 py-3">
+                      {{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(row, rowIndex) in previewData" :key="rowIndex" class="bg-white border-b hover:bg-gray-50">
+                    <td v-for="(header, colIndex) in headers" :key="colIndex" class="px-6 py-4 whitespace-nowrap">
+                      {{ row[header] }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-        <!-- Error Message -->
-        <div v-if="error" class="text-red-500 mb-4">
-          {{ error }}
-        </div>
+            <!-- Empty State -->
+            <div v-if="previewData.length === 0 && !error" class="text-center py-4 text-gray-500">
+              No data to display. Please upload a CSV file.
+            </div>
 
-        <!-- Preview Table -->
-        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mt-4">
-          <table v-if="previewData.length > 0" class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th v-for="header in headers" :key="header" class="px-6 py-3">
-                  {{ header }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(row, rowIndex) in previewData" :key="rowIndex" class="bg-white border-b hover:bg-gray-50">
-                <td v-for="(header, colIndex) in headers" :key="colIndex" class="px-6 py-4 whitespace-nowrap">
-                  {{ row[header] }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- Empty State -->
-          <div v-if="previewData.length === 0 && !error" class="text-center py-4 text-gray-500">
-            No data to display. Please upload a CSV file.
-          </div>
-        </div>
+            <div v-else class="flex justify-center mt-4 mb-4">
+              <button v-if="fileReadyToUpload" @click="confirmUpload"
+                type="submit" 
+                class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+                      font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Confirm & Submit
+              </button>
+            </div>
+        </form>
       </div>
     </div>
   </Transition>
-  <!-- <ToastProvider>
+  <ToastProvider>
       <ToastRoot 
           v-if="toastVisible" 
           class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full"
@@ -254,14 +289,14 @@
       </ToastRoot>
 
       <ToastViewport class="fixed bottom-4 right-4" />
-  </ToastProvider> -->
+  </ToastProvider>
 
 
 </template>
 
 <script setup>
 import {  ref, onBeforeMount, reactive , defineEmits, watchEffect } from 'vue';
-import { useForm, Link, usePage } from '@inertiajs/vue3';
+import { useForm, Link, usePage, router } from '@inertiajs/vue3';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -291,12 +326,10 @@ const toggleUpload = () => {
 const closePanel = () => {
   previewData.value = [];
   headers.value = [];
-  document.getElementById('file-upload').value = null;
-  uploadingPanel.value = false
-  addingPanel.value = false
-  addingPanel = ref(false)
-  entries.value = false
-}
+  uploadingPanel.value = false;
+  addingPanel.value = false;
+  entries.value = false;
+};
 
 const props = defineProps({
   scholarship: Object,
@@ -304,77 +337,441 @@ const props = defineProps({
 });
 
 
-const form = useForm({
+const form = ref({
   file: null,
+  fileName: null,
+  filePreview: null,
 });
 
 const previewData = ref([]);
 const headers = ref([]);
 const error = ref('');
+const fileReadyToUpload = ref(false);
 
-const handleFileUpload = (event) => {
-  // eto ay para mafetch yung file
-  const file = event.files[0];
+const isFileDragging = ref(false);
 
-  // eto naman ay para mafetch yung file as object
-  if (event && event.files && event.files.length > 0) {
-    const file = event.files[0]; // Get first file
+const previewFile = (event) => {
+    const file = event.target.files[0];
+    handleFile(file);
+};
 
-    const reader = new FileReader();
+const handleFileDragOver = () => {
+    isFileDragging.value = true;
+};
 
-    reader.onload = function (e) {
-      Papa.parse(e.target.result, {
-        header: true,
-        complete: (results) => {
-          if (results.data && results.data.length > 0) {
-            // Filter out empty rows
-            const filteredData = results.data.filter(row =>
-              Object.values(row).some(value => value !== '')
-            );
+const handleFileDragLeave = () => {
+    isFileDragging.value = false;
+};
 
-            if (filteredData.length > 0) {
-              headers.value = Object.keys(filteredData[0]);
-              previewData.value = filteredData;
-              error.value = '';
-              console.log('Processed data:', previewData.value); // Debug log
-            } else {
-              error.value = 'No valid data found in the file';
-              previewData.value = [];
-              headers.value = [];
-            }
+const handleFileDrop = (event) => {
+    isFileDragging.value = false;
+    const file = event.dataTransfer.files[0];
+    handleFile(file);
+};
+
+
+const handleFile = async (file) => {
+  if (!file) return;
+
+  // Set file details
+  form.value.file = file;
+  form.value.fileName = file.name;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    form.value.filePreview = e.target.result;
+
+    // Parse CSV file
+    Papa.parse(e.target.result, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        if (results.data && results.data.length > 0) {
+          const filteredData = results.data.filter((row) =>
+            Object.values(row).some((value) => value !== "")
+          );
+
+          if (filteredData.length > 0) {
+            headers.value = Object.keys(filteredData[0]);
+            previewData.value = filteredData;
+            error.value = "";
+            fileReadyToUpload.value = true; // Set flag to enable confirm button
           } else {
-            error.value = 'No data found in the file';
+            error.value = "No valid data found in the file";
             previewData.value = [];
             headers.value = [];
+            fileReadyToUpload.value = false;
           }
-        },
-        error: (err) => {
-          error.value = 'Error parsing CSV: ' + err.message;
+        } else {
+          error.value = "No data found in the file";
           previewData.value = [];
           headers.value = [];
+          fileReadyToUpload.value = false;
         }
-      });
-    };
-    reader.readAsText(file);
+      },
+      error: (err) => {
+        error.value = "Error parsing CSV: " + err.message;
+        previewData.value = [];
+        headers.value = [];
+        fileReadyToUpload.value = false;
+      },
+    });
+  };
+
+  reader.readAsText(file); // Read file
+};
+
+// Function to confirm and upload the file
+const confirmUpload = async () => {
+  if (!form.value.file) return;
+
+  const formData = new FormData();
+  formData.append("file", form.value.file);
+
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+  try {
+    // Send the request only when user confirms
+    router.post(`/scholarships/${props.scholarship.id}/upload`, formData, {
+      preserveScroll: true,
+      onSuccess: () => {
+        headers.value = [];
+        previewData.value = [];
+        error.value = "";
+        uploadingPanel.value = false;
+        fileReadyToUpload.value = false;
+        document.getElementById("dropzone-file").value = null; // Clear file input
+        usePage().props.flash = { success: "Scholars added to the scholarship!" };
+        closePanel();
+      },
+    });
+  } catch (err) {
+    error.value = "An error occurred while uploading the file.";
+    console.error("Error during file upload:", err);
   }
 };
 
-const onUpload = async (event) => {
-  form.file = event.files[0];6  
-  const response = await form.post(`/scholarships/${props.scholarship.id}/upload`);
+// const handleFile = (file) => {
+//   if (!file) return; // Early return if no file is provided
 
-  if (response.ok) {
-    headers.value = [];
-    previewData.value = [];
-    error.value = "";
-    document.getElementById('file-upload').value = null; // Clear file input
+//   // Set the file and its name in the form state
+//   form.value.file = file;
+//   form.value.fileName = file.name;
 
-    usePage().props.flash = { success: 'Scholars added to the scholarship!' };
-    closePanel()
-  } else {
-    error.value = "Failed to upload file. Please try again.";
-  }
-}
+//   // Initialize FileReader to read the file
+//   const reader = new FileReader();
+
+//   // On file load, handle the file preview and parsing
+//   reader.onload = (e) => {
+//     form.value.filePreview = e.target.result;
+
+//     // Use PapaParse to process the CSV file content
+//     Papa.parse(e.target.result, {
+//       header: true, // Treat the first row as header
+//       skipEmptyLines: true, // Skip empty lines
+//       complete: (results) => {
+//         if (results.data && results.data.length > 0) {
+//           // Filter out rows where all values are empty
+//           const filteredData = results.data.filter(row =>
+//             Object.values(row).some(value => value !== '')
+//           );
+
+//           // Handle valid filtered data
+//           if (filteredData.length > 0) {
+//             headers.value = Object.keys(filteredData[0]);
+//             previewData.value = filteredData;
+//             error.value = ''; // Clear any existing errors
+//             console.log('Processed data:', previewData.value); // Debug log
+//           } else {
+//             error.value = 'No valid data found in the file';
+//             previewData.value = [];
+//             headers.value = [];
+//           }
+//         } else {
+//           error.value = 'No data found in the file';
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       },
+//       error: (err) => {
+//         // Handle any errors during CSV parsing
+//         error.value = 'Error parsing CSV: ' + err.message;
+//         previewData.value = [];
+//         headers.value = [];
+//       }
+//     });
+    
+//   };
+
+//   // Read the file as text (CSV content)
+//   reader.readAsText(file);
+// };
+
+
+// const handleFile = async (file) => {
+//   if (!file) return; // Early return if no file is provided
+
+//   // Set the file and its name in the form state
+//   form.value.file = file;
+//   form.value.fileName = file.name;
+
+//   // Initialize FileReader to read the file (CSV content)
+//   const reader = new FileReader();
+
+//   reader.onload = (e) => {
+//     form.value.filePreview = e.target.result;
+
+//     // Use PapaParse to process the CSV file content
+//     Papa.parse(e.target.result, {
+//       header: true, // Treat the first row as header
+//       skipEmptyLines: true, // Skip empty lines
+//       complete: (results) => {
+//         if (results.data && results.data.length > 0) {
+//           const filteredData = results.data.filter(row =>
+//             Object.values(row).some(value => value !== '')
+//           );
+
+//           if (filteredData.length > 0) {
+//             headers.value = Object.keys(filteredData[0]);
+//             previewData.value = filteredData;
+//             error.value = ''; // Clear any existing errors
+//             console.log('Processed data:', previewData.value);
+//           } else {
+//             error.value = 'No valid data found in the file';
+//             previewData.value = [];
+//             headers.value = [];
+//           }
+//         } else {
+//           error.value = 'No data found in the file';
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       },
+//       error: (err) => {
+//         error.value = 'Error parsing CSV: ' + err.message;
+//         previewData.value = [];
+//         headers.value = [];
+//       }
+//     });
+//   };
+
+//   // Create a FormData object
+//   const formData = new FormData();
+//   formData.append('file', file);
+
+//   // Get the CSRF token from the meta tag (add this in your Blade template if not present)
+//   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+//   try {
+//     // Make the request with the CSRF token included in the headers
+//     router.post(`/scholarships/${props.scholarship.id}/upload`, formData, {
+//       preserveScroll: true, // Prevents page scroll reset
+//       onSuccess: () => {
+//         headers.value = [];
+//         previewData.value = [];
+//         error.value = "";
+//         document.getElementById('file-upload').value = null; // Clear file input
+//         usePage().props.flash = { success: 'Scholars added to the scholarship!' };
+//         closePanel(); // Close the panel after successful upload
+//       },
+//     });
+
+//     // Handle the response
+//     // if (response.ok) {
+//     //   headers.value = [];
+//     //   previewData.value = [];
+//     //   error.value = "";
+//     //   document.getElementById('file-upload').value = null; // Clear file input
+
+//     //   usePage().props.flash = { success: 'Scholars added to the scholarship!' };
+//     //   closePanel();
+
+//     // } else {
+//     //   error.value = "Failed to upload file. Please try again.";
+//     // }
+//   } catch (err) {
+//     error.value = "An error occurred while uploading the file.";
+//     console.error("Error during file upload:", err);
+//   }
+
+//   // Read the file as text (CSV content)
+//   reader.readAsText(file);
+// };
+
+
+
+
+
+
+// const handleFile = (file) => {
+//   if (!file) return;
+
+//   form.value.file = file;
+//   form.value.fileName = file.name;
+
+//   const reader = new FileReader();
+
+//   reader.onload = (e) => {
+//     console.log("FileReader onload triggered");
+//     form.value.filePreview = e.target.result;
+
+//     // Log raw file data
+//     console.log("📄 Raw file content:", e.target.result.substring(0, 200)); // Show first 200 chars
+
+//     parseCSV(e.target.result);
+//   };
+
+//   reader.onerror = (error) => {
+//     console.error("FileReader error:", error);
+//   };
+
+//   reader.readAsText(file); // Ensure text reading
+// };
+
+
+
+
+// const handleFileUpload = (event) => {
+//   // eto ay para mafetch yung file
+//   const file = event.files[0];
+
+//   // eto naman ay para mafetch yung file as object
+//   if (event && event.files && event.files.length > 0) {
+//     const file = event.files[0]; // Get first file
+
+//     const reader = new FileReader();
+
+//     reader.onload = function (e) {
+//       Papa.parse(e.target.result, {
+//         header: true,
+//         complete: (results) => {
+//           if (results.data && results.data.length > 0) {
+//             // Filter out empty rows
+//             const filteredData = results.data.filter(row =>
+//               Object.values(row).some(value => value !== '')
+//             );
+
+//             if (filteredData.length > 0) {
+//               headers.value = Object.keys(filteredData[0]);
+//               previewData.value = filteredData;
+//               error.value = '';
+//               console.log('Processed data:', previewData.value); // Debug log
+//             } else {
+//               error.value = 'No valid data found in the file';
+//               previewData.value = [];
+//               headers.value = [];
+//             }
+//           } else {
+//             error.value = 'No data found in the file';
+//             previewData.value = [];
+//             headers.value = [];
+//           }
+//         },
+//         error: (err) => {
+//           error.value = 'Error parsing CSV: ' + err.message;
+//           previewData.value = [];
+//           headers.value = [];
+//         }
+//       });
+//     };
+//     reader.readAsText(file);
+//   }
+// };
+
+// const parseCSV = (csvText) => {
+//   if (!csvText || csvText.length < 1) {
+//     csvError.value = "⚠️ The file is empty!";
+//     console.error(csvError.value);
+//     return;
+//   }
+
+//   Papa.parse(csvText, {
+//     header: true,
+//     skipEmptyLines: true,
+//     complete: (results) => {
+
+//       if (!results.data || results.data.length === 0) {
+//         csvError.value = "No valid data found in the file.";
+//         console.error(csvError.value);
+//         return;
+//       }
+
+//       csvHeaders.value = Object.keys(results.data[0]);
+//       csvPreviewData.value = results.data;
+//       csvError.value = "";
+
+//       console.log("Headers:", csvHeaders.value);
+//       console.log("Data:", csvPreviewData.value);
+//     },
+//     error: (err) => {
+//       csvError.value = `Error parsing CSV: ${err.message}`;
+//       console.error(csvError.value);
+//     },
+//   });
+// };
+
+
+// const uploadFile = async (event) => {
+
+//   const file = event.target.files && event.target.files[0];
+//   const uploadUrl = `/scholarships/${props.scholarship.id}/upload`;
+// console.log("Sending request to:", uploadUrl);
+
+
+//   if (!file) {
+//     error.value = "No file selected. Please choose a file.";
+//     return;
+//   }
+
+//   // Set the file and its name in the form state
+//   form.value.file = file;
+//   form.value.fileName = file.name;
+
+//   // Initialize FileReader to read the file for preview
+//   const reader = new FileReader();
+
+//   reader.onload = async (e) => {
+//     form.value.filePreview = e.target.result; // Set file preview
+
+//     // Prepare form data for file upload
+//     const formData = new FormData();
+//     formData.append("file", form.value.file);
+
+//     try {
+//       // Sending the file to the server
+//       const response = await fetch(`/scholarships/${props.scholarship.id}/upload`, {
+//         method: "POST",
+//         body: formData,
+//       });
+
+//       if (response.ok) {
+//         headers.value = [];
+//         previewData.value = [];
+//         error.value = "";
+//         document.getElementById("file-upload").value = null; // Clear file input
+
+//         // Success message
+//         usePage().props.flash = { success: "Scholars added to the scholarship!" };
+//         closePanel();
+//       } else {
+//         const result = await response.json();
+//         error.value = result.message || "Failed to upload file. Please try again.";
+//       }
+//     } catch (err) {
+//       console.error("Upload Error:", err);
+//       error.value = "Failed to upload file. Please try again.";
+//     }
+//   };
+
+//   reader.onerror = (err) => {
+//     console.error("FileReader Error:", err);
+//     error.value = "Error reading file. Please try again.";
+//   };
+
+//   // Read the file as text for preview
+//   reader.readAsText(file);
+// };
+
 
 
 //adding
