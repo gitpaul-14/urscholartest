@@ -38,17 +38,17 @@
             </Link>
 
           <!-- cascading scholarship menu -->
-          <div :class="['relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]">
+          <div :class="['relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]">
             <!-- Main menu item -->
-            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholarships'"></span> 
-                <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/sponsors' || $page.url === '/scholarships' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/sponsors' || $page.url === '/scholarships' }]"
+                <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]"
                 v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
                 checkbook
                 </span>
-              <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/sponsors' || $page.url === '/scholarships' }]">Scholarship</span>
+              <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]">Scholarship</span>
               </div>
               <font-awesome-icon 
                 icon="fa-solid fa-chevron-right" 

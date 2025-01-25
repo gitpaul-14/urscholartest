@@ -1,7 +1,9 @@
 <script setup>
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage} from '@inertiajs/vue3';
+import { ref } from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
+
 
 
 const user = usePage().props.auth.user;
@@ -19,6 +21,34 @@ const submit = () => {
     form.post(route('student.verify-account.verifying'), {
         onFinish: () => form.reset(),
     });
+};
+
+const activeStep = ref(0);
+const steps = ref([
+  { label: 'Account Information' },
+  { label: 'Step 2' },
+  { label: 'Step 3' },
+  { label: 'Step 4' },
+]);
+
+
+const goToStep = (index) => {
+  activeStep.value = index;
+};
+
+const nextStep = () => {
+  if (activeStep.value < steps.value.length - 1) {
+    activeStep.value++;
+  }
+};
+
+const finishStep = () => {
+  alert('Step completed!');
+};
+
+const submitStep1 = () => {
+  // Add your logic to submit the first step's form
+  nextStep();
 };
 
 
@@ -48,21 +78,165 @@ const submit = () => {
                             Greetings! {{ user.name }}
                         </div>
 
+                        <div class="stepper-container">
+                            <!-- Stepper Navigation -->
+                            <div class="flex flex-row">
+                            <div 
+                                v-for="(step, index) in steps" 
+                                :key="index" 
+                                class="flex flex-row items-center cursor-pointer p-2 mb-3" 
+                                :class="{ 'active': activeStep === index, 'completed': activeStep > index }"
+                                @click="goToStep(index)">
+                                <div class="step-number">{{ index + 1 }}</div>
+                                <div class="step-title">{{ step.label }}</div>
+                            </div>
+                            </div>
+
+                            <!-- Step Content -->
+                            <div class="step-content">
+                            <div v-if="activeStep === 0">
+                                <h3 class="font-semibold text-gray-900">Account Information</h3>
+                                <form @submit.prevent="submitStep1">
+                                    <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
+                                        <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
+
+                                        <FloatLabel variant="on" class="w-full">
+                                            <InputText id="on_label" v-model="form.first_name" class="w-full" />
+                                            <label for="on_label">First Name</label>
+                                        </FloatLabel>
+
+                                        <FloatLabel variant="on" class="w-full">
+                                            <InputText id="on_label" v-model="form.last_name" class="w-full" />
+                                            <label for="on_label">Last Name</label>
+                                        </FloatLabel>
+
+                                        <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                            <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
+                                            <label for="on_label">Email</label>
+                                        </FloatLabel>
+
+                                        <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                            <InputText id="on_label" v-model="form.password" class="w-full" />
+                                            <label for="on_label">Set New Password</label>
+                                        </FloatLabel>
+
+                                        <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                            <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
+                                            <label for="on_label">Confirm Password</label>
+                                        </FloatLabel>
+                                        
+                                    </div>
+                                
+                                <button type="submit">Next</button>
+                                </form>
+                            </div>
+                            <div v-if="activeStep === 1">
+                                <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
+                                    <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.first_name" class="w-full" />
+                                        <label for="on_label">First Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.last_name" class="w-full" />
+                                        <label for="on_label">Last Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
+                                        <label for="on_label">Email</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.password" class="w-full" />
+                                        <label for="on_label">Set New Password</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
+                                        <label for="on_label">Confirm Password</label>
+                                    </FloatLabel>
+                                    
+                                </div>
+                                <button @click="nextStep">Next</button>
+                            </div>
+                            <div v-if="activeStep === 2">
+                                <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
+                                    <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.first_name" class="w-full" />
+                                        <label for="on_label">First Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.last_name" class="w-full" />
+                                        <label for="on_label">Last Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
+                                        <label for="on_label">Email</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.password" class="w-full" />
+                                        <label for="on_label">Set New Password</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
+                                        <label for="on_label">Confirm Password</label>
+                                    </FloatLabel>
+                                    
+                                </div>
+                                <button @click="finishStep">Finish</button>
+                            </div>
+                            <div v-if="activeStep === 3">
+                                <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
+                                    <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.first_name" class="w-full" />
+                                        <label for="on_label">First Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="w-full">
+                                        <InputText id="on_label" v-model="form.last_name" class="w-full" />
+                                        <label for="on_label">Last Name</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
+                                        <label for="on_label">Email</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.password" class="w-full" />
+                                        <label for="on_label">Set New Password</label>
+                                    </FloatLabel>
+
+                                    <FloatLabel variant="on" class="mt-5 w-full col-span-2">
+                                        <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
+                                        <label for="on_label">Confirm Password</label>
+                                    </FloatLabel>
+                                    
+                                </div>
+                                <button @click="finishStep">Finish</button>
+                            </div>
+                            </div>
+                        </div>
+
                         <!-- account Verification -->
-                        <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
-                            <div class="col-span-2"><h3 class="font-semibold text-gray-900 dark:text-white">Account Information</h3></div>
+                        
 
-                            <FloatLabel variant="on" class="w-full">
-                                <InputText id="on_label" v-model="form.first_name" class="w-full" />
-                                <label for="on_label">First Name</label>
-                            </FloatLabel>
+                        <!-- account Verification -->
+                       
 
-                            <FloatLabel variant="on" class="w-full">
-                                <InputText id="on_label" v-model="form.last_name" class="w-full" />
-                                <label for="on_label">Last Name</label>
-                            </FloatLabel>
 
-                            <!-- <FloatLabel variant="on" class="w-full">
+                        <!-- <FloatLabel variant="on" class="w-full">
                                 <InputText id="on_label" v-model="form.name" class="w-full" />
                                 <label for="on_label">Middle Name</label>
                             </FloatLabel>
@@ -116,22 +290,7 @@ const submit = () => {
                                 <label for="on_label">Middle Name</label>
                             </FloatLabel> -->
 
-                            <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.email" readonly="" class="w-full" />
-                                <label for="on_label">Email</label>
-                            </FloatLabel>
 
-                            <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.password" class="w-full" />
-                                <label for="on_label">Set New Password</label>
-                            </FloatLabel>
-
-                            <FloatLabel variant="on" class="mt-5 w-full col-span-2">
-                                <InputText id="on_label" v-model="form.confirm_password" class="w-full" />
-                                <label for="on_label">Confirm Password</label>
-                            </FloatLabel>
-                            
-                        </div>
 
                         <!-- college education -->
                         <!-- <div class="bg-white grid grid-cols-2 gap-3 rounded-lg h-1/2 items-center justify-start px-4 py-4">
@@ -454,3 +613,62 @@ const submit = () => {
     </form>
 
 </div> -->
+
+<style scoped>
+.stepper-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-title {
+  margin-left: 10px;
+}
+
+.step.active .step-number {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.step.completed .step-number {
+  background-color: #2196F3;
+  color: white;
+}
+
+.stepper-nav .step:hover {
+  background-color: #f0f0f0;
+}
+
+.step-content {
+  flex-grow: 1;
+}
+
+/* form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+} */
+</style>

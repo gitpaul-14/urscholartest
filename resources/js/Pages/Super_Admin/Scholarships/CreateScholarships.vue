@@ -23,7 +23,10 @@
                             </ul>
                         </div>
                         <div class="mr-20">
-                            <button class="btn shadow-md dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" type="submit">
+                            <button class="btn shadow-md bg-white border dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" type="submit">
+                                <span class="material-symbols-rounded dark:text-dtext">
+                                stylus
+                                </span>
                                 Create
                             </button>
                         </div>

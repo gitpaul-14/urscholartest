@@ -20,7 +20,7 @@
                         class="text-4xl font-albert font-extrabold text-[darkblue] dark:text-dtext text-left">
                         URS Partnered Sponsors</h1>
 
-                    <button class="btn shadow-md dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" @click="toggleCreate">
+                    <button class="btn shadow-md bg-white border dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" @click="toggleCreate">
                         <span class="material-symbols-rounded dark:text-dtext">
                             library_add
                         </span>
@@ -286,8 +286,6 @@ const handleImgDrop = (event) => {
 };
 
 const handleFile = (file) => {
-    
-    
     if (file) {
         form.value.file = file;
         form.value.fileName = file.name;
