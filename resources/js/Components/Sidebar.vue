@@ -240,14 +240,16 @@
                   <span class="font-poppins">My Profile</span>
                 </Link>
               </li>
-              <li class="flex items-center space-x-2 px-4 py-1 hover:rounded-b-lg hover:bg-gray-100 dark:hover:bg-dcontainer dark:hover:text-white">
-                <Link :href="route('logout')" method="post" as="button" class="flex items-center space-x-2 py-2">
-                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
-                    logout
-                  </span>
-                  <span class="font-poppins">Logout</span>
-                </Link>
-              </li>
+              <Link :href="route('logout')" method="post" as="button" class="w-full">
+                <li class="flex items-center space-x-2 px-4 py-1 hover:rounded-b-lg hover:bg-gray-100 dark:hover:bg-dcontainer dark:hover:text-white">
+                  <div class="flex items-center space-x-2 py-2">
+                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
+                      logout
+                    </span>
+                    <span class="font-poppins">Logout</span>
+                  </div>
+                </li>
+              </Link>
             </ul>
           </div>
   

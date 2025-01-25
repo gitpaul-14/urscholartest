@@ -234,7 +234,7 @@
                     <p class="text-xs text-gray-500 dark:text-gray-400">Only CSV files are allowed</p>
                   </div>
                   <div v-else class="flex flex-col items-center justify-center">
-                    <img :src="form.filePreview" alt="Uploaded Preview" class="max-h-24 mb-2 rounded-lg" />
+                    <img :src="form.filePreview" alt="Uploaded Preview" class="max-h-24 mb-2 rounded-lg text-gray-500" />
                     <p class="text-sm text-gray-500">{{ form.fileName }}</p>
                   </div>
                   <input id="dropzone-file" type="file" class="hidden" accept=".csv" @change="(e) => handleFile(e.target.files[0])" @select="handleFileUpload"  />
