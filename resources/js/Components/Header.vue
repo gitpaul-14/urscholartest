@@ -178,7 +178,7 @@
     }
   ]);
 
-  const isDark = ref(false)
+  const isDark = ref(true)
 
 const toggleTheme = () => {
   isDark.value = !isDark.value

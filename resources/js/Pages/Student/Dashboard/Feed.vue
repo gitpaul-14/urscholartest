@@ -22,7 +22,7 @@ import { Head } from '@inertiajs/vue3';
                                 <img class="w-12 h-12 rounded-full" src="https://placehold.co/50x50" alt="user-avatar" />
                                 <div class="ml-4">
                                     <p class="text-primary font-semibold">URS - HEAD SCHOLARSHIP ADMINISTRATOR</p>
-                                    <p class="text-sm text-muted">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
+                                    <p class="text-sm text-gray-500">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
                                 </div>
                             </div>
                             <div class="p-4">
@@ -37,7 +37,7 @@ import { Head } from '@inertiajs/vue3';
                                 <img class="w-12 h-12 rounded-full" src="https://placehold.co/50x50" alt="user-avatar" />
                                 <div class="ml-4">
                                     <p class="text-primary font-semibold">URS - HEAD SCHOLARSHIP ADMINISTRATOR</p>
-                                    <p class="text-sm text-muted">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
+                                    <p class="text-sm text-gray-500">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
                                 </div>
                             </div>
                             <div class="p-4">
@@ -52,7 +52,7 @@ import { Head } from '@inertiajs/vue3';
                                 <img class="w-12 h-12 rounded-full" src="https://placehold.co/50x50" alt="user-avatar" />
                                 <div class="ml-4">
                                     <p class="text-primary font-semibold">URS - HEAD SCHOLARSHIP ADMINISTRATOR</p>
-                                    <p class="text-sm text-muted">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
+                                    <p class="text-sm text-gray-500">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
                                 </div>
                             </div>
                             <div class="p-4">
@@ -67,7 +67,7 @@ import { Head } from '@inertiajs/vue3';
                                 <img class="w-12 h-12 rounded-full" src="https://placehold.co/50x50" alt="user-avatar" />
                                 <div class="ml-4">
                                     <p class="text-primary font-semibold">URS - HEAD SCHOLARSHIP ADMINISTRATOR</p>
-                                    <p class="text-sm text-muted">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
+                                    <p class="text-sm text-gray-500">Posted NOV. 15, 2024 @ 10:30 PM Binangonan Campus</p>
                                 </div>
                             </div>
                             <div class="p-4">
