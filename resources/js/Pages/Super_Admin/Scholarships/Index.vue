@@ -74,7 +74,7 @@
                                     <button @click="editScholarship(scholarship)"
                                         class="btn btn-warning btn-sm">Edit</button> -->
                                     <div class="flex justify-end space-x-4">
-                                        <button @click="toggleCreate">
+                                        <button @click="toggleCreate(sponsor.id)">
                                         <div class="text-sm text-gray-500 cursor-pointer"
                                             v-tooltip="'Create Scholarship'">
                                             <span
@@ -107,7 +107,7 @@
             <!-- creating a sponsor -->
             <div v-if="isCreating || isEditing"
                 class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-65 dark:bg-primary dark:bg-opacity-50 transition-opacity-ease-in duration-300 ">
-                <div class="bg-white dark:bg-gray-900 dark:border-gray-200 rounded-lg shadow-xl w-4/12">
+                <div  v-for="sponsor in sponsors" :key="sponsor.id" class="bg-white dark:bg-gray-900 dark:border-gray-200 rounded-lg shadow-xl w-4/12">
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <span class="text-xl font-semibold text-gray-900 dark:text-white">
                             <h2 class="text-2xl font-bold">{{ isEditing ? 'Edit Sponsor Information' : 'Add New Scholarship'
@@ -186,7 +186,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 import { usePage } from "@inertiajs/vue3";
-import { Head, useForm, Link, } from '@inertiajs/vue3';
+import { Head, useForm, Link, router } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
 import { set } from 'date-fns';
 import { DatePicker } from 'primevue';
@@ -205,23 +205,24 @@ const directives = {
 const isCreating = ref(false);
 const isEditing = ref(false);
 const Showcase = ref(false);
+const spondorid = ref(null);
+
 
 const form = ref({
-    id: null,
+    sponsor_id: null,
     name: null,
-    description: null,
-    file: null,
-    fileName: null,
-    filePreview: null,
-    img: null,
-    imgName: null,
-    imgPreview: null,
+    scholarshipType: null,
+    school_year: null,
+    semester: null,
+    application: null,
+    deadline: null,
 });
 
-const toggleCreate = () => {
+const toggleCreate = (sponsorID) => {
     isCreating.value = !isCreating.value;
     if (isCreating.value) {
-        resetForm();
+        spondorid.value = sponsorID;
+        form.value.sponsor_id = sponsorID;
     }
 };
 
@@ -246,10 +247,11 @@ const resetForm = () => {
 
 const submitForm = async () => {
     try {
-        router.post("/sponsors/store", form.value);
-        // await useForm(form.value).post(`/sponsors/${props.sponsor.id}/create`);
+        router.post(`/sponsors/create-scholarship`, form.value);
+        //await useForm(form.value).post(`/sponsors/create-scholarship`);
         // await form.post(`/sponsors/${props.sponsor.id}/create`)
         // resetForm();
+        closeModal();
     } catch (error) {
         console.error('Error submitting form:', error);
     }

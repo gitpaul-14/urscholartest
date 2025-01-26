@@ -50,7 +50,7 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
 
     //Scholarships
-    Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
+    Route::post('/sponsors/create-scholarship', [ScholarshipController::class, 'store'])->name('scholarships.store');
 
     
     Route::get('/scholarships', [ScholarshipController::class, 'scholarship'])->name('scholarships.index');

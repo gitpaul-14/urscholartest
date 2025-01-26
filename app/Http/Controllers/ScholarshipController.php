@@ -77,10 +77,10 @@ class ScholarshipController extends Controller
             // 'deadline' => 'required|date',
         ]);
         
-        // dd($request);
+        //dd($request);
         Scholarship::create($request->all());
 
-        return redirect()->route('scholarships.index')->with('success', 'Check out view scholarships');
+        return redirect()->route('sponsor.index')->with('success', 'Check out view scholarships');
     }
 
     public function send(Scholarship $scholarship)
