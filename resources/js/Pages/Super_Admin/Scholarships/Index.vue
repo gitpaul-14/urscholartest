@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Scholarships" />
     <AuthenticatedLayout>
         <div class="w-full h-full px-10 py-5 bg-[#F8F8FA] dark:bg-dprimary overflow-auto">
@@ -15,16 +16,20 @@
                 </div>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h1
-                        class="text-4xl font-albert font-extrabold text-[darkblue] dark:text-dtext text-left">
+                    <h1 class="text-4xl font-albert font-extrabold text-[darkblue] dark:text-dtext text-left">
                         URS Partnered Sponsors</h1>
 
-                    <button class="btn shadow-md bg-white border dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary" @click="toggleCreate">
+                    <Link :href="`/sponsors/create`">
+                    <button
+                        class="btn shadow-md bg-white border dark:border-gray-600 dark:bg-dprimary dark:text-dtext dark:hover:bg-primary"
+                        >
                         <span class="material-symbols-rounded dark:text-dtext">
                             library_add
                         </span>
                         New Sponsor
                     </button>
+                    </Link>
+
                 </div>
 
                 <!-- List of Scholarships -->
@@ -36,13 +41,22 @@
                                 <div class="card-body p-5 space-y-2">
                                     <!-- logo -->
                                     <div>
-                                        <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-20 h-20 rounded-full" />
+                                        <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo"
+                                            class="w-20 h-20 rounded-full" />
                                     </div>
-                                    <h2 class="card-title text-4xl text-gray-800 font-sora font-semibold dark:text-dtext">{{
-                                        sponsor.name }}</h2>
+                                    <h2
+                                        class="card-title text-4xl text-gray-800 font-sora font-semibold dark:text-dtext">
+                                        {{
+                                            sponsor.name }}</h2>
                                     <p class="leading-relaxed text-sm text-gray-400">
-                                        <span class="px-2 border rounded-xl border-gray-200 dark:border-gray-600">Created on: {{ new Date(sponsor.created_at).toLocaleDateString() }}</span><br>
-                                        <span class="px-2 border rounded-xl border-gray-200 dark:border-gray-600">Sponsoring Since: {{ new Date(sponsor.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
+                                        <span
+                                            class="px-2 border rounded-xl border-gray-200 dark:border-gray-600">Created
+                                            on: {{ new Date(sponsor.created_at).toLocaleDateString() }}</span><br>
+                                        <span
+                                            class="px-2 border rounded-xl border-gray-200 dark:border-gray-600">Sponsoring
+                                            Since: {{ new Date(sponsor.created_at).toLocaleDateString('en-US', {
+                                                year:
+                                            'numeric', month: 'long', day: 'numeric' }) }}</span>
                                     </p>
                                     <!-- <div class="badge badge-primary text-[12px] badge-outline">DEPED</div> -->
                                     <p class="text-md text-gray-600 dark:text-dtext mb-4 text-justify overflow-hidden text-overflow-truncate line-clamp-4 h-24 max-w-full"
@@ -60,15 +74,16 @@
                                     <button @click="editScholarship(scholarship)"
                                         class="btn btn-warning btn-sm">Edit</button> -->
                                     <div class="flex justify-end space-x-4">
-                                        <Link :href="`/sponsors/${sponsor.id}`">
-                                        <div class="text-sm text-gray-500 cursor-pointer" v-tooltip="'Create Scholarship'">
+                                        <button @click="toggleCreate">
+                                        <div class="text-sm text-gray-500 cursor-pointer"
+                                            v-tooltip="'Create Scholarship'">
                                             <span
                                                 class="material-symbols-rounded text-blue-900 dark:text-dtext bg-blue-100 hover:bg-gray-200 p-3 border rounded-lg dark:bg-dsecondary dark:border-gray-600 dark:hover:border-gray-300 dark:hover:bg-dsecondary">
                                                 open_in_browser
                                             </span>
                                         </div>
-                                        </Link >
-                                        <div class="text-sm text-gray-500" >
+                                        </button>
+                                        <div class="text-sm text-gray-500">
                                             <span
                                                 class="material-symbols-rounded text-blue-900 dark:text-dtext bg-blue-100 hover:bg-gray-200 p-3 border rounded-lg dark:bg-dsecondary dark:border-gray-600 dark:hover:border-gray-300 dark:hover:bg-dsecondary">
                                                 cancel
@@ -108,7 +123,7 @@
                             </svg>
                         </button>
                     </div>
-                
+
                     <form @submit.prevent="submitForm" class="p-4 grid gap-3">
                         <!-- <div class="col-span-1">
                             <div class="flex flex-col w-full gap-2">
@@ -247,7 +262,8 @@
                             </div>
                         </div>
                         <div class="col-span-2">
-                            <button type="submit" class="text-white font-sans w-full bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-900/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">
+                            <button type="submit"
+                                class="text-white font-sans w-full bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-900/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">
                                 {{ isEditing ? 'Update Scholarship' : 'Create Scholarship' }}</button>
                         </div>
                     </form>
@@ -255,10 +271,8 @@
             </div>
         </div>
         <ToastProvider>
-            <ToastRoot 
-                v-if="toastVisible" 
-                class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full"
-            >
+            <ToastRoot v-if="toastVisible"
+                class="fixed bottom-4 right-4 bg-primary text-white px-5 py-3 mb-5 mr-5 rounded-lg shadow-lg dark:bg-primary dark:text-dtext dark:border-gray-200 z-50 max-w-xs w-full">
                 <ToastTitle class="font-semibold dark:text-dtext">Sponsor Added Successfully!</ToastTitle>
                 <ToastDescription class="text-gray-100 dark:text-dtext">{{ toastMessage }}</ToastDescription>
             </ToastRoot>
@@ -273,13 +287,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 import { usePage } from "@inertiajs/vue3";
-import { Head, useForm, Link, router } from '@inertiajs/vue3';
+import { Head, useForm, Link, } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
+import { set } from 'date-fns';
 import { DatePicker } from 'primevue';
 import { ToastAction, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
 
 
-defineProps({
+const props = defineProps({
     sponsors: Array,
 });
 
@@ -288,9 +303,6 @@ const directives = {
     DatePicker,
 };
 
-const isCreating = ref(false);
-const isEditing = ref(false);
-const Showcase = ref(false);
 
 const form = ref({
     id: null,
@@ -303,90 +315,6 @@ const form = ref({
     imgName: null,
     imgPreview: null,
 });
-
-const scholarships = ref({
-    name: null,
-    scholarshipType: null,
-    school_year: null,
-    semester: null,
-    application: null,
-    deadline: null,
-});
-
-const isFileDragging = ref(false);
-const isImgDragging = ref(false);
-
-const previewFile = (event) => {
-    const file = event.target.files[0];
-    handleFile(file);
-};
-
-const previewImg = (event) => {
-    const img = event.target.files[0];
-    handleImg(img);
-};
-
-const handleFileDragOver = () => {
-    isFileDragging.value = true;
-};
-
-const handleImgDragOver = () => {
-    isImgDragging.value = true;
-};
-
-const handleFileDragLeave = () => {
-    isFileDragging.value = false;
-};
-
-const handleImgDragLeave = () => {
-    isImgDragging.value = false;
-};
-
-const handleFileDrop = (event) => {
-    isFileDragging.value = false;
-    const file = event.dataTransfer.files[0];
-    handleFile(file);
-};
-
-const handleImgDrop = (event) => {
-    isImgDragging.value = false;
-    const img = event.dataTransfer.files[0];
-    handleImg(img);
-};
-
-const handleFile = (file) => {
-    if (file) {
-        form.value.file = file;
-        form.value.fileName = file.name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            form.value.filePreview = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-};
-
-// if (file.size > 4 * 1024 * 1024) { // 4MB limit
-    // alert("File size exceeds the 4MB limit.");
-    // return;
-    // }
-const handleImg = (img) => {
-    if (img) {
-        // Generate a unique filename using timestamp
-        const timestamp = new Date().getTime();
-        const uniqueFileName = `${timestamp}_${img.name}`;
-        
-        form.value.img = img;
-        form.value.imgName = uniqueFileName; // Store the generated unique filename
-        
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            form.value.imgPreview = e.target.result;
-        };
-        reader.readAsDataURL(img);
-    }
-};
 
 const toggleCreate = () => {
     isCreating.value = !isCreating.value;
@@ -402,47 +330,75 @@ const closeModal = () => {
     resetForm();
 };
 
+
 const resetForm = () => {
     form.value = { id: null, name: '', description: '' };
-};
-
-const editScholarship = (scholarship) => {
-    isEditing.value = true;
-    isCreating.value = false;
-    form.value = { ...scholarship };
-};
-
-const viewApplicants = (scholarshipId) => {
-    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
 };
 
 
 const submitForm = async () => {
     try {
-        if (isEditing.value) {
-            router.put(`/sponsors/${form.value.id}`, form.value);
-        } else {
-            router.post("/sponsors", form.value);
-        }
-
-        closeModal();
-    } catch (error) {
-        console.error("Error submitting form:", error);
-    }
-};
-
-const activeateForm = async () => {
-    try {
-        await useForm(scholarships.value).post(route('scholarships.store'));
-        closeModal();
+        router.post("/sponsors/store", form.value);
+        // await useForm(form.value).post(`/sponsors/${props.sponsor.id}/create`);
+        // await form.post(`/sponsors/${props.sponsor.id}/create`)
+        // resetForm();
     } catch (error) {
         console.error('Error submitting form:', error);
     }
 };
 
+const isPublishing = ref(false);
+
+const toggleSetActive = () => {
+    isPublishing.value = !isPublishing.value;
+    currentPage.value = 1;
+    if (isPublishing.value) {
+        resetForm();
+    }
+};
+
+// dynamic requirements
+const newItem = ref('');
+const items = ref([]);
+
+const addItem = () => {
+    if (newItem.value.trim() !== '') {
+        items.value.push(newItem.value.trim());
+        form.value.requirements = items.value;
+        newItem.value = '';
+
+        
+    }
+};
 
 
-// radix vue testing
+const addRequirement = () => {
+  if (newRequirement.value.name.trim()) {
+    form.requirements[newRequirement.value.name.trim()] = {
+      type: newRequirement.value.type,
+      required: true
+    };
+    newRequirement.value.name = '';
+  }
+};
+
+const removeItem = (index) => {
+    items.value = items.value.filter((_, i) => i !== index);
+};
+
+const currentPage = ref(1);
+
+const nextPage = () => {
+    if (currentPage.value < 3) {
+        currentPage.value++;
+    }
+};
+
+const prevPage = () => {
+    if (currentPage.value > 1) {
+        currentPage.value--;
+    }
+};
 
 const toastVisible = ref(false);
 const toastMessage = ref("");
@@ -461,17 +417,6 @@ watchEffect(() => {
         }, 3000);
     }
 });
-
-// onMounted(() => {
-//     setTimeout(() => {
-//         toastMessage.value = "Test Toast!";
-//         toastVisible.value = true;
-
-//         setTimeout(() => {
-//             toastVisible.value = false;
-//         }, 30000);
-//     }, 1000);
-// });
 
 </script>
 

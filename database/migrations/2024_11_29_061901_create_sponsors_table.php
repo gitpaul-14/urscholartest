@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('abbreviation');
+            $table->string('since');
             $table->string('moa_file');
             $table->text('description')->nullable();
             $table->string('logo')->nullable();

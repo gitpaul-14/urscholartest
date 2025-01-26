@@ -34,7 +34,7 @@
                 </div>
                 <div class="w-full h-full space-y-5 px-24 mb-3">
                     <!-- partnership content -->
-                    <div class="w-full h-[30%] flex flex-row px-10 py-5 bg-white shadow-md rounded-lg dark:bg-dsecondary dark:border-gray-200 dark:border">
+                    <!-- <div class="w-full h-[30%] flex flex-row px-10 py-5 bg-white shadow-md rounded-lg dark:bg-dsecondary dark:border-gray-200 dark:border">
                         <div>
                             <img :src="`/storage/sponsor/logo/${sponsor.logo}`" alt="logo" class="w-20 h-20 rounded-full" />
                         </div>
@@ -44,7 +44,7 @@
                         <h2 class="text-xl font-semibold text-primary font-quicksand dark:text-dtext">
                             Commission on Higher Education
                         </h2>
-                    </div>
+                    </div> -->
 
                     <!-- creating -->
                     <div class="w-full inline-block bg-white shadow-md rounded-lg dark:bg-dsecondary dark:border dark:border-gray-200">
@@ -53,54 +53,6 @@
                             </h2>
                         </div>
                         <div class="flex flex-col gap-2 px-10 py-5">
-                            <!-- <div class="h-full w-full flex flex-row gap-3">
-                                <div class="w-full">
-                                    <div class="relative">
-                                        <div class="flex flex-row gap-3 w-full mb-3">
-                                            <div class="w-full flex flex-col space-y-2">
-                                                <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
-                                                    Name</h3>
-                                                <input v-model="form.name" type="text" id="name"
-                                                    placeholder="Enter Scholarship Name"
-                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600" />
-                                            </div>
-                                            <div class="w-full flex flex-col space-y-2">
-                                                <h3 class="font-semibold text-gray-900 dark:text-white">Scholarship
-                                                    Type</h3>
-                                                <select v-model="form.scholarshipType" id="scholarshipType"
-                                                    class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600">
-                                                    <option value="" disabled>Select Scholarship Type</option>
-                                                    <option value="merit">Merit-based</option>
-                                                    <option value="need">Need-based</option>
-                                                    <option value="athletic">Athletic</option>
-                                                    <option value="artistic">Artistic</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="h-full w-full flex flex-row gap-3">
-                                <div class="w-full">
-                                    <div class="flex flex-row gap-3 w-full mb-3">
-                                        <div class="w-full flex flex-col space-y-2">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">School Year</h3>
-                                            <input v-model="form.school_year" type="text" id="name"
-                                                placeholder="School Year"
-                                                class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600" />
-                                        </div>
-                                        <div class="w-full flex flex-col space-y-2">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Semester</h3>
-                                            <select v-model="form.semester" id="scholarshipType"
-                                                class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:text-dtext dark:border dark:bg-dsecondary dark:border-gray-600">
-                                                <option value="" disabled>Select Semester</option>
-                                                <option value="merit">First Semester</option>
-                                                <option value="need">Second Semester</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="col-span-1">
                                 <div class="flex flex-col w-full gap-2">
                                     <div class="w-full">
@@ -112,13 +64,13 @@
                                     <div class="w-full flex flex-row gap-2">
                                             <div class="w-full">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Abbreviation</h3>
-                                                <input type="text" id="name"
+                                                <input v-model="form.abbreviation" type="text" id="name"
                                                     placeholder="e.g., CHED"
                                                     class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:bg-gray-900 dark:text-dtext" />
                                             </div>
                                             <div class="w-full">
                                                 <h3 class="font-semibold text-gray-900 dark:text-white">Partner Since</h3>
-                                                <input type="text" id="name"
+                                                <input v-model="form.since" type="text" id="name"
                                                     placeholder="e.g., Since 2012"
                                                     class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 text-gray-900 text-sm w-full dark:bg-gray-900 dark:text-dtext" />
                                             </div>
@@ -212,16 +164,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 import { usePage } from "@inertiajs/vue3";
-import { Head, useForm, Link, } from '@inertiajs/vue3';
+import { Head, useForm, Link, router } from '@inertiajs/vue3';
 import { Tooltip } from 'primevue';
-import { set } from 'date-fns';
 import { DatePicker } from 'primevue';
 import { ToastAction, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
 
 
-const props = defineProps({
-    sponsor: Object,
-    scholarship: Array,
+defineProps({
+    sponsors: Array,
 });
 
 const directives = {
@@ -229,95 +179,170 @@ const directives = {
     DatePicker,
 };
 
+const isCreating = ref(false);
+const isEditing = ref(false);
+const Showcase = ref(false);
 
 const form = ref({
+    id: null,
     name: null,
-    sponsor_id: props.sponsor.id,
+    description: null,
+    file: null,
+    fileName: null,
+    filePreview: null,
+    img: null,
+    imgName: null,
+    imgPreview: null,
+    abbreviation: null,
+    since: null,
+});
+
+const scholarships = ref({
+    name: null,
     scholarshipType: null,
     school_year: null,
     semester: null,
     application: null,
     deadline: null,
-    requirements: {},
 });
 
+const isFileDragging = ref(false);
+const isImgDragging = ref(false);
 
+const previewFile = (event) => {
+    const file = event.target.files[0];
+    handleFile(file);
+};
 
+const previewImg = (event) => {
+    const img = event.target.files[0];
+    handleImg(img);
+};
+
+const handleFileDragOver = () => {
+    isFileDragging.value = true;
+};
+
+const handleImgDragOver = () => {
+    isImgDragging.value = true;
+};
+
+const handleFileDragLeave = () => {
+    isFileDragging.value = false;
+};
+
+const handleImgDragLeave = () => {
+    isImgDragging.value = false;
+};
+
+const handleFileDrop = (event) => {
+    isFileDragging.value = false;
+    const file = event.dataTransfer.files[0];
+    handleFile(file);
+};
+
+const handleImgDrop = (event) => {
+    isImgDragging.value = false;
+    const img = event.dataTransfer.files[0];
+    handleImg(img);
+};
+
+const handleFile = (file) => {
+    if (file) {
+        form.value.file = file;
+        form.value.fileName = file.name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            form.value.filePreview = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+// if (file.size > 4 * 1024 * 1024) { // 4MB limit
+// alert("File size exceeds the 4MB limit.");
+// return;
+// }
+const handleImg = (img) => {
+    if (img) {
+        // Generate a unique filename using timestamp
+        const timestamp = new Date().getTime();
+        const uniqueFileName = `${timestamp}_${img.name}`;
+
+        form.value.img = img;
+        form.value.imgName = uniqueFileName; // Store the generated unique filename
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            form.value.imgPreview = e.target.result;
+        };
+        reader.readAsDataURL(img);
+    }
+};
+
+const toggleCreate = () => {
+    isCreating.value = !isCreating.value;
+    if (isCreating.value) {
+        resetForm();
+    }
+};
+
+const closeModal = () => {
+    isCreating.value = false;
+    isEditing.value = false;
+    isPublishing.value = false;
+    resetForm();
+};
 
 const resetForm = () => {
     form.value = { id: null, name: '', description: '' };
 };
 
+const editScholarship = (scholarship) => {
+    isEditing.value = true;
+    isCreating.value = false;
+    form.value = { ...scholarship };
+};
+
+const viewApplicants = (scholarshipId) => {
+    Inertia.visit(`/scholarships/${scholarshipId}/applicants`);
+};
+
 
 const submitForm = async () => {
     try {
-        await useForm(form.value).post(`/sponsors/${props.sponsor.id}/create`);
-        // await form.post(`/sponsors/${props.sponsor.id}/create`)
-        // resetForm();
+        if (isEditing.value) {
+            router.put(`/sponsors/${form.value.id}`, form.value);
+        } else {
+            router.post("/sponsors/store", form.value);
+        }
+
+        closeModal();
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    }
+};
+
+const activeateForm = async () => {
+    try {
+        await useForm(scholarships.value).post(route('scholarships.store'));
+        closeModal();
     } catch (error) {
         console.error('Error submitting form:', error);
     }
 };
 
-const isPublishing = ref(false);
-
-const toggleSetActive = () => {
-    isPublishing.value = !isPublishing.value;
-    currentPage.value = 1;
-    if (isPublishing.value) {
-        resetForm();
-    }
-};
-
-// dynamic requirements
-const newItem = ref('');
-const items = ref([]);
-
-const addItem = () => {
-    if (newItem.value.trim() !== '') {
-        items.value.push(newItem.value.trim());
-        form.value.requirements = items.value;
-        newItem.value = '';
-
-        
-    }
-};
 
 
-const addRequirement = () => {
-  if (newRequirement.value.name.trim()) {
-    form.requirements[newRequirement.value.name.trim()] = {
-      type: newRequirement.value.type,
-      required: true
-    };
-    newRequirement.value.name = '';
-  }
-};
-
-const removeItem = (index) => {
-    items.value = items.value.filter((_, i) => i !== index);
-};
-
-const currentPage = ref(1);
-
-const nextPage = () => {
-    if (currentPage.value < 3) {
-        currentPage.value++;
-    }
-};
-
-const prevPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-    }
-};
+// radix vue testing
 
 const toastVisible = ref(false);
 const toastMessage = ref("");
 
 watchEffect(() => {
     const flashMessage = usePage().props.flash?.success;
-    
+
     if (flashMessage) {
         console.log("Showing toast with message:", flashMessage);
         toastMessage.value = flashMessage;
@@ -330,7 +355,21 @@ watchEffect(() => {
     }
 });
 
+// onMounted(() => {
+//     setTimeout(() => {
+//         toastMessage.value = "Test Toast!";
+//         toastVisible.value = true;
+
+//         setTimeout(() => {
+//             toastVisible.value = false;
+//         }, 30000);
+//     }, 1000);
+// });
+
 </script>
+
+
+
 
 
 <style scoped>

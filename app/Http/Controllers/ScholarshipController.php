@@ -64,17 +64,6 @@ class ScholarshipController extends Controller
         ]);
     }
 
-
-    public function create(Sponsor $sponsor)
-    {
-
-        return Inertia::render('Super_Admin/Scholarships/CreateScholarships', [
-            'sponsor' => $sponsor,
-        ]);
-
-        // return Inertia::render('Coordinator/Scholarships/CreateScholarships');
-    }
-
     public function store(Request $request, Sponsor $sponsor)
     {
         $request->validate([

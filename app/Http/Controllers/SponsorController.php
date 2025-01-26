@@ -26,6 +26,16 @@ class SponsorController extends Controller
         ]);
     }
 
+    public function create(Sponsor $sponsor)
+    {
+
+        return Inertia::render('Super_Admin/Scholarships/CreateSponsor', [
+            'sponsor' => $sponsor,
+        ]);
+
+        // return Inertia::render('Coordinator/Scholarships/CreateScholarships');
+    }
+
     public function store(Request $request)
     {
         // $request->validate([
@@ -63,7 +73,11 @@ class SponsorController extends Controller
             'description' => 'required|string',
             'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'imgName' => 'required|string',
+            'abbreviation' => 'required|string|max:255',
+            'since' => 'required|string|max:255',
         ]);
+        
+
         
         // Store the logo file in the local directory with a known path
         $logoFile = $request->file('img');
@@ -79,6 +93,8 @@ class SponsorController extends Controller
         // Save sponsor record in the database
         Sponsor::create([
             'name' => $request->name,
+            'abbreviation' => $request->abbreviation,
+            'since' => $request->since,
             'moa_file' => $filePath,
             'description' => $request->description,
             'logo' => $originalFileName, // Save only the filename in the database

@@ -45,11 +45,11 @@ Route::middleware(['auth', 'usertype:super_admin'])->group(function () {
 
     //Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsor.index');
-    Route::post('/sponsors', [SponsorController::class, 'store'])->name('sponsor.store');
+    Route::post('/sponsors/store', [SponsorController::class, 'store'])->name('sponsor.store');
+    Route::get('/sponsors/create', [SponsorController::class, 'create'])->name('sponsor.create');
 
 
     //Scholarships
-    Route::get('/sponsors/{sponsor}', [ScholarshipController::class, 'create'])->name('scholarships.create');
     Route::post('/sponsors/{sponsor}/create', [ScholarshipController::class, 'store'])->name('scholarships.store');
 
     

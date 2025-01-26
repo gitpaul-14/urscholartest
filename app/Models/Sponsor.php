@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sponsor extends Model
 {
-    protected $fillable = ['name', 'moa_file' ,'description', 'logo', 'created_by'];
+    protected $fillable = ['name', 'abbreviation', 'since', 'moa_file' ,'description', 'logo', 'created_by'];
 
     public function scholarship()
     {
