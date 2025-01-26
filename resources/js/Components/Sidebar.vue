@@ -23,13 +23,13 @@
             </div>
             
             <Link :href="(route('super_admin.dashboard'))" >
-              <div :class="[
+              <div v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''" :class="[
                 'py-2 cursor-pointer rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md',
                 { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/admin/dashboard' }
               ]">
               <div :class="['flex items-center space-x-2 text-blue-900 dark:text-dtext font-quicksand font-semibold pl-2 text-[16px]']">
                 <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/admin/dashboard' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/admin/dashboard' }]"
-                v-tooltip.right="!dataOpenSideBar ? 'Dashboard' : ''">
+                >
                 dashboard
                 </span>
                 <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/admin/dashboard' }]">Dashboard</span>
@@ -40,12 +40,12 @@
           <!-- cascading scholarship menu -->
           <div :class="['relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]">
             <!-- Main menu item -->
-            <div @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]"
+            <div v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''" @click="toggleScholarshipMenu" :class="['flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0', { 'active text-primary': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]"
             >
               <div class="flex items-center space-x-2">
                 <span v-tooltip.right="'Scholarships'"></span> 
                 <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]"
-                v-tooltip.right="!dataOpenSideBar ? 'Scholarships' : ''">
+                >
                 checkbook
                 </span>
               <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url.startsWith('/sponsors') || $page.url.startsWith('/scholarships') }]">Scholarship</span>
@@ -89,13 +89,13 @@
           <!-- cascading scholars menu -->
           <div class="relative py-2 rounded-md hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
             <!-- Main menu item -->
-            <div 
+            <div v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''"
               class="flex items-center w-full justify-between font-quicksand font-semibold cursor-pointer text-blue-900 dark:text-dtext pl-0"
               @click="toggleScholarsMenu"
             >
               <div class="flex items-center space-x-2">
-                <span v-tooltip.right="'Scholars'"></span> 
-                <span class="material-symbols-rounded text-blue-900 dark:text-dtext"  v-tooltip.right="!dataOpenSideBar ? 'Scholars' : ''">
+                <span v-tooltip.right="''"></span> 
+                <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
                 school
                 </span>
               <span v-show="dataOpenSideBar" class="pl-2">Scholars</span>
@@ -136,9 +136,9 @@
   
             <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Communication</div>
 
-            <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+            <div v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''" class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
               <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Feed' : ''">
+                <span class="material-symbols-rounded text-blue-900 dark:text-dtext" >
                   rate_review
                   </span>
                 <span v-show="dataOpenSideBar" class="pl-2">Feed</span>
@@ -146,9 +146,9 @@
             </div>
             
             <Link :href="route('messaging.index')">
-              <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+              <div v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''" class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Messaging' : ''">
+                    <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
                     forum
                     </span>
                   <span v-show="dataOpenSideBar" class="pl-2">Messaging</span>
@@ -158,25 +158,25 @@
           
             <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Docs</div>
 
-              <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+              <div v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''" class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Payouts' : ''">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext">
                     price_check
                     </span>
                   <span v-show="dataOpenSideBar" class="pl-2">Payouts</span>
                 </router-link>
               </div>
-              <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+              <div v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''" class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Reports' : ''">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" >
                     docs
                     </span>
                   <span v-show="dataOpenSideBar" class="pl-2">Reports</span>
                 </router-link>
               </div>
-              <div class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
+              <div v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''" class="py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md">
                 <router-link to="/customer" class="flex space-x-2 font-quicksand font-semibold pl-2">
-                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" v-tooltip.right="!dataOpenSideBar ? 'Archives' : ''">
+                  <span class="material-symbols-rounded text-blue-900 dark:text-dtext" >
                     archive
                     </span>
                   <span v-show="dataOpenSideBar" class="pl-2">Archives</span>
@@ -186,10 +186,9 @@
           <div class="text-blue-900 dark:text-dtext opacity-90 font-poppins text-sm font-semibold py-2 px-1 w-full" :class="{ 'opacity-0': !dataOpenSideBar }">Settings</div>
 
           <Link :href="route('settings.index')">
-            <div :class="['py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/settings/univ-calendar' }]">
+            <div v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''" :class="['py-2 rounded-md cursor-pointer text-blue-900 dark:text-dtext hover:bg-gray-100 dark:hover:bg-dcontainer hover:rounded-md', { 'active bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 dark:bg-primary': $page.url === '/settings/univ-calendar' }]">
               <div class="flex items-center space-x-2 font-quicksand font-semibold pl-2 text-[16px]">
-                  <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/settings/univ-calendar' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/settings/univ-calendar' }]"
-                   v-tooltip.right="!dataOpenSideBar ? 'Settings' : ''">
+                  <span :class="['material-symbols-rounded', { 'active text-dtext': $page.url === '/settings/univ-calendar' }]" :style="['text-dtext hover:text-white', { 'active text-dtext hover:text-white': $page.url === '/settings/univ-calendar' }]">
                   settings
                   </span>
                 <span v-show="dataOpenSideBar" :class="['pl-2', { 'active text-dtext': $page.url === '/settings/univ-calendar' }]">Settings</span>
@@ -490,15 +489,20 @@ const clickHamburger = (event) => {
 <style>
 :root {
   --sidebar-width: 230px; /* Adjust this value to match your sidebar width */
+  --p-tooltip-background: #003366 !important;
 }
 
 .side-bar-visible {
   width: var(--sidebar-width) !important;
 }
 
-.p-tooltip-text {
+/* .p-tooltip {
   margin-left: 10px;
-  font-size: 13px !important;
+} */
+
+.p-tooltip-text {
+  /* margin-left: 10px !important; */
+  font-size: 12px !important;
 }
 
 #side-bar {
